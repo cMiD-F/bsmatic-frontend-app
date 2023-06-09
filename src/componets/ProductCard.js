@@ -9,7 +9,7 @@ const ProductCard = (props) => {
         <>
             <div
                 className={`${location.pathname == "/store" ? `gr-${grid}` : "col-3"}`}>
-                <Link to=':id' className='product-card position-relative'>
+                <Link to='/product/:id' className='product-card position-relative'>
                     <div className="product-card position-relative">
                         <div className="whishlist-icon position-absolute">
                             <Link>
