@@ -1,110 +1,109 @@
-import React from 'react'
-import BreadCrumb from '../components/BreadCrumb';
-import Meta from '../components/Meta';
-import Color from '../components/Color'
-const ComparacaoProduto = () => {
-    return <>
-        <Meta title={"Comparação de Produto"} />
-        <BreadCrumb title="Comparação de Produto" />
-        <div className='compare-product-wrapper py-5 home-wrapper-2'>
-            <div className='container-xxl'>
-                <div className='row'>
-                    <div className='col-3'>
-                        <div className='compare-product-card position-relative'>
-                            <img
-                                src='imagens/cross.svg'
-                                alt='cross'
-                                className='position-absolute cross img-fluid'
-                            />
-                            <div className='compare-product-card-image'>
-                                <img
-                                    src='imagens/watch.jpg'
-                                    alt='watch'
-                                />
-                            </div>
-                            <div className='compare-product-details'>
-                                <h5 className='title'>
-                                    SUPERCHARGED FOR PROS
-                                </h5>
-                                <h6 className='price mb-3 mt-3'>$100</h6>
-                                <div>
-                                    <div className='product-detail'>
-                                        <h5>brand</h5>
-                                        <p>havels</p>
-                                    </div>
-                                    <div className='product-detail'>
-                                        <h5>Type</h5>
-                                        <p>Watch</p>
-                                    </div>
-                                    <div className='product-detail'>
-                                        <h5>Availablity</h5>
-                                        <p>In Stock</p>
-                                    </div>
-                                    <div className='product-detail'>
-                                        <h5>Color:</h5>
-                                        <Color />
-                                    </div>
-                                    <div className='product-detail'>
-                                        <h5>Size</h5>
-                                        <div className='d-flex gap-10'>
-                                            <p>S</p>
-                                            <p>M</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div className='col-3'>
-                        <div className='compare-product-card position-relative'>
-                            <img src=
-                                'imagens/cross.svg'
-                                alt='cross'
-                                className='position-absolute cross'
-                            />
-                            <div className='compare-product-card-image'>
-                                <img
-                                    src='imagens/watch.jpg'
-                                    alt='watch'
-                                />
-                            </div>
-                            <div className='compare-product-details'>
-                                <h5 className='title'>
-                                    SUPERCHARGED FOR PROS
-                                </h5>
-                                <h6 className='price mb-3 mt-3'>$100</h6>
-                                <div>
-                                    <div className='product-detail'>
-                                        <h5>brand</h5>
-                                        <p>havels</p>
-                                    </div>
-                                    <div className='product-detail'>
-                                        <h5>Type</h5>
-                                        <p>Watch</p>
-                                    </div>
-                                    <div className='product-detail'>
-                                        <h5>Availablity</h5>
-                                        <p>In Stock</p>
-                                    </div>
-                                    <div className='product-detail'>
-                                        <h5>Color:</h5>
-                                        <Color />
-                                    </div>
-                                    <div className='product-detail'>
-                                        <h5>Size</h5>
-                                        <div className='d-flex gap-10'>
-                                            <p>S</p>
-                                            <p>M</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </>
-}
+import React from "react";
+import BreadCrumb from "../components/BreadCrumb";
+import Color from "../components/Color";
+import Meta from "../components/Meta";
+import watch from "../images/watch.jpg";
+import Container from "../components/Container";
 
-export default ComparacaoProduto
+const ComparacaoProduto = () => {
+  return (
+    <>
+      <Meta title={"Comparação de Produtos"} />
+      <BreadCrumb title="Comparação de Produtos" />
+      <Container class1="compare-product-wrapper py-5 home-wrapper-2">
+        <div className="row">
+          <div className="col-3">
+            <div className="compare-product-card position-relative">
+              <img
+                src={watch}
+                alt="cross"
+                className="position-absolute cross img-fluid"
+              />
+              <div className="produto-card-image">
+                <img src="images/watch.jpg" alt="watch" />
+              </div>
+              <div className="compare-product-details">
+                <h5 className="title">
+                  Kit filtro de óleo com junta do cárter e cinta
+                </h5>
+                <h6 className="price mb-3 mt-3">R$ 567,39</h6>
+
+                <div>
+                  <div className="product-detail">
+                    <h5>Marca:</h5>
+                    <p>Transpeed</p>
+                  </div>
+                  <div className="product-detail">
+                    <h5>Tipo:</h5>
+                    <p>Kit Filtro</p>
+                  </div>
+                  <div className="product-detail">
+                    <h5>Avaliação:</h5>
+                    <p>Em estoque</p>
+                  </div>
+                  <div className="product-detail">
+                    <h5>Color:</h5>
+                    <Color />
+                  </div>
+                  <div className="product-detail">
+                    <h5>Size:</h5>
+                    <div className="d-flex gap-10">
+                      <p>S</p>
+                      <p>M</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="col-3">
+            <div className="compare-product-card position-relative">
+              <img
+                src="images/cross.svg"
+                alt="cross"
+                className="position-absolute cross img-fluid"
+              />
+              <div className="product-card-image">
+                <img src={watch} alt="watch" />
+              </div>
+              <div className="compare-product-details">
+                <h5 className="title">
+                  Kit filtro de óleo com junta do cárter e cinta
+                </h5>
+                <h6 className="price mb-3 mt-3">R$ 579,39</h6>
+
+                <div>
+                  <div className="product-detail">
+                    <h5>Marca:</h5>
+                    <p>Transpeed</p>
+                  </div>
+                  <div className="product-detail">
+                    <h5>Tipo:</h5>
+                    <p>Kit Filtro</p>
+                  </div>
+                  <div className="product-detail">
+                    <h5>Avaliação:</h5>
+                    <p>Em estoque</p>
+                  </div>
+                  <div className="product-detail">
+                    <h5>Color:</h5>
+                    <Color />
+                  </div>
+                  <div className="product-detail">
+                    <h5>Size:</h5>
+                    <div className="d-flex gap-10">
+                      <p>S</p>
+                      <p>M</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </Container>
+    </>
+  );
+};
+
+export default ComparacaoProduto;

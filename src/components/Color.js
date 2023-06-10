@@ -1,17 +1,16 @@
-import React from 'react'
+import React from "react";
 
 const Color = () => {
-    return (
-        <>
-            <ul className="colors ps-0">
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
+  return (
+    <>
+      <ul className="colors ps-0">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+      </ul>
+    </>
+  );
+};
 
-            </ul>
-        </>
-    )
-}
-
-export default Color
+export default Color;
