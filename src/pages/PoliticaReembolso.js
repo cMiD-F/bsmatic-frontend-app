@@ -1,11 +1,11 @@
 import React from 'react'
-import BreadCrumb from '../componets/BreadCrumb';
-import Meta from '../componets/Meta';
-const ShippingPolicy = () => {
+import BreadCrumb from '../components/BreadCrumb';
+import Meta from '../components/Meta';
+const PoliticaReembolso = () => {
   return (
-  <>
-        <Meta title={"Shipping Policy"} />
-      <BreadCrumb title="Shipping Policy" />
+   <>
+         <Meta title={"Política de Reembolso"} />
+      <BreadCrumb title="Política de Reembolso" />
       <section classname='policy-wrapper py-5 home-wrapper-2'>
         <div className='container-xxl'>
           <div className='row'>
@@ -17,8 +17,8 @@ const ShippingPolicy = () => {
           </div>
         </div>
       </section>
-  </>
+   </>
   )
 }
 
-export default ShippingPolicy
+export default PoliticaReembolso

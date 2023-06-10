@@ -1,7 +1,7 @@
 import React from 'react'
-import BreadCrumb from '../componets/BreadCrumb';
-import Meta from '../componets/Meta';
-import BlogCard from '../componets/BlogCard'
+import BreadCrumb from '../components/BreadCrumb';
+import Meta from '../components/Meta';
+import BlogCard from '../components/BlogCard'
 
 const blogs = () => {
   return (

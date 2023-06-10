@@ -1,9 +1,9 @@
 import React from 'react';
 import {Link} from "react-router-dom";
 import Marquee from "react-fast-marquee";
-import BlogCard from '../componets/BlogCard';
-import ProductCard from '../componets/ProductCard';
-import SpecialProduct from '../componets/SpecialProduct';
+import BlogCard from '../components/BlogCard';
+import ProdutoCard from '../components/ProdutoCard';
+import SpecialProduct from '../components/SpecialProduct';
 const Home = () => {
   return (
   <>
@@ -242,10 +242,10 @@ const Home = () => {
             <h3 className="section-heading">Featured Collection
             </h3>
           </div>
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
+          <ProdutoCard />
+          <ProdutoCard />
+          <ProdutoCard />
+          <ProdutoCard />
         </div>
     </div>
   </section>
@@ -340,10 +340,10 @@ const Home = () => {
       <div className="row">
         <div className="col-0">
         </div>
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
+        <ProdutoCard />
+        <ProdutoCard />
+        <ProdutoCard />
+        <ProdutoCard />
       </div>
     </div>
   </section>

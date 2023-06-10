@@ -2,23 +2,24 @@ import React from 'react';
 import './App.css';
 import {BrowserRouter, Routes, Route} from "react-router-dom";
 import Home from './pages/Home';
-import Layout from './componets/Layout';
-import About from './pages/About';
-import Contact from './pages/Contact';
-import OurStore from './pages/OurStore';
+import Layout from './components/Layout';
+import Sobre from './pages/Sobre';
+import Contato from './pages/Contato';
+import NossaLoja from './pages/NossaLoja';
 import Blogs from './pages/Blog';
-import CompareProduct from './pages/CompareProduct';
-import WishList from './pages/WishList';
+import ComparacaoProduto from './pages/ComparacaoProduto';
+import WishList from './pages/ListaDesejos';
 import Login from './pages/Login';
-import Forgotpassword from './pages/Forgotpassword';
+import Forgotpassword from './pages/EsqueceuSenha';
 import Signup from './pages/signup';
-import Resetpassword from './pages/Resetpassword';
+import Resetpassword from './pages/RedefinirSenha';
 import SingleBlog from './pages/SIngleBlog';
-import PrivacyPolicy from './pages/PrivacyPolicy';
-import RefundPolicy from './pages/RefundPolicy';
-import ShippingPolicy from './pages/ShippingPolicy';
-import TermAndConditions from './pages/TermAndConditions';
-import SingleProduct from './pages/SingleProduct';
+import PrivacyPolicy from './pages/PoliticaPrivacidade';
+import RefundPolicy from './pages/PoliticaReembolso';
+import ShippingPolicy from './pages/PoliticaEnvio';
+import TermAndConditions from './pages/TermosCondicoes';
+import ProdutoUnico from './pages/ProdutoUnico';
+
 
 
 function App() {
@@ -28,13 +29,13 @@ function App() {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
-          <Route path="about" element={<About />} />
-          <Route path="contact" element={<Contact />} />
-          <Route path="product" element={<OurStore />} />
-          <Route path='product/:id' element={<SingleProduct />}  />
+          <Route path="sobre" element={<Sobre />} />
+          <Route path="contato" element={<Contato />} />
+          <Route path="produto" element={<NossaLoja />} />
+          <Route path='produto/:id' element={<ProdutoUnico />}  />
           <Route path="blogs" element={<Blogs />} />
           <Route path="blogs/:id" element={<SingleBlog />} />
-          <Route path="compareProduct" element={<CompareProduct />} />
+          <Route path="comparacaoProduto" element={<ComparacaoProduto />} />
           <Route path="wishlist" element={<WishList />} />
           <Route path="login" element={<Login />} />
           <Route path="forgot-password" element={<Forgotpassword />} />

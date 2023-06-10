@@ -1,13 +1,13 @@
 import React from 'react'
-import BreadCrumb from '../componets/BreadCrumb';
-import Meta from '../componets/Meta';
+import BreadCrumb from '../components/BreadCrumb';
+import Meta from '../components/Meta';
 import { Link } from "react-router-dom";
 import {HiOutlineArrowLeft} from 'react-icons/hi';
 const SingleBlog = () => {
     return (
         <>
-            <Meta title={"Dynamic Blog Name"} />
-            <BreadCrumb title="Dynamic Blog Name" />
+            <Meta title={"Nome do blog dinâmico"} />
+            <BreadCrumb title="Nome do blog dinâmico" />
             <div className="blog-wrapper home-wrapper-2 py-5">
 
                 <div className="container-xxl">

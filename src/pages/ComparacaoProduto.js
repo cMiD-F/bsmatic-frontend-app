@@ -1,11 +1,11 @@
 import React from 'react'
-import BreadCrumb from '../componets/BreadCrumb';
-import Meta from '../componets/Meta';
-import Color from '../componets/Color'
-const CompareProduct = () => {
+import BreadCrumb from '../components/BreadCrumb';
+import Meta from '../components/Meta';
+import Color from '../components/Color'
+const ComparacaoProduto = () => {
     return <>
-        <Meta title={"Compare Products"} />
-        <BreadCrumb title="Compare Products" />
+        <Meta title={"Comparação de Produto"} />
+        <BreadCrumb title="Comparação de Produto" />
         <div className='compare-product-wrapper py-5 home-wrapper-2'>
             <div className='container-xxl'>
                 <div className='row'>
@@ -107,4 +107,4 @@ const CompareProduct = () => {
     </>
 }
 
-export default CompareProduct
+export default ComparacaoProduto

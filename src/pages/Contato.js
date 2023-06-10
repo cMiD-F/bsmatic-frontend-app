@@ -1,13 +1,13 @@
 import React from 'react'
-import BreadCrumb from '../componets/BreadCrumb';
-import Meta from '../componets/Meta';
+import BreadCrumb from '../components/BreadCrumb';
+import Meta from '../components/Meta';
 import { AiOutlineHome, AiOutlineMail } from 'react-icons/ai';
 import { BiPhoneCall, BiInfoCircle } from 'react-icons/bi';
-const Contact = () => {
+const Contato = () => {
   return (
     <>
-      <Meta title={"Contact Us"} />
-      <BreadCrumb title="Contact Us"/>
+      <Meta title={"Contate-nos"} />
+      <BreadCrumb title="Contate-nos"/>
       <div className='contact-wrapper py-5 home-wrapper-2'>
         <div clasName="container-xxl">
           <div clasName='row'>
@@ -24,16 +24,16 @@ const Contact = () => {
             <div className='col-12 mt-5'>
               <div className='contact-inner-wrapper d-flex justify-content-between '>
                 <div>
-                  <h3 className='contact-title mb-4'>Contact</h3>
+                  <h3 className='contact-title mb-4'>Contato</h3>
                   <form action='' className='d-flex flex-column gap-15'>
                     <div>
-                      <input type='text' className='form-control' placeholder='Name'/>
+                      <input type='text' className='form-control' placeholder='Nome'/>
                     </div>
                     <div>
                       <input type='text' className='form-control'placeholder='Email'/>
                     </div>
                     <div>
-                      <input type='tel' className='form-control' placeholder='Mobile Number'/>
+                      <input type='tel' className='form-control' placeholder='Número de telefone'/>
                     </div>
                     <div>
                      <textarea 
@@ -42,16 +42,16 @@ const Contact = () => {
                      className='w-100 form-control'
                      cols='30'
                      rows='4'
-                     placeholder='Coments'
+                     placeholder='Comentários'
                      ></textarea>
                     </div>
                     <div>
-                      <button className='button border-0 '>Submit</button>
+                      <button className='button border-0 '>Enviar</button>
                     </div>
                   </form>
                 </div>
                 <div>
-                  <h3 className='contact-title mb-4'>Get in touch with us</h3>
+                  <h3 className='contact-title mb-4'>Entre em contato conosco</h3>
                   <div>
                     <ul className='ps-0'>
                       <li className='mb-3 d-flex gap-15 align-items-center'>
@@ -82,4 +82,4 @@ const Contact = () => {
   );
 }
 
-export default Contact
+export default Contato;

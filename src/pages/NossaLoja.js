@@ -1,17 +1,17 @@
 import React from 'react'
-import BreadCrumb from '../componets/BreadCrumb';
-import Meta from '../componets/Meta';
+import BreadCrumb from '../components/BreadCrumb';
+import Meta from '../components/Meta';
 import ReactStars from "react-rating-stars-component";
 import { useState } from 'react';
-import ProductCard from '../componets/ProductCard';
-import Color from '../componets/Color'
+import ProdutoCard from '../components/ProdutoCard';
+import Color from '../components/Color'
 
-const OurStore = () => {
+const NossaLoja = () => {
     const [grid, setGrid] = useState(4);
 
     return (
         <>
-            <Meta title={"OurStore"} />
+            <Meta title={"Nossa Loja"} />
             <BreadCrumb title="Nossa Loja" />
             <div className="store-wrapper home-wrapper-2 py-5">
                 <div className="container-xxl">
@@ -186,7 +186,7 @@ const OurStore = () => {
                             </div>
                             <div className="products-list pb-5">
                                 <div className="d-flex gap-10 flex-wrap">
-                                    <ProductCard grid={grid} />
+                                    <ProdutoCard grid={grid} />
                                 </div>
                             </div>
                         </div>
@@ -198,4 +198,4 @@ const OurStore = () => {
 };
 
 
-export default OurStore
+export default NossaLoja

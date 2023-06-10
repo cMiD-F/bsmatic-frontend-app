@@ -1,11 +1,11 @@
 import React from 'react'
-import BreadCrumb from '../componets/BreadCrumb';
-import Meta from '../componets/Meta';
-const WishList = () => {
+import BreadCrumb from '../components/BreadCrumb';
+import Meta from '../components/Meta';
+const ListaDesejos = () => {
   return (
     <>
-      <Meta title={"Wishlist"} />
-      <BreadCrumb title="Wishlist" />
+      <Meta title={"Lista de favoritos"} />
+      <BreadCrumb title="Lista de favoritos" />
       <div className='wishlist-wrapper home-wrapper-2 py-5'>
         <div className='container-xxl'>
           <div className='row'>
@@ -70,4 +70,4 @@ const WishList = () => {
   )
 }
 
-export default WishList
+export default ListaDesejos

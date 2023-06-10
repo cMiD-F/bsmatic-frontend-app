@@ -1,18 +1,18 @@
 import React from 'react'
-import BreadCrumb from '../componets/BreadCrumb';
-import Meta from '../componets/Meta';
+import BreadCrumb from '../components/BreadCrumb';
+import Meta from '../components/Meta';
 import { Link } from 'react-router-dom';
-const Resetpassword = () => {
+const RedefinirSenha = () => {
     return (
         <>
-            <Meta title={"Reset Password"} />
-            <BreadCrumb title="Reset Password" />
+            <Meta title={"Redefinir Senha"} />
+            <BreadCrumb title="Redefinir Senha" />
             <div className='login-wrapper py-5 home-wrapper-2'>
                <div className='container-xxl'>
                <div className='row'>
                     <div className='col-12'>
                         <div className='auth-card'>
-                            <h3 className='text-center mb-3'>Reset Password</h3>
+                            <h3 className='text-center mb-3'>Redefinir senha</h3>
                             <form action='' className='d-flex flex-column gap-15'>
                               
                                 <div>
@@ -47,4 +47,4 @@ const Resetpassword = () => {
     )
 }
 
-export default Resetpassword
+export default RedefinirSenha

@@ -1,15 +1,15 @@
 import React from 'react'
-import BreadCrumb from '../componets/BreadCrumb';
-import Meta from '../componets/Meta';
-import ProductCard from '../componets/ProductCard';
+import BreadCrumb from '../components/BreadCrumb';
+import Meta from '../components/Meta';
+import ProdutoCard from '../components/ProdutoCard';
 import ReactStars from "react-rating-stars-component";
 import { useState } from 'react';
 import ReactImageZoom from 'react-image-zoom';
-import Color from '../componets/Color';
+import Color from '../components/Color';
 import {TbGitCompare} from 'react-icons/tb';
 import { AiOutlineHeart } from 'react-icons/ai';
 
-const SingleProduct = () => {
+const ProdutoUnico = () => {
     const props = {
         width: 400,
         height: 600,
@@ -20,8 +20,8 @@ const SingleProduct = () => {
     const [orderedProduct, setorderedProduct] = useState(true);
     return (
         <>
-            <Meta title={"Product Name"} />
-            <BreadCrumb title="Product Name" />
+            <Meta title={"Produto Único"} />
+            <BreadCrumb title="Produto Único" />
             <div className='main-product-wrapper py-2 home-wrapper-2'>
                 <div clasname='container-xxl'>
                     <div className='row'>
@@ -237,10 +237,10 @@ const SingleProduct = () => {
                     <div className="row">
                         <div className="col-0">
                         </div>
-                        <ProductCard />
-                        <ProductCard />
-                        <ProductCard />
-                        <ProductCard />
+                        <ProdutoCard />
+                        <ProdutoCard />
+                        <ProdutoCard />
+                        <ProdutoCard />
                     </div>
                 </div>
             </section>
@@ -248,4 +248,4 @@ const SingleProduct = () => {
     )
 }
 
-export default SingleProduct
+export default ProdutoUnico
