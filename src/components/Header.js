@@ -10,7 +10,6 @@ const Header = () => {
       <div className="col-6">
         <p className="text-white mb-0">
           Bem vindo à nossa loja
-
         </p>
         </div>
       <div className="col-6">
@@ -56,7 +55,7 @@ const Header = () => {
                   >
                     <img src="/imagens/compare.svg" alt="compare" />
                     <p className="mb-0">
-                      Compare <br /> Produtos
+                      Comparar <br /> Produtos
                     </p>
                   </Link>
                 </div>
@@ -67,7 +66,7 @@ const Header = () => {
                   >
                     <img src="/imagens/wishlist.svg" alt="wishlist" />
                     <p className="mb-0">
-                      Lista de <br /> Favoritos
+                      Lista de <br /> Desejo
                     </p>
                   </Link>
                 </div>

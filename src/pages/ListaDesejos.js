@@ -4,8 +4,8 @@ import Meta from '../components/Meta';
 const ListaDesejos = () => {
   return (
     <>
-      <Meta title={"Lista de favoritos"} />
-      <BreadCrumb title="Lista de favoritos" />
+      <Meta title={"Lista de Desejos"} />
+      <BreadCrumb title="Lista de Desejos" />
       <div className='wishlist-wrapper home-wrapper-2 py-5'>
         <div className='container-xxl'>
           <div className='row'>
