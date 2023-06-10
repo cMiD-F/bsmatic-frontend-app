@@ -50,7 +50,7 @@ const Header = () => {
               <div className="header-upper-links d-flex align-items-center justify-content-between">
                 <div>
                   <Link
-                    to="/CompararProduto"
+                    to="/comparacaoProduto"
                     className="d-flex align-items-center gap-10 text-white"
                   >
                     <img src="/imagens/compare.svg" alt="compare" />
@@ -61,7 +61,7 @@ const Header = () => {
                 </div>
                 <div>
                   <Link
-                    to="/WishList"
+                    to="/lista-desejo"
                     className="d-flex align-items-center gap-10 text-white"
                   >
                     <img src="/imagens/wishlist.svg" alt="wishlist" />
