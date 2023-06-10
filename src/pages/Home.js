@@ -177,59 +177,59 @@ const Home = () => {
               <div className="categories d-flex justify-content-between flex-wrap align-items-center">
                 <div className="d-flex gap align-items-center">
                   <div>
-                    <h6>Trocador de calor</h6>
-                    <p>5 Itens</p>
-                  </div>
-                  <img src="imagens/camera.jpg" alt="camera" />
-                </div>
-                <div className="d-flex gap align-items-center">
-                  <div>
-                    <h6>Jogo de disco de composite </h6>
-                    <p>2 Itens</p>
-                  </div>
-                  <img src="imagens/tv.jpg" alt="camera" />
-                </div>
-                <div className="d-flex gap align-items-center">
-                  <div>
-                    <h6>Pistão do Acumulador com Anéis de Segmentos</h6>
-                    <p>1 Iten</p>
-                  </div>
-                  <img src="imagens/camera.jpg" alt="camera" />
-                </div>
-                <div className="d-flex gap align-items-center">
-                  <div>
-                    <h6>Junta do cárter </h6>
+                    <h6>Banner Kit</h6>
                     <p>10 Itens</p>
                   </div>
-                  <img src="imagens/camera.jpg" alt="camera" />
+                  <img src="imagens/Banner-kit.jpg" alt="camera" />
+                </div>
+                <div className="d-flex gap align-items-center">
+                  <div>
+                    <h6>Jogo de juntas</h6>
+                    <p>10 Itens</p>
+                  </div>
+                  <img src="imagens/jogo-juntas.jpg" alt="camera" />
+                </div>
+                <div className="d-flex gap align-items-center">
+                  <div>
+                    <h6>Jogo de Juntas com Solenoide, Cinta e Pistões</h6>
+                    <p>5 Itens</p>
+                  </div>
+                  <img src="imagens/juntas-solenoide.jpg" alt="camera" />
+                </div>
+                <div className="d-flex gap align-items-center">
+                  <div>
+                    <h6>Oring da Bomba de óleo</h6>
+                    <p>10 Itens</p>
+                  </div>
+                  <img src="imagens/oring-bomba-oleo.jpg" alt="camera" />
                 </div>
                 <div className="d-flex gap align-items-center">
                   <div>
                     <h6>Kit Filtro de Óleo e Junta do Cárter</h6>
                     <p>11 Itens</p>
                   </div>
-                  <img src="imagens/camera.jpg" alt="camera" />
+                  <img src="imagens/kit-filtro-oleo.jpg" alt="camera" />
                 </div>
                 <div className="d-flex gap align-items-center">
                   <div>
-                    <h6>Banner kit </h6>
+                    <h6>Jogo de Pistões</h6>
                     <p>10 Itens</p>
                   </div>
-                  <img src="imagens/tv.jpg" alt="camera" />
+                  <img src="imagens/jogo-pistoes.jpg" alt="camera" />
                 </div>
                 <div className="d-flex gap align-items-center">
                   <div>
                     <h6>Filtro de óleo </h6>
                     <p>10 Itens</p>
                   </div>
-                  <img src="imagens/camera.jpg" alt="camera" />
+                  <img src="imagens/filtro-oleo.jpg" alt="camera" />
                 </div>
                 <div className="d-flex gap align-items-center">
                   <div>
-                    <h6>Banner kit + filtro de óleo </h6>
+                    <h6>Retentor do conversor de torque</h6>
                     <p>10 Itens</p>
                   </div>
-                  <img src="imagens/camera.jpg" alt="camera" />
+                  <img src="imagens/Retentor-converso.jpg" alt="camera" />
                 </div>
               </div>
             </div>

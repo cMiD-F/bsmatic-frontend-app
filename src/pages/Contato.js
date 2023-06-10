@@ -13,6 +13,7 @@ const Contato = () => {
           <div clasName='row'>
             <div className='col-12 mt-5'>
               <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7318.1705088115905!2d-46.42126673614348!3d-23.49343853299278!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce63dbbb69080f%3A0x1008edf98142b0e1!2sAutoZone!5e0!3m2!1spt-BR!2sbr!4v1685329068367!5m2!1spt-BR!2sbr"
+              title="Google Maps"
                 width="600"
                 height="450"
                 className='border-0 w-100'
