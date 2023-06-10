@@ -9,7 +9,7 @@ const ProductCard = (props) => {
         <>
             <div
                 className={`${location.pathname == "/store" ? `gr-${grid}` : "col-3"}`}>
-                <Link to='/product/:id' className='product-card position-relative'>
+                <Link to='produto/:id' className='product-card position-relative'>
                     <div className="product-card position-relative">
                         <div className="whishlist-icon position-absolute">
                             <Link>
@@ -17,15 +17,8 @@ const ProductCard = (props) => {
                             </Link>
                         </div>
                         <div className="product-image">
-                            <img
-                                src="imagens/watch.jpg"
-                                className="img-fluid"
-                                alt="product image"
-                            />
-                            <img
-                                src="imagens/watch-1.avif"
-                                className="img-fluid"
-                                alt="product image" />
+                            <img src="imagens/watch.jpg" className="img-fluid" alt="product image" />
+                            <img src="imagens/watch-1.avif" className="img-fluid" alt="product image" />
                         </div>
                         <div className="product-details">
                             <h6 className="brand"> Havels</h6>

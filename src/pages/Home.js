@@ -320,7 +320,7 @@ const Home = () => {
         <div className="container-xxl">
           <div className="row">
             <div className="col-12">
-              <h3 className="section-heading"> Special Products </h3>
+              <h3 className="section-heading"> Produtos Especiais </h3>
             </div>
             <div className="row">
               <SpecialProduct />

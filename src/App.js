@@ -8,17 +8,18 @@ import Contato from './pages/Contato';
 import NossaLoja from './pages/NossaLoja';
 import Blogs from './pages/Blog';
 import ComparacaoProduto from './pages/ComparacaoProduto';
-import WishList from './pages/ListaDesejos';
+import ListaDesejos from './pages/ListaDesejos';
 import Login from './pages/Login';
-import Forgotpassword from './pages/EsqueceuSenha';
+import EsqueceuSenha from './pages/EsqueceuSenha';
 import Signup from './pages/signup';
-import Resetpassword from './pages/RedefinirSenha';
+import RedefinirSenha from './pages/RedefinirSenha';
 import SingleBlog from './pages/SIngleBlog';
-import PrivacyPolicy from './pages/PoliticaPrivacidade';
-import RefundPolicy from './pages/PoliticaReembolso';
-import ShippingPolicy from './pages/PoliticaEnvio';
-import TermAndConditions from './pages/TermosCondicoes';
-import ProdutoUnico from './pages/ProdutoUnico';
+import PoliticaPrivacidade from './pages/PoliticaPrivacidade';
+import PoliticaReembolso from './pages/PoliticaReembolso'
+import PoliticaEnvio from './pages/PoliticaEnvio';
+import TermosCondicoes from './pages/TermosCondicoes'
+import ProdutoUnico from './pages/ProdutoUnico'
+
 
 
 
@@ -30,21 +31,21 @@ function App() {
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
           <Route path="sobre" element={<Sobre />} />
-          <Route path="contato" element={<Contato />} />
+          <Route path='contato' element={<Contato/>}/>
           <Route path="produto" element={<NossaLoja />} />
           <Route path='produto/:id' element={<ProdutoUnico />}  />
           <Route path="blogs" element={<Blogs />} />
           <Route path="blogs/:id" element={<SingleBlog />} />
           <Route path="comparacaoProduto" element={<ComparacaoProduto />} />
-          <Route path="wishlist" element={<WishList />} />
+          <Route path="lista-desejo" element={<ListaDesejos />} />
           <Route path="login" element={<Login />} />
-          <Route path="forgot-password" element={<Forgotpassword />} />
+          <Route path="esqueceu-senha" element={<EsqueceuSenha />} />
           <Route path="signup" element={<Signup />} />
-          <Route path="reset-password" element={<Resetpassword />} />
-          <Route path="privacy-policy" element={<PrivacyPolicy />} />
-          <Route path="refund-policy" element={<RefundPolicy />} />
-          <Route path="shipping-policy" element={<ShippingPolicy />} />
-          <Route path="term-conditions" element={<TermAndConditions />} />
+          <Route path="redefinir-senha" element={<RedefinirSenha />} />
+          <Route path="privacidade-politica" element={<PoliticaPrivacidade />} />
+          <Route path="politica-reembolso" element={<PoliticaReembolso />} />
+          <Route path="politica-envio" element={<PoliticaEnvio />} />
+          <Route path="term-condicoes" element={<TermosCondicoes />} />
         </Route>
       </Routes>
     </BrowserRouter> 
