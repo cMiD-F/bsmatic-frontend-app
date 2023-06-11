@@ -13,15 +13,13 @@ const Header = () => {
         <div className="container-xxl">
           <div className="row">
             <div className="col-6">
-              <p className="text-white mb-0">
-              Bem vindo à nossa loja
-              </p>
+              <p className="text-white mb-0">Bem vindo à nossa loja</p>
             </div>
             <div className="col-6">
               <p className="text-end text-white mb-0">
                 Ligue:
                 <a className="text-white" href="tel:+91 8264954234">
-                (11) 91851-3204
+                  (11) 91851-3204
                 </a>
               </p>
             </div>
@@ -59,7 +57,7 @@ const Header = () => {
                   >
                     <img src={compare} alt="compara-produto" />
                     <p className="mb-0">
-                    Comparar <br /> Produtos
+                      Comparar <br /> Produtos
                     </p>
                   </Link>
                 </div>
@@ -70,7 +68,7 @@ const Header = () => {
                   >
                     <img src={wishlist} alt="lista-desejo" />
                     <p className="mb-0">
-                    Lista de <br /> Desejo
+                      Lista de <br /> Desejo
                     </p>
                   </Link>
                 </div>
@@ -81,7 +79,7 @@ const Header = () => {
                   >
                     <img src={user} alt="user" />
                     <p className="mb-0">
-                    Entrar <br /> Minha conta
+                      Entrar <br /> Minha conta
                     </p>
                   </Link>
                 </div>
@@ -117,9 +115,7 @@ const Header = () => {
                       aria-expanded="false"
                     >
                       <img src={menu} alt="" />
-                      <span className="me-5 d-inline-block">
-                        Categorias
-                      </span>
+                      <span className="me-5 d-inline-block">Categorias</span>
                     </button>
                     <ul
                       className="dropdown-menu"
@@ -132,12 +128,32 @@ const Header = () => {
                       </li>
                       <li>
                         <Link className="dropdown-item text-white" to="">
-                          Another action
+                          Banner Kit
                         </Link>
                       </li>
                       <li>
                         <Link className="dropdown-item text-white" to="">
-                          Something else here
+                          Master Kit
+                        </Link>
+                      </li>
+                      <li>
+                        <Link className="dropdown-item text-white" to="">
+                          Kit de reparo
+                        </Link>
+                      </li>
+                      <li>
+                        <Link className="dropdown-item text-white" to="">
+                          Jogo de disco
+                        </Link>
+                      </li>
+                      <li>
+                        <Link className="dropdown-item text-white" to="">
+                          Jogo de juntas
+                        </Link>
+                      </li>
+                      <li>
+                        <Link className="dropdown-item text-white" to="">
+                          Filtro de óleo
                         </Link>
                       </li>
                     </ul>
@@ -146,7 +162,7 @@ const Header = () => {
                 <div className="menu-links">
                   <div className="d-flex align-items-center gap-15">
                     <NavLink to="/">Inicio</NavLink>
-                    <NavLink to="/produto">Nossa Loja</NavLink>
+                    <NavLink to="/produto">Produtos</NavLink>
                     <NavLink to="/blogs">Blogs</NavLink>
                     <NavLink to="/contato">Contato</NavLink>
                   </div>

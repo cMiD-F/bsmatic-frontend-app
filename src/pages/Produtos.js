@@ -6,30 +6,32 @@ import ProductCard from "../components/ProdutoCard";
 import Color from "../components/Color";
 import Container from "../components/Container";
 
-const NossaLoja = () => {
+const Produtos = () => {
   const [grid, setGrid] = useState(4);
   return (
     <>
-      <Meta title={"Nossa Loja"} />
-      <BreadCrumb title="Nossa Loja" />
+      <Meta title={"Produtos"} />
+      <BreadCrumb title="Produtos" />
       <Container class1="store-wrapper home-wrapper-2 py-5">
         <div className="row">
           <div className="col-3">
             <div className="filter-card mb-3">
-              <h3 className="filter-title">Shop By Categories</h3>
+              <h3 className="filter-title">Comprar por categorias</h3>
               <div>
                 <ul className="ps-0">
-                  <li>Watch</li>
-                  <li>Tv</li>
-                  <li>Camera</li>
-                  <li>Laptop</li>
+                  <li>Banner Kit</li>
+                  <li>Master Kit</li>
+                  <li>Kit de reparo</li>
+                  <li>Jogo de disco</li>
+                  <li>Jogo de juntas</li>
+                  <li>Filtro de óleo</li>
                 </ul>
               </div>
             </div>
             <div className="filter-card mb-3">
-              <h3 className="filter-title">Filter By</h3>
+              <h3 className="filter-title">Filtrar por</h3>
               <div>
-                <h5 className="sub-title">Availablity</h5>
+                <h5 className="sub-title">Avaliação</h5>
                 <div>
                   <div className="form-check">
                     <input
@@ -50,11 +52,11 @@ const NossaLoja = () => {
                       id=""
                     />
                     <label className="form-check-label" htmlFor="">
-                      Out of Stock(0)
+                      Fora de estoque(0)
                     </label>
                   </div>
                 </div>
-                <h5 className="sub-title">Price</h5>
+                <h5 className="sub-title">Preço</h5>
                 <div className="d-flex align-items-center gap-10">
                   <div className="form-floating">
                     <input
@@ -63,7 +65,7 @@ const NossaLoja = () => {
                       id="floatingInput"
                       placeholder="From"
                     />
-                    <label htmlFor="floatingInput">From</label>
+                    <label htmlFor="floatingInput">De</label>
                   </div>
                   <div className="form-floating">
                     <input
@@ -72,7 +74,7 @@ const NossaLoja = () => {
                       id="floatingInput1"
                       placeholder="To"
                     />
-                    <label htmlFor="floatingInput1">To</label>
+                    <label htmlFor="floatingInput1">Para</label>
                   </div>
                 </div>
                 <h5 className="sub-title">Colors</h5>
@@ -107,39 +109,37 @@ const NossaLoja = () => {
               </div>
             </div>
             <div className="filter-card mb-3">
-              <h3 className="filter-title">Product Tags</h3>
+              <h3 className="filter-title">Produto Tags</h3>
               <div>
                 <div className="product-tags d-flex flex-wrap align-items-center gap-10">
                   <span className="badge bg-light text-secondary rounded-3 py-2 px-3">
-                    Headphone
+                    Jogo de junta
                   </span>
                   <span className="badge bg-light text-secondary rounded-3 py-2 px-3">
-                    Laptop
+                    Transpeed
                   </span>
                   <span className="badge bg-light text-secondary rounded-3 py-2 px-3">
-                    Mobile
+                    Lintex
                   </span>
                   <span className="badge bg-light text-secondary rounded-3 py-2 px-3">
-                    Wire
+                    Filtro
                   </span>
                 </div>
               </div>
             </div>
             <div className="filter-card mb-3">
-              <h3 className="filter-title">Random Product</h3>
+              <h3 className="filter-title">Produtos aleatórios</h3>
               <div>
                 <div className="random-products mb-3 d-flex">
                   <div className="w-50">
                     <img
-                      src="images/watch.jpg"
+                      src="images/Kit-filtro.jpg"
                       className="img-fluid"
                       alt="watch"
                     />
                   </div>
                   <div className="w-50">
-                    <h5>
-                      Kids headphones bulk 10 pack multi colored for students
-                    </h5>
+                    <h5>Kit Filtro de Óleo</h5>
                     <ReactStars
                       count={5}
                       size={24}
@@ -147,21 +147,19 @@ const NossaLoja = () => {
                       edit={false}
                       activeColor="#ffd700"
                     />
-                    <b>$ 300</b>
+                    <b>$ 900,12</b>
                   </div>
                 </div>
                 <div className="random-products d-flex">
                   <div className="w-50">
                     <img
-                      src="images/watch.jpg"
+                      src="images/Kit-filtro.jpg"
                       className="img-fluid"
                       alt="watch"
                     />
                   </div>
                   <div className="w-50">
-                    <h5>
-                      Kids headphones bulk 10 pack multi colored for students
-                    </h5>
+                    <h5>Kit Filtro de Óleo</h5>
                     <ReactStars
                       count={5}
                       size={24}
@@ -169,7 +167,7 @@ const NossaLoja = () => {
                       edit={false}
                       activeColor="#ffd700"
                     />
-                    <b>$ 300</b>
+                    <b>$ 900,15</b>
                   </div>
                 </div>
               </div>
@@ -180,7 +178,7 @@ const NossaLoja = () => {
               <div className="d-flex justify-content-between align-items-center">
                 <div className="d-flex align-items-center gap-10">
                   <p className="mb-0 d-block" style={{ width: "100px" }}>
-                    Sort By:
+                    Ordenar por:
                   </p>
                   <select
                     name=""
@@ -188,20 +186,20 @@ const NossaLoja = () => {
                     className="form-control form-select"
                     id=""
                   >
-                    <option value="manual">Featured</option>
-                    <option value="best-selling">Best selling</option>
-                    <option value="title-ascending">Alphabetically, A-Z</option>
+                    <option value="manual">Produtos em destaque</option>
+                    <option value="best-selling">Mais vendidos</option>
+                    <option value="title-ascending">Em ordem alfabética, A-Z</option>
                     <option value="title-descending">
-                      Alphabetically, Z-A
+                    Em ordem alfabética, Z-A
                     </option>
-                    <option value="price-ascending">Price, low to high</option>
-                    <option value="price-descending">Price, high to low</option>
-                    <option value="created-ascending">Date, old to new</option>
-                    <option value="created-descending">Date, new to old</option>
+                    <option value="price-ascending">Preço, baixo a alto</option>
+                    <option value="price-descending">Preço, alto a baixo</option>
+                    <option value="created-ascending">Data, antigo para novo</option>
+                    <option value="created-descending">Data, novo para velho</option>
                   </select>
                 </div>
                 <div className="d-flex align-items-center gap-10">
-                  <p className="totalproducts mb-0">21 Products</p>
+                  <p className="totalproducts mb-0">21 Produtos</p>
                   <div className="d-flex gap-10 align-items-center grid">
                     <img
                       onClick={() => {
@@ -252,4 +250,4 @@ const NossaLoja = () => {
   );
 };
 
-export default NossaLoja;
+export default Produtos;

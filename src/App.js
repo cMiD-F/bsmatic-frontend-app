@@ -5,7 +5,7 @@ import Layout from "./components/Layout";
 import Home from "./pages/Home";
 import Sobre from "./pages/Sobre";
 import Contato from "./pages/Contato";
-import NossaLoja from "./pages/NossaLoja";
+import Produtos from "./pages/Produtos";
 import Blog from "./pages/Blog";
 import ComparacaoProduto from "./pages/ComparacaoProduto";
 import ListaDesejo from "./pages/ListaDesejo";
@@ -32,7 +32,7 @@ function App() {
             <Route index element={<Home />} />
             <Route path="sobre" element={<Sobre />} />
             <Route path="contato" element={<Contato />} />
-            <Route path="produto" element={<NossaLoja />} />
+            <Route path="produto" element={<Produtos />} />
             <Route path="produto/:id" element={<ProdutoUnico />} />
             <Route path="blogs" element={<Blog />} />
             <Route path="blog/:id" element={<SingleBlog />} />

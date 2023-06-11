@@ -211,60 +211,56 @@ const Home = () => {
           <div className="col-3">
             <div className="famous-card position-relative">
               <img
-                src="images/famous-1.webp"
+                src="images/black-transpeed.webp"
                 className="img-fluid"
                 alt="famous"
               />
               <div className="famous-content position-absolute">
-                <h5>Big Screen</h5>
-                <h6>Smart Watch Series 7</h6>
-                <p>From $399or $16.62/mo. for 24 mo.*</p>
+                <h5>Banner Kit com Filtro de Óleo e Cinta</h5>
+                <h6>Transpeed </h6>
+                <p>De R$ 3.102,67 ou R$ 258,78/mês.*</p>
               </div>
             </div>
           </div>
           <div className="col-3">
             <div className="famous-card position-relative">
               <img
-                src="images/famous-2.webp"
+                src="images/banner-filtro.webp"
                 className="img-fluid"
                 alt="famous"
               />
               <div className="famous-content position-absolute">
-                <h5 className="text-dark">Studio Display</h5>
-                <h6 className="text-dark">600 nits of brightness.</h6>
-                <p className="text-dark">27-inch 5K Retina display</p>
+                <h5 className="text-dark">Banner Kit com Filtro de Óleo</h5>
+                <h6 className="text-dark">Lintex</h6>
+                <p className="text-dark">De R$ 3.041,78 ou R$ 253,78/mês.*</p>
               </div>
             </div>
           </div>
           <div className="col-3">
             <div className="famous-card position-relative">
               <img
-                src="images/famous-3.webp"
+                src="images/master-kit.webp"
                 className="img-fluid"
                 alt="famous"
               />
               <div className="famous-content position-absolute">
-                <h5 className="text-dark">smartphones</h5>
-                <h6 className="text-dark">Smartphone 13 Pro.</h6>
-                <p className="text-dark">
-                  Now in Green. From $999.00 or $41.62/mo. for 24 mo. Footnote*
-                </p>
+                <h5 className="text-dark">Banner Kit com Filtro de Óleo e Válvula de Ré</h5>
+                <h6 className="text-dark">Lintex</h6>
+                <p className="text-dark">De R$ 2.018,88 ou R$ 168,24/mês.*</p>
               </div>
             </div>
           </div>
           <div className="col-3">
             <div className="famous-card position-relative">
               <img
-                src="images/famous-3.webp"
+                src="images/Banner_Kit_com_Filtro_de_Óleo_e_Válvula_de_Ré.webp"
                 className="img-fluid"
                 alt="famous"
               />
               <div className="famous-content position-absolute">
-                <h5 className="text-dark">home speakers</h5>
-                <h6 className="text-dark">Room-filling sound.</h6>
-                <p className="text-dark">
-                  From $699 or $116.58/mo. for 12 mo.*
-                </p>
+                <h5 className="text-dark">Banner Kit com Filtro de Óleo, Cinta e Válvula de Ré</h5>
+                <h6 className="text-dark">Lintex</h6>
+                <p className="text-dark">De R$ 2.985,00 ou R$ 248,75/mês.*</p>
               </div>
             </div>
           </div>

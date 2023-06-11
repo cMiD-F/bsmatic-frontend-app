@@ -98,10 +98,10 @@ const Footer = () => {
             <div className="col-2">
               <h4 className="text-white mb-4">Links Rápidos</h4>
               <div className="footer-link d-flex flex-column">
-                <Link className="text-white py-2 mb-1">Laptops</Link>
-                <Link className="text-white py-2 mb-1">Headphones</Link>
-                <Link className="text-white py-2 mb-1">Tablets</Link>
-                <Link className="text-white py-2 mb-1">Watch</Link>
+                <Link className="text-white py-2 mb-1">Banner Kit</Link>
+                <Link className="text-white py-2 mb-1">Master Kit</Link>
+                <Link className="text-white py-2 mb-1">Kit de reparo</Link>
+                <Link className="text-white py-2 mb-1">Jogo de juntas</Link>
               </div>
             </div>
           </div>
@@ -112,7 +112,7 @@ const Footer = () => {
           <div className="row">
             <div className="col-12">
               <p className="text-center mb-0 text-white">
-                &copy; {new Date().getFullYear()}; Powered by Developer's MakingCode's
+                &copy; {new Date().getFullYear()}; Powered by Developer's 
               </p>
             </div>
           </div>
