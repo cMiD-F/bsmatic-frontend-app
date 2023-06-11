@@ -32,8 +32,8 @@ const ProdutoUnico = () => {
   const closeModal = () => {};
   return (
     <>
-      <Meta title={"Product Name"} />
-      <BreadCrumb title="Product Name" />
+      <Meta title={"Nome do produto"} />
+      <BreadCrumb title="Nome do produto" />
       <Container class1="main-product-wrapper py-5 home-wrapper-2">
         <div className="row">
           <div className="col-6">
@@ -76,12 +76,10 @@ const ProdutoUnico = () => {
           <div className="col-6">
             <div className="main-product-details">
               <div className="border-bottom">
-                <h3 className="title">
-                  Kids Headphones Bulk 10 Pack Multi Colored For Students
-                </h3>
+                <h3 className="title">Kit Filtro de Óleo</h3>
               </div>
               <div className="border-bottom py-3">
-                <p className="price">$ 100</p>
+                <p className="price">R$ 100</p>
                 <div className="d-flex align-items-center gap-10">
                   <ReactStars
                     count={5}
@@ -90,32 +88,32 @@ const ProdutoUnico = () => {
                     edit={false}
                     activeColor="#ffd700"
                   />
-                  <p className="mb-0 t-review">( 2 Reviews )</p>
+                  <p className="mb-0 t-review">( 2 Comentários )</p>
                 </div>
                 <a className="review-btn" href="#review">
-                  Write a Review
+                  Escreva um comentário
                 </a>
               </div>
               <div className=" py-3">
                 <div className="d-flex gap-10 align-items-center my-2">
-                  <h3 className="product-heading">Type :</h3>
+                  <h3 className="product-heading">Tipo :</h3>
                   <p className="product-data">Watch</p>
                 </div>
                 <div className="d-flex gap-10 align-items-center my-2">
-                  <h3 className="product-heading">Brand :</h3>
-                  <p className="product-data">Havells</p>
+                  <h3 className="product-heading">Marca :</h3>
+                  <p className="product-data">Lintex</p>
                 </div>
                 <div className="d-flex gap-10 align-items-center my-2">
-                  <h3 className="product-heading">Category :</h3>
-                  <p className="product-data">Watch</p>
+                  <h3 className="product-heading">Categoria :</h3>
+                  <p className="product-data">AW03-72</p>
                 </div>
                 <div className="d-flex gap-10 align-items-center my-2">
                   <h3 className="product-heading">Tags :</h3>
-                  <p className="product-data">Watch</p>
+                  <p className="product-data">Kit</p>
                 </div>
                 <div className="d-flex gap-10 align-items-center my-2">
-                  <h3 className="product-heading">Availablity :</h3>
-                  <p className="product-data">In Stock</p>
+                  <h3 className="product-heading">Disponibilidade :</h3>
+                  <p className="product-data">Em estoque</p>
                 </div>
                 <div className="d-flex gap-10 flex-column mt-2 mb-3">
                   <h3 className="product-heading">Size :</h3>
@@ -139,7 +137,7 @@ const ProdutoUnico = () => {
                   <Color />
                 </div>
                 <div className="d-flex align-items-center gap-15 flex-row mt-2 mb-3">
-                  <h3 className="product-heading">Quantity :</h3>
+                  <h3 className="product-heading">Quantidade:</h3>
                   <div className="">
                     <input
                       type="number"
@@ -158,33 +156,35 @@ const ProdutoUnico = () => {
                       data-bs-target="#staticBackdrop"
                       type="button"
                     >
-                      Add to Cart
+                      Add ao carrinho
                     </button>
-                    <button className="button signup">Buy It Now</button>
+                    <button className="button signup">Compre agora</button>
                   </div>
                 </div>
                 <div className="d-flex align-items-center gap-15">
                   <div>
                     <a href="">
-                      <TbGitCompare className="fs-5 me-2" /> Add to Compare
+                      <TbGitCompare className="fs-5 me-2" /> Adicionar para
+                      comparar
                     </a>
                   </div>
                   <div>
                     <a href="">
-                      <AiOutlineHeart className="fs-5 me-2" /> Add to Wishlist
+                      <AiOutlineHeart className="fs-5 me-2" /> Adicionar a lista
+                      de desejos
                     </a>
                   </div>
                 </div>
                 <div className="d-flex gap-10 flex-column  my-3">
-                  <h3 className="product-heading">Shipping & Returns :</h3>
+                  <h3 className="product-heading">Envio e Devoluções :</h3>
                   <p className="product-data">
-                    Free shipping and returns available on all orders! <br /> We
-                    ship all US domestic orders within
-                    <b>5-10 business days!</b>
+                    Frete grátis e devoluções disponíveis em todos os pedidos!{" "}
+                    <br /> Nós enviar todos os pedidos dentro de
+                    <b> 5 a 10 dias úteis!</b>
                   </p>
                 </div>
                 <div className="d-flex gap-10 align-items-center my-3">
-                  <h3 className="product-heading">Product Link:</h3>
+                  <h3 className="product-heading">Link do produto:</h3>
                   <a
                     href="javascript:void(0);"
                     onClick={() => {
@@ -193,7 +193,7 @@ const ProdutoUnico = () => {
                       );
                     }}
                   >
-                    Copy Product Link
+                    Copiar link do produto
                   </a>
                 </div>
               </div>
@@ -204,13 +204,15 @@ const ProdutoUnico = () => {
       <Container class1="description-wrapper py-5 home-wrapper-2">
         <div className="row">
           <div className="col-12">
-            <h4>Description</h4>
+            <h4>Descrição</h4>
             <div className="bg-white p-3">
               <p>
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                Tenetur nisi similique illum aut perferendis voluptas, quisquam
-                obcaecati qui nobis officia. Voluptatibus in harum deleniti
-                labore maxime officia esse eos? Repellat?
+                01 Filtro de Óleo.
+                <br />
+                01 Silicone Neutro - Formador de Juntas (Onyx).
+                <br />
+                01 Junta do Cárter (Borracha Nitrílica - Altamente resistente a
+                óleo hidráulico).
               </p>
             </div>
           </div>
@@ -219,11 +221,11 @@ const ProdutoUnico = () => {
       <Container class1="reviews-wrapper home-wrapper-2">
         <div className="row">
           <div className="col-12">
-            <h3 id="review">Reviews</h3>
+            <h3 id="review">Avaliações</h3>
             <div className="review-inner-wrapper">
               <div className="review-head d-flex justify-content-between align-items-end">
                 <div>
-                  <h4 className="mb-2">Customer Reviews</h4>
+                  <h4 className="mb-2">Avaliações de Clientes</h4>
                   <div className="d-flex align-items-center gap-10">
                     <ReactStars
                       count={5}
@@ -232,19 +234,19 @@ const ProdutoUnico = () => {
                       edit={false}
                       activeColor="#ffd700"
                     />
-                    <p className="mb-0">Based on 2 Reviews</p>
+                    <p className="mb-0">Baseado em 2 comentários</p>
                   </div>
                 </div>
                 {orderedProduct && (
                   <div>
                     <a className="text-dark text-decoration-underline" href="">
-                      Write a Review
+                      Escreva um comentário
                     </a>
                   </div>
                 )}
               </div>
               <div className="review-form py-4">
-                <h4>Write a Review</h4>
+                <h4>Escreva uma crítica</h4>
                 <form action="" className="d-flex flex-column gap-15">
                   <div>
                     <ReactStars
@@ -266,14 +268,14 @@ const ProdutoUnico = () => {
                     ></textarea>
                   </div>
                   <div className="d-flex justify-content-end">
-                    <button className="button border-0">Submit Review</button>
+                    <button className="button border-0">Enviar revisão</button>
                   </div>
                 </form>
               </div>
               <div className="reviews mt-4">
                 <div className="review">
                   <div className="d-flex gap-10 align-items-center">
-                    <h6 className="mb-0">Navdeep</h6>
+                    <h6 className="mb-0">Cauet</h6>
                     <ReactStars
                       count={5}
                       size={24}
@@ -282,13 +284,7 @@ const ProdutoUnico = () => {
                       activeColor="#ffd700"
                     />
                   </div>
-                  <p className="mt-3">
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                    Consectetur fugit ut excepturi quos. Id reprehenderit
-                    voluptatem placeat consequatur suscipit ex. Accusamus dolore
-                    quisquam deserunt voluptate, sit magni perspiciatis quas
-                    iste?
-                  </p>
+                  <p className="mt-3">Ótimo produto</p>
                 </div>
               </div>
             </div>
@@ -298,7 +294,7 @@ const ProdutoUnico = () => {
       <Container class1="popular-wrapper py-5 home-wrapper-2">
         <div className="row">
           <div className="col-12">
-            <h3 className="section-heading">Our Popular Products</h3>
+            <h3 className="section-heading">Nossos Produtos Populares</h3>
           </div>
         </div>
         <div className="row">
@@ -340,10 +336,10 @@ const ProdutoUnico = () => {
             </div>
             <div className="modal-footer border-0 py-0 justify-content-center gap-30">
               <button type="button" className="button" data-bs-dismiss="modal">
-                View My Cart
+                Ver meu carrinho
               </button>
               <button type="button" className="button signup">
-                Checkout
+                Confira
               </button>
             </div>
             <div className="d-flex justify-content-center py-3">
@@ -354,7 +350,7 @@ const ProdutoUnico = () => {
                   closeModal();
                 }}
               >
-                Continue To Shopping
+                Continuar a comprar
               </Link>
             </div>
           </div>

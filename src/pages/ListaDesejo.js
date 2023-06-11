@@ -6,8 +6,8 @@ import Container from "../components/Container";
 const ListaDesejo = () => {
   return (
     <>
-      <Meta title={"Wishlist"} />
-      <BreadCrumb title="Wishlist" />
+      <Meta title={"Lista de desejo"} />
+      <BreadCrumb title="Lista de desejo" />
       <Container class1="wishlist-wrapper home-wrapper-2 py-5">
         <div className="row">
           <div className="col-3">

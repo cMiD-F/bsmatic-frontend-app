@@ -8,8 +8,8 @@ import Container from "../components/Container";
 const Contato = () => {
   return (
     <>
-      <Meta title={"Contact Us"} />
-      <BreadCrumb title="Contact Us" />
+      <Meta title={"Contate-nos"} />
+      <BreadCrumb title="Contate-nos" />
       <Container class1="contact-wrapper py-5 home-wrapper-2">
         <div className="row">
           <div className="col-12">

@@ -19,7 +19,7 @@ const Checkout = () => {
                 <ol className="breadcrumb">
                   <li className="breadcrumb-item">
                     <Link className="text-dark total-price" to="/carrinho">
-                      Cart
+                      Carrinho
                     </Link>
                   </li>
                   &nbsp; /&nbsp;
@@ -27,26 +27,22 @@ const Checkout = () => {
                     className="breadcrumb-ite total-price active"
                     aria-current="page"
                   >
-                    Information
+                    Informação
                   </li>
                   &nbsp; /
-                  <li className="breadcrumb-item total-price active">
-                    Shipping
-                  </li>
+                  <li className="breadcrumb-item total-price active">Envio</li>
                   &nbsp; /
                   <li
                     className="breadcrumb-item total-price active"
                     aria-current="page"
                   >
-                    Payment
+                    Pagamento
                   </li>
                 </ol>
               </nav>
-              <h4 className="title total">Contact Information</h4>
-              <p className="user-details total">
-                Navdeep Dahiya (monud0232@gmail.com)
-              </p>
-              <h4 className="mb-3">Shipping Address</h4>
+              <h4 className="title total">Informações de contato</h4>
+              <p className="user-details total">BSMatic (BSMatic@gmail.com)</p>
+              <h4 className="mb-3">Endereço para envio</h4>
               <form
                 action=""
                 className="d-flex gap-15 flex-wrap justify-content-between"
@@ -54,56 +50,56 @@ const Checkout = () => {
                 <div className="w-100">
                   <select name="" className="form-control form-select" id="">
                     <option value="" selected disabled>
-                      Select Country
+                      Selecione o país
                     </option>
                   </select>
                 </div>
                 <div className="flex-grow-1">
                   <input
                     type="text"
-                    placeholder="First Name"
+                    placeholder="Primeiro Nome"
                     className="form-control"
                   />
                 </div>
                 <div className="flex-grow-1">
                   <input
                     type="text"
-                    placeholder="Last Name"
+                    placeholder="Último Nome"
                     className="form-control"
                   />
                 </div>
                 <div className="w-100">
                   <input
                     type="text"
-                    placeholder="Address"
+                    placeholder="Endereço"
                     className="form-control"
                   />
                 </div>
                 <div className="w-100">
                   <input
                     type="text"
-                    placeholder="Apartment, Suite ,etc"
+                    placeholder="Apartamento, Suíte, etc"
                     className="form-control"
                   />
                 </div>
                 <div className="flex-grow-1">
                   <input
                     type="text"
-                    placeholder="City"
+                    placeholder="Cidade"
                     className="form-control"
                   />
                 </div>
                 <div className="flex-grow-1">
                   <select name="" className="form-control form-select" id="">
                     <option value="" selected disabled>
-                      Select State
+                    Selecione o estado
                     </option>
                   </select>
                 </div>
                 <div className="flex-grow-1">
                   <input
                     type="text"
-                    placeholder="Zipcode"
+                    placeholder="CEP"
                     className="form-control"
                   />
                 </div>
@@ -140,23 +136,23 @@ const Checkout = () => {
                   </div>
                 </div>
                 <div className="flex-grow-1">
-                  <h5 className="total">$ 100</h5>
+                  <h5 className="total">R$ 100</h5>
                 </div>
               </div>
             </div>
             <div className="border-bottom py-4">
               <div className="d-flex justify-content-between align-items-center">
                 <p className="total">Subtotal</p>
-                <p className="total-price">$ 10000</p>
+                <p className="total-price">R$ 10000</p>
               </div>
               <div className="d-flex justify-content-between align-items-center">
-                <p className="mb-0 total">Shipping</p>
-                <p className="mb-0 total-price">$ 10000</p>
+                <p className="mb-0 total">Envio</p>
+                <p className="mb-0 total-price">R$ 10000</p>
               </div>
             </div>
             <div className="d-flex justify-content-between align-items-center border-bootom py-4">
               <h4 className="total">Total</h4>
-              <h5 className="total-price">$ 10000</h5>
+              <h5 className="total-price">R$ 10000</h5>
             </div>
           </div>
         </div>

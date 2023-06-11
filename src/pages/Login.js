@@ -24,14 +24,14 @@ const Login = () => {
                   placeholder="Password"
                 />
                 <div>
-                  <Link to="/esqueceu-senha">Forgot Password?</Link>
+                  <Link to="/esqueci-senha">Esqueceu sua senha?</Link>
 
                   <div className="mt-3 d-flex justify-content-center gap-15 align-items-center">
                     <button className="button border-0" type="submit">
                       Login
                     </button>
                     <Link to="/signup" className="button signup">
-                      SignUp
+                      Inscrever-se
                     </Link>
                   </div>
                 </div>
