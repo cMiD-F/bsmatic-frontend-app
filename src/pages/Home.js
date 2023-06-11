@@ -46,14 +46,14 @@ const Home = () => {
               </div>
               <div className="small-banner position-relative">
                 <img
-                  src="images/jg-junta.jpg"
+                  src="images/jg-juntas.jpg"
                   className="img-fluid rounded-3"
                   alt="main banner"
                 />
                 <div className="small-banner-content position-absolute">
                   <h4>NOVOS ITENS</h4>
-                  <h5>Jogo de juntas com filtro, <br />
-                      jogo de pistão e cintas</h5>
+                  <h5>Jogo de juntas com<br />filtro, 
+                      pistão e cintas</h5>
                   <p>
                   De R$ 3.510,00 <br /> ou R$ 292,50/mês.
                   </p>
@@ -61,13 +61,13 @@ const Home = () => {
               </div>
               <div className="small-banner position-relative ">
                 <img
-                  src="images/EletrovalvulasSolenoides.jpg"
+                  src="images/solenoide.jpg"
                   className="img-fluid rounded-3"
                   alt="main banner"
                 />
                 <div className="small-banner-content position-absolute">
                   <h4>NOVOS ITENS</h4>
-                  <h5>2 Eletroválvulas <br /> Solenoides</h5>
+                  <h5>Eletroválvulas <br /> Solenoides</h5>
                   <p>
                   De R$ 900,10 <br /> ou R$ 75/mês.
                   </p>
@@ -91,12 +91,44 @@ const Home = () => {
           </div>
         </div>
       </Container>
+      
       <Container class1="home-wrapper-2 py-5">
-        <div className="row">
-          <div className="col-12">
-            <div className="servies d-flex align-items-center justify-content-between"></div>
+      <section className="container-xxl">
+          <div className="row">
+            <div className="col-12">
+              <div className="services d-flex align-items-center justify-content-between">
+                <div className="d-flex align-items-center gap-10">
+                  <img src="images/service.png" alt="services" />
+                  <div>
+                    <h6>Frete grátis</h6>
+                    <p className="mb-0">De todos os pedidos acima de R$ 500</p>
+                  </div>
+                </div>
+                <div className="d-flex align-items-center gap-10">
+                  <img src="images/service-02.png" alt="services" />
+                  <div>
+                    <h6>Ofertas surpresa diárias</h6>
+                    <p className="mb-0">Economize até 25% com desconto</p>
+                  </div>
+                </div>
+                <div className="d-flex align-items-center gap-10">
+                  <img src="images/service-03.png" alt="services" />
+                  <div>
+                    <h6>Suporte 24/7</h6>
+                    <p className="mb-0">Compre com um especialista</p>
+                  </div>
+                </div>
+                <div className="d-flex align-items-center gap-10">
+                  <img src="images/service-05.png" alt="services" />
+                  <div>
+                    <h6>Pagamentos seguros</h6>
+                    <p className="mb-0">Pagamento 100% protegido</p>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
+        </section>
       </Container>
       <Container class1="home-wrapper-2 py-5">
         <div className="row">

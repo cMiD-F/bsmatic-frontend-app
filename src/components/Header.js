@@ -127,7 +127,7 @@ const Header = () => {
                     >
                       <li>
                         <Link className="dropdown-item text-white" to="">
-                          Action
+                          Página Inicial
                         </Link>
                       </li>
                       <li>
