@@ -3,7 +3,7 @@ import BreadCrumb from "../components/BreadCrumb";
 import Meta from "../components/Meta";
 import Container from "../components/Container";
 
-const TermosCondicoes = () => {
+const TermAndContions = () => {
   return (
     <>
       <Meta title={"Term And Conditions"} />
@@ -19,4 +19,4 @@ const TermosCondicoes = () => {
   );
 };
 
-export default TermosCondicoes;
+export default TermAndContions;

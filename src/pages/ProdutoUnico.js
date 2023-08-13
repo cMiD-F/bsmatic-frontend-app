@@ -2,20 +2,20 @@ import React, { useState } from "react";
 import ReactStars from "react-rating-stars-component";
 import BreadCrumb from "../components/BreadCrumb";
 import Meta from "../components/Meta";
-import ProductCard from "../components/ProdutoCard";
+import ProductCard from "../components/ProductCard";
 import ReactImageZoom from "react-image-zoom";
-import Color from "../components/Color";
+//import Color from "../components/Color";
 import { TbGitCompare } from "react-icons/tb";
 import { AiOutlineHeart } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import watch from "../images/watch.jpg";
 import Container from "../components/Container";
+
 const ProdutoUnico = () => {
   const props = {
     width: 594,
     height: 600,
     zoomWidth: 600,
-
     img: "https://images.pexels.com/photos/190819/pexels-photo-190819.jpeg?cs=srgb&dl=pexels-fernando-arcos-190819.jpg&fm=jpg",
   };
 
@@ -132,12 +132,8 @@ const ProdutoUnico = () => {
                     </span>
                   </div>
                 </div>
-                <div className="d-flex gap-10 flex-column mt-2 mb-3">
-                  <h3 className="product-heading">Color :</h3>
-                  <Color />
-                </div>
                 <div className="d-flex align-items-center gap-15 flex-row mt-2 mb-3">
-                  <h3 className="product-heading">Quantidade:</h3>
+                  <h3 className="product-heading">Quantidade :</h3>
                   <div className="">
                     <input
                       type="number"
@@ -246,7 +242,7 @@ const ProdutoUnico = () => {
                 )}
               </div>
               <div className="review-form py-4">
-                <h4>Escreva uma crítica</h4>
+              <h4>Escreva uma crítica</h4>
                 <form action="" className="d-flex flex-column gap-15">
                   <div>
                     <ReactStars
@@ -268,7 +264,7 @@ const ProdutoUnico = () => {
                     ></textarea>
                   </div>
                   <div className="d-flex justify-content-end">
-                    <button className="button border-0">Enviar revisão</button>
+                  <button className="button border-0">Enviar revisão</button>
                   </div>
                 </form>
               </div>
@@ -284,7 +280,13 @@ const ProdutoUnico = () => {
                       activeColor="#ffd700"
                     />
                   </div>
-                  <p className="mt-3">Ótimo produto</p>
+                  <p className="mt-3">
+                    Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+                    Consectetur fugit ut excepturi quos. Id reprehenderit
+                    voluptatem placeat consequatur suscipit ex. Accusamus dolore
+                    quisquam deserunt voluptate, sit magni perspiciatis quas
+                    iste?
+                  </p>
                 </div>
               </div>
             </div>
@@ -294,7 +296,7 @@ const ProdutoUnico = () => {
       <Container class1="popular-wrapper py-5 home-wrapper-2">
         <div className="row">
           <div className="col-12">
-            <h3 className="section-heading">Nossos Produtos Populares</h3>
+            <h3 className="section-heading">Our Popular Products</h3>
           </div>
         </div>
         <div className="row">
@@ -327,25 +329,24 @@ const ProdutoUnico = () => {
                   <img src={watch} className="img-fluid" alt="product imgae" />
                 </div>
                 <div className="d-flex flex-column flex-grow-1 w-50">
-                  <h6 className="mb-3">Apple Watch</h6>
-                  <p className="mb-1">Quantity: asgfd</p>
-                  <p className="mb-1">Color: asgfd</p>
-                  <p className="mb-1">Size: asgfd</p>
+                  <h6 className="mb-3">Kit</h6>
+                  <p className="mb-1">Quantidade: 10</p>
+                  <p className="mb-1">Marca: Lintex</p>
                 </div>
               </div>
             </div>
             <div className="modal-footer border-0 py-0 justify-content-center gap-30">
               <button type="button" className="button" data-bs-dismiss="modal">
-                Ver meu carrinho
+              Ver meu carrinho
               </button>
               <button type="button" className="button signup">
-                Confira
+                Checkout
               </button>
             </div>
             <div className="d-flex justify-content-center py-3">
               <Link
                 className="text-dark"
-                to="/produto"
+                to="/product"
                 onClick={() => {
                   closeModal();
                 }}

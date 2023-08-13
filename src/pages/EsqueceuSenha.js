@@ -23,7 +23,7 @@ const EsqueceuSenha = () => {
                 <div>
                   <div className="mt-3 d-flex justify-content-center flex-column gap-15 align-items-center">
                     <button className="button border-0" type="submit">
-                    Enviar
+                      Enviar
                     </button>
                     <Link to="/login">Cancelar</Link>
                   </div>

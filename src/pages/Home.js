@@ -2,9 +2,10 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Marquee from "react-fast-marquee";
 import BlogCard from "../components/BlogCard";
-import ProductCard from "../components/ProdutoCard";
+import ProductCard from "../components/ProductCard";
 import SpecialProduct from "../components/SpecialProduct";
 import Container from "../components/Container";
+import { services } from "../utils/Data";
 
 const Home = () => {
   return (
@@ -38,9 +39,11 @@ const Home = () => {
                 />
                 <div className="small-banner-content position-absolute">
                   <h4>Melhores compras</h4>
-                  <h5>Jogo de discos <br /> de composite</h5>
+                  <h5>
+                    Jogo de discos <br /> de composite
+                  </h5>
                   <p>
-                  De R$ 1.270,97 <br /> ou R$ 105,91/mês.
+                    De R$ 1.270,97 <br /> ou R$ 105,91/mês.
                   </p>
                 </div>
               </div>
@@ -52,10 +55,13 @@ const Home = () => {
                 />
                 <div className="small-banner-content position-absolute">
                   <h4>NOVOS ITENS</h4>
-                  <h5>Jogo de juntas com<br />filtro, 
-                      pistão e cintas</h5>
+                  <h5>
+                    Jogo de juntas com
+                    <br />
+                    filtro, pistão e cintas
+                  </h5>
                   <p>
-                  De R$ 3.510,00 <br /> ou R$ 292,50/mês.
+                    De R$ 3.510,00 <br /> ou R$ 292,50/mês.
                   </p>
                 </div>
               </div>
@@ -67,9 +73,11 @@ const Home = () => {
                 />
                 <div className="small-banner-content position-absolute">
                   <h4>NOVOS ITENS</h4>
-                  <h5>Eletroválvulas <br /> Solenoides</h5>
+                  <h5>
+                    Eletroválvulas <br /> Solenoides
+                  </h5>
                   <p>
-                  De R$ 900,10 <br /> ou R$ 75/mês.
+                    De R$ 900,10 <br /> ou R$ 75/mês.
                   </p>
                 </div>
               </div>
@@ -83,7 +91,7 @@ const Home = () => {
                   <h4>NOVOS ITENS</h4>
                   <h5>Kit de reparo AL4</h5>
                   <p>
-                  De R$ 3.200,27 <br /> ou R$ 266,78/mês.
+                    De R$ 3.200,27 <br /> ou R$ 266,78/mês.
                   </p>
                 </div>
               </div>
@@ -91,44 +99,25 @@ const Home = () => {
           </div>
         </div>
       </Container>
-      
+
       <Container class1="home-wrapper-2 py-5">
-      <section className="container-xxl">
-          <div className="row">
-            <div className="col-12">
-              <div className="services d-flex align-items-center justify-content-between">
-                <div className="d-flex align-items-center gap-10">
-                  <img src="images/service.png" alt="services" />
-                  <div>
-                    <h6>Frete grátis</h6>
-                    <p className="mb-0">De todos os pedidos acima de R$ 500</p>
+        <div className="row">
+          <div className="col-12">
+            <div className="servies d-flex align-items-center justify-content-between">
+              {services?.map((i, j) => {
+                return (
+                  <div className="d-flex align-items-center gap-15" key={j}>
+                    <img src={i.image} alt="services" />
+                    <div>
+                      <h6>{i.title}</h6>
+                      <p className="mb-0">{i.tagline}</p>
+                    </div>
                   </div>
-                </div>
-                <div className="d-flex align-items-center gap-10">
-                  <img src="images/service-02.png" alt="services" />
-                  <div>
-                    <h6>Ofertas surpresa diárias</h6>
-                    <p className="mb-0">Economize até 25% com desconto</p>
-                  </div>
-                </div>
-                <div className="d-flex align-items-center gap-10">
-                  <img src="images/service-03.png" alt="services" />
-                  <div>
-                    <h6>Suporte 24/7</h6>
-                    <p className="mb-0">Compre com um especialista</p>
-                  </div>
-                </div>
-                <div className="d-flex align-items-center gap-10">
-                  <img src="images/service-05.png" alt="services" />
-                  <div>
-                    <h6>Pagamentos seguros</h6>
-                    <p className="mb-0">Pagamento 100% protegido</p>
-                  </div>
-                </div>
-              </div>
+                );
+              })}
             </div>
           </div>
-        </section>
+        </div>
       </Container>
       <Container class1="home-wrapper-2 py-5">
         <div className="row">
@@ -224,7 +213,7 @@ const Home = () => {
           </div>
           <div className="col-3">
             <div className="famous-card position-relative">
-              <img
+            <img
                 src="images/banner-filtro.webp"
                 className="img-fluid"
                 alt="famous"
@@ -238,7 +227,7 @@ const Home = () => {
           </div>
           <div className="col-3">
             <div className="famous-card position-relative">
-              <img
+            <img
                 src="images/master-kit.webp"
                 className="img-fluid"
                 alt="famous"
@@ -252,7 +241,7 @@ const Home = () => {
           </div>
           <div className="col-3">
             <div className="famous-card position-relative">
-              <img
+            <img
                 src="images/Banner_Kit_com_Filtro_de_Óleo_e_Válvula_de_Ré.webp"
                 className="img-fluid"
                 alt="famous"
@@ -270,7 +259,7 @@ const Home = () => {
       <Container class1="special-wrapper py-5 home-wrapper-2">
         <div className="row">
           <div className="col-12">
-            <h3 className="section-heading">Produtos Especiais</h3>
+          <h3 className="section-heading">Produtos Especiais</h3>
           </div>
         </div>
         <div className="row">
@@ -297,7 +286,7 @@ const Home = () => {
         <div className="row">
           <div className="col-12">
             <div className="marquee-inner-wrapper card-wrapper">
-              <Marquee className="d-flex">
+            <Marquee className="d-flex">
                 <div className="mx-4 w-25">
                   <img src="images/citroen.png" alt="marca" />
                 </div>

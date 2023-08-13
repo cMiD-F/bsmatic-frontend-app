@@ -2,12 +2,23 @@ import React, { useState } from "react";
 import BreadCrumb from "../components/BreadCrumb";
 import Meta from "../components/Meta";
 import ReactStars from "react-rating-stars-component";
-import ProductCard from "../components/ProdutoCard";
-import Color from "../components/Color";
+import ProductCard from "../components/ProductCard";
 import Container from "../components/Container";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllProdutos } from "../features/produtos/productSlice";
+import { useEffect } from "react";
 
 const Produtos = () => {
   const [grid, setGrid] = useState(4);
+  const produtoState = useSelector((state) => state.produto.produto);
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    getProdutos();
+  }, []);
+  const getProdutos = () => {
+    dispatch(getAllProdutos());
+  };
   return (
     <>
       <Meta title={"Produtos"} />
@@ -41,7 +52,7 @@ const Produtos = () => {
                       id=""
                     />
                     <label className="form-check-label" htmlFor="">
-                      In Stock (1)
+                      Em estoque (1)
                     </label>
                   </div>
                   <div className="form-check">
@@ -77,35 +88,6 @@ const Produtos = () => {
                     <label htmlFor="floatingInput1">Para</label>
                   </div>
                 </div>
-                <h5 className="sub-title">Colors</h5>
-                <div>
-                  <Color />
-                </div>
-                <h5 className="sub-title">Size</h5>
-                <div>
-                  <div className="form-check">
-                    <input
-                      className="form-check-input"
-                      type="checkbox"
-                      value=""
-                      id="color-1"
-                    />
-                    <label className="form-check-label" htmlFor="color-1">
-                      S (2)
-                    </label>
-                  </div>
-                  <div className="form-check">
-                    <input
-                      className="form-check-input"
-                      type="checkbox"
-                      value=""
-                      id="color-2"
-                    />
-                    <label className="form-check-label" htmlFor="color-2">
-                      M (2)
-                    </label>
-                  </div>
-                </div>
               </div>
             </div>
             <div className="filter-card mb-3">
@@ -133,7 +115,7 @@ const Produtos = () => {
                 <div className="random-products mb-3 d-flex">
                   <div className="w-50">
                     <img
-                      src="images/Kit-filtro.jpg"
+                      src="images/watch.jpg"
                       className="img-fluid"
                       alt="watch"
                     />
@@ -153,7 +135,7 @@ const Produtos = () => {
                 <div className="random-products d-flex">
                   <div className="w-50">
                     <img
-                      src="images/Kit-filtro.jpg"
+                      src="images/watch.jpg"
                       className="img-fluid"
                       alt="watch"
                     />
@@ -188,14 +170,22 @@ const Produtos = () => {
                   >
                     <option value="manual">Produtos em destaque</option>
                     <option value="best-selling">Mais vendidos</option>
-                    <option value="title-ascending">Em ordem alfabética, A-Z</option>
+                    <option value="title-ascending">
+                      Em ordem alfabética, A-Z
+                    </option>
                     <option value="title-descending">
-                    Em ordem alfabética, Z-A
+                      Em ordem alfabética, Z-A
                     </option>
                     <option value="price-ascending">Preço, baixo a alto</option>
-                    <option value="price-descending">Preço, alto a baixo</option>
-                    <option value="created-ascending">Data, antigo para novo</option>
-                    <option value="created-descending">Data, novo para velho</option>
+                    <option value="price-descending">
+                      Preço, alto a baixo
+                    </option>
+                    <option value="created-ascending">
+                      Data, antigo para novo
+                    </option>
+                    <option value="created-descending">
+                      Data, novo para velho
+                    </option>
                   </select>
                 </div>
                 <div className="d-flex align-items-center gap-10">

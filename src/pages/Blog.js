@@ -16,10 +16,9 @@ const Blog = () => {
               <h3 className="filter-title">Localizar por categorias</h3>
               <div>
                 <ul className="ps-0">
-                  <li>Watch</li>
-                  <li>Tv</li>
-                  <li>Camera</li>
-                  <li>Laptop</li>
+                  <li>Câmbio Automático</li>
+                  <li>Câmbio Manual</li>
+                  <li>Kit de reparos</li>
                 </ul>
               </div>
             </div>

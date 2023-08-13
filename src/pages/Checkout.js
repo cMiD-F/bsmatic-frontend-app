@@ -11,15 +11,15 @@ const Checkout = () => {
         <div className="row">
           <div className="col-7">
             <div className="checkout-left-data">
-              <h3 className="website-name">BSmatic</h3>
+              <h3 className="website-name">BSMatic</h3>
               <nav
                 style={{ "--bs-breadcrumb-divider": ">" }}
                 aria-label="breadcrumb"
               >
                 <ol className="breadcrumb">
                   <li className="breadcrumb-item">
-                    <Link className="text-dark total-price" to="/carrinho">
-                      Carrinho
+                    <Link className="text-dark total-price" to="/cart">
+                    Carrinho
                     </Link>
                   </li>
                   &nbsp; /&nbsp;
@@ -30,7 +30,9 @@ const Checkout = () => {
                     Informação
                   </li>
                   &nbsp; /
-                  <li className="breadcrumb-item total-price active">Envio</li>
+                  <li className="breadcrumb-item total-price active">
+                  Envio
+                  </li>
                   &nbsp; /
                   <li
                     className="breadcrumb-item total-price active"
@@ -41,7 +43,9 @@ const Checkout = () => {
                 </ol>
               </nav>
               <h4 className="title total">Informações de contato</h4>
-              <p className="user-details total">BSMatic (BSMatic@gmail.com)</p>
+              <p className="user-details total">
+              BSMatic (BSMatic@gmail.com)
+              </p>
               <h4 className="mb-3">Endereço para envio</h4>
               <form
                 action=""
@@ -50,42 +54,42 @@ const Checkout = () => {
                 <div className="w-100">
                   <select name="" className="form-control form-select" id="">
                     <option value="" selected disabled>
-                      Selecione o país
+                    Selecione o país
                     </option>
                   </select>
                 </div>
                 <div className="flex-grow-1">
                   <input
                     type="text"
-                    placeholder="Primeiro Nome"
+                    placeholder="First Name"
                     className="form-control"
                   />
                 </div>
                 <div className="flex-grow-1">
                   <input
                     type="text"
-                    placeholder="Último Nome"
+                    placeholder="Last Name"
                     className="form-control"
                   />
                 </div>
                 <div className="w-100">
                   <input
                     type="text"
-                    placeholder="Endereço"
+                    placeholder="Address"
                     className="form-control"
                   />
                 </div>
                 <div className="w-100">
                   <input
                     type="text"
-                    placeholder="Apartamento, Suíte, etc"
+                    placeholder="Apartment, Suite ,etc"
                     className="form-control"
                   />
                 </div>
                 <div className="flex-grow-1">
                   <input
                     type="text"
-                    placeholder="Cidade"
+                    placeholder="City"
                     className="form-control"
                   />
                 </div>
@@ -99,18 +103,18 @@ const Checkout = () => {
                 <div className="flex-grow-1">
                   <input
                     type="text"
-                    placeholder="CEP"
+                    placeholder="Zipcode"
                     className="form-control"
                   />
                 </div>
                 <div className="w-100">
                   <div className="d-flex justify-content-between align-items-center">
-                    <Link to="/carrinho" className="text-dark">
+                    <Link to="/cart" className="text-dark">
                       <BiArrowBack className="me-2" />
                       Retornar para o Carrinho
                     </Link>
-                    <Link to="/carrinho" className="button">
-                      Continuar para envio
+                    <Link to="/cart" className="button">
+                    Continuar para envio
                     </Link>
                   </div>
                 </div>

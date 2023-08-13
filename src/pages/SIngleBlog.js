@@ -16,19 +16,26 @@ const SingleBlog = () => {
           <div className="col-12">
             <div className="single-blog-card">
               <Link to="/blogs" className="d-flex align-items-center gap-10">
-                <HiOutlineArrowLeft className="fs-4" /> Go back to Blogs
+                <HiOutlineArrowLeft className="fs-4" /> Voltar para os blogs
               </Link>
-              <h3 className="title">A Beautiful Sunday Morning Renaissance</h3>
+              <h3 className="title">Câmbio Automático x Câmbio Manual</h3>
               <img src={blog} className="img-fluid w-100 my-4" alt="blog" />
               <p>
-                You’re only as good as your last collection, which is an
-                enormous pressure. I think there is something about luxury –
-                it’s not something people need, but it’s what they want. It
-                really pulls at their heart. I have a fantastic relationship
-                with money.Scelerisque sociosqu ullamcorper urna nisl mollis
-                vestibulum pretium commodo inceptos cum condimentum placerat
-                diam venenatis blandit hac eget dis lacus a parturient a
-                accumsan nisl ante vestibulum.
+              Vantagens do câmbio manual Preço mais baixo A primeira vantagem
+                é o preço inferior. Em média, um modelo automático custa entre
+                R$ 3 mil e R$ 5 mil a mais do que um equivalente manual,
+                dependendo da tecnologia usada pela fabricante. Menor sobrecarga
+                no sistema de freios Há também uma sobrecarga menor no sistema
+                de freios, já que em carros manuais os motoristas costumam
+                utilizar melhor o recurso do freio-motor. Economia com
+                manutenção e combustível Outros benefícios são o menor custo de
+                manutenção ou reparo e a economia no consumo de combustível.
+                Caixas manuais são mais leves e desperdiçam menos energia do
+                motor para colocar o veículo em movimento. Interação com o carro
+                A interação mais próxima entre homem e máquina também pode ser
+                considerada um trunfo do câmbio manual. Contudo, esta é uma
+                qualidade apreciada apenas por aqueles motoristas que gostam
+                bastante de dirigir.
               </p>
             </div>
           </div>

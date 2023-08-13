@@ -19,7 +19,7 @@ const ListaDesejo = () => {
               />
               <div className="wishlist-card-image">
                 <img
-                  src="images/watch.jpg"
+                  src="images/Kit-filtro.jpg"
                   className="img-fluid w-100"
                   alt="watch"
                 />

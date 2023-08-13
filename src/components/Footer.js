@@ -42,7 +42,7 @@ const Footer = () => {
                   São Paulo - SP
                 </address>
                 <a
-                  href="tel:+11 91851-3204"
+                  href="tel:+91 8264954234"
                   className="mt-3 d-block mb-1 text-white"
                 >
                   +11 91851-3204
@@ -72,7 +72,7 @@ const Footer = () => {
             <div className="col-3">
               <h4 className="text-white mb-4">Informação</h4>
               <div className="footer-link d-flex flex-column">
-                <Link to="/politica-privacidade" className="text-white py-2 mb-1">
+              <Link to="/politica-privacidade" className="text-white py-2 mb-1">
                 Política de Privacidade
                 </Link>
                 <Link to="/politica-reembolso" className="text-white py-2 mb-1">
@@ -88,7 +88,7 @@ const Footer = () => {
               </div>
             </div>
             <div className="col-3">
-              <h4 className="text-white mb-4">Conta</h4>
+            <h4 className="text-white mb-4">Conta</h4>
               <div className="footer-link d-flex flex-column">
                 <Link className="text-white py-2 mb-1">Sobre nós</Link>
                 <Link className="text-white py-2 mb-1">Sac</Link>
@@ -112,7 +112,7 @@ const Footer = () => {
           <div className="row">
             <div className="col-12">
               <p className="text-center mb-0 text-white">
-                &copy; {new Date().getFullYear()}; Powered by Developer's 
+                &copy; {new Date().getFullYear()}; Powered by BSMatic
               </p>
             </div>
           </div>

@@ -17,7 +17,7 @@ const Header = () => {
             </div>
             <div className="col-6">
               <p className="text-end text-white mb-0">
-                Ligue:
+                Hotline:
                 <a className="text-white" href="tel:+91 8264954234">
                   (11) 91851-3204
                 </a>
@@ -39,8 +39,8 @@ const Header = () => {
                 <input
                   type="text"
                   className="form-control py-2"
-                  placeholder="Pesquise aqui o produto..."
-                  aria-label="Pesquise aqui o produto..."
+                  placeholder="Search Product Here..."
+                  aria-label="Search Product Here..."
                   aria-describedby="basic-addon2"
                 />
                 <span className="input-group-text p-3" id="basic-addon2">
@@ -123,17 +123,17 @@ const Header = () => {
                     >
                       <li>
                         <Link className="dropdown-item text-white" to="">
-                          Página Inicial
+                        Página Inicial
                         </Link>
                       </li>
                       <li>
                         <Link className="dropdown-item text-white" to="">
-                          Banner Kit
+                        Banner Kit
                         </Link>
                       </li>
                       <li>
                         <Link className="dropdown-item text-white" to="">
-                          Master Kit
+                        Master Kit
                         </Link>
                       </li>
                       <li>

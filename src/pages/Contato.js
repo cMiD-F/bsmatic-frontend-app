@@ -32,7 +32,7 @@ const Contato = () => {
                     <input
                       type="text"
                       className="form-control"
-                      placeholder="Name"
+                      placeholder="Nome"
                     />
                   </div>
                   <div>
@@ -46,7 +46,7 @@ const Contato = () => {
                     <input
                       type="tel"
                       className="form-control"
-                      placeholder="Mobile Number"
+                      placeholder="Número de telefone"
                     />
                   </div>
                   <div>
@@ -56,7 +56,7 @@ const Contato = () => {
                       className="w-100 form-control"
                       cols="30"
                       rows="4"
-                      placeholder="Comments"
+                      placeholder="Comentários"
                     ></textarea>
                   </div>
                   <div>
