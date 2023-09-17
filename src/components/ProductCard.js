@@ -3,9 +3,7 @@ import ReactStars from "react-rating-stars-component";
 import { Link, useLocation } from "react-router-dom";
 import prodcompare from "../images/prodcompare.svg";
 import wish from "../images/wish.svg";
-import wishlist from "../images/wishlist.svg";
-import watch from "../images/camera.jpg";
-import watch2 from "../images/camera.jpg";
+
 import addcarrinho from "../images/add-cart.svg";
 import view from "../images/view.svg";
 
@@ -20,7 +18,7 @@ const ProductCard = (props) => {
         data.map((item, index) => {
           return (
             <div
-            key={index}
+              key={index}
               className={` ${
                 location.pathname == "/produto" ? `gr-${grid}` : "col-3"
               } `}
@@ -41,8 +39,12 @@ const ProductCard = (props) => {
                   </button>
                 </div>
                 <div className="product-image">
-                  <img src={watch} className="img-fluid" alt="product image" />
-                  <img src={watch2} className="img-fluid" alt="product image" />
+                  <img
+                    src={item?.images[0].url}
+                    className="img-fluid d-block mx-auto"
+                    alt="product image"
+                    width={160}
+                  />
                 </div>
                 <div className="product-details">
                   <h6 className="brand">{item?.marca}</h6>
@@ -55,7 +57,7 @@ const ProductCard = (props) => {
                     activeColor="#ffd700"
                   />
                   <p
-                    className={`description ${
+                    className={`itensInclusos ${
                       grid === 12 ? "d-block" : "d-none"
                     }`}
                     dangerouslySetInnerHTML={{ __html: item?.itensInclusos }}

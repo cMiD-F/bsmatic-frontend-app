@@ -215,7 +215,6 @@ const Produtos = () => {
                       className="d-block img-fluid"
                       alt="grid"
                     />
-
                     <img
                       onClick={() => {
                         setGrid(12);
@@ -230,7 +229,7 @@ const Produtos = () => {
             </div>
             <div className="products-list pb-5">
               <div className="d-flex gap-10 flex-wrap">
-                <ProductCard grid={grid} />
+                <ProductCard data={produtoState} grid={grid}/>
               </div>
             </div>
           </div>
