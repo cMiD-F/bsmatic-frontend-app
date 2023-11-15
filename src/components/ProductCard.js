@@ -33,11 +33,7 @@ const ProductCard = (props) => {
                 }`}
                 className="product-card position-relative"
               >
-                <div className="wishlist-icon position-absolute">
-                  <button className="border-0 bg-transparent">
-                    <img src={wish} alt="wishlist" />
-                  </button>
-                </div>
+
                 <div className="product-image">
                   <img
                     src={item?.images[0].url}

@@ -1,13 +1,44 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import Marquee from "react-fast-marquee";
 import BlogCard from "../components/BlogCard";
 import ProductCard from "../components/ProductCard";
 import SpecialProduct from "../components/SpecialProduct";
 import Container from "../components/Container";
+import { useDispatch, useSelector } from "react-redux";
 import { services } from "../utils/Data";
+import { getAllBlogs } from "../features/blogs/blogSlice";
+import { getAllProdutos } from "../features/produtos/productSlice";
+import moment from "moment";
+import "moment/locale/pt-br";
+import ReactStars from "react-rating-stars-component";
+
+import prodcompare from "../images/prodcompare.svg";
+import wish from "../images/wish.svg";
+
+import addcarrinho from "../images/add-cart.svg";
+import view from "../images/view.svg";
 
 const Home = () => {
+  const blogState = useSelector((state) => state?.blog?.blog);
+  const productState = useSelector((state) => state?.produto.produto);
+  console.log(productState);
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    getBlogs();
+    getalProdutos();
+  }, []);
+
+  const getBlogs = () => {
+    dispatch(getAllBlogs());
+  };
+  const getalProdutos = () => {
+    dispatch(getAllProdutos());
+  };
+
+  moment.locale("pt-br");
+
   return (
     <>
       <Container class1="home-wrapper-1 py-5">
@@ -213,7 +244,7 @@ const Home = () => {
           </div>
           <div className="col-3">
             <div className="famous-card position-relative">
-            <img
+              <img
                 src="images/banner-filtro.webp"
                 className="img-fluid"
                 alt="famous"
@@ -227,13 +258,15 @@ const Home = () => {
           </div>
           <div className="col-3">
             <div className="famous-card position-relative">
-            <img
+              <img
                 src="images/master-kit.webp"
                 className="img-fluid"
                 alt="famous"
               />
               <div className="famous-content position-absolute">
-                <h5 className="text-dark">Banner Kit com Filtro de Óleo e Válvula de Ré</h5>
+                <h5 className="text-dark">
+                  Banner Kit com Filtro de Óleo e Válvula de Ré
+                </h5>
                 <h6 className="text-dark">Lintex</h6>
                 <p className="text-dark">De R$ 2.018,88 ou R$ 168,24/mês.*</p>
               </div>
@@ -241,13 +274,15 @@ const Home = () => {
           </div>
           <div className="col-3">
             <div className="famous-card position-relative">
-            <img
+              <img
                 src="images/Banner_Kit_com_Filtro_de_Óleo_e_Válvula_de_Ré.webp"
                 className="img-fluid"
                 alt="famous"
               />
               <div className="famous-content position-absolute">
-                <h5 className="text-dark">Banner Kit com Filtro de Óleo, Cinta e Válvula de Ré</h5>
+                <h5 className="text-dark">
+                  Banner Kit com Filtro de Óleo, Cinta e Válvula de Ré
+                </h5>
                 <h6 className="text-dark">Lintex</h6>
                 <p className="text-dark">De R$ 2.985,00 ou R$ 248,75/mês.*</p>
               </div>
@@ -259,14 +294,26 @@ const Home = () => {
       <Container class1="special-wrapper py-5 home-wrapper-2">
         <div className="row">
           <div className="col-12">
-          <h3 className="section-heading">Produtos Especiais</h3>
+            <h3 className="section-heading">Produtos Especiais</h3>
           </div>
         </div>
         <div className="row">
-          <SpecialProduct />
-          <SpecialProduct />
-          <SpecialProduct />
-          <SpecialProduct />
+          {productState &&
+            productState?.map((item, index) => {
+              if (item.tags === "special") {
+                return (
+                  <SpecialProduct
+                    key={index}
+                    marca={item?.marca}
+                    title={item?.item}
+                    totalclassificacao={item?.totalclassificacao.toString()}
+                    valorBS={item?.valorBS}
+                    sold={item?.sold}
+                    quantidade={item?.quantidade}
+                  />
+                );
+              }
+            })}
         </div>
       </Container>
       <Container class1="popular-wrapper py-5 home-wrapper-2">
@@ -276,17 +323,70 @@ const Home = () => {
           </div>
         </div>
         <div className="row">
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
+        {productState &&
+            productState?.map((item, index) => {
+              if (item.tags === "popular") {
+                return (
+                  <div
+                  key={index}
+                  className={"col-3"}>
+                  <Link
+                    /* to={`${
+                      location.pathname == "/"
+                        ? "/produto/:id"
+                        : location.pathname == "/produto/:id"
+                        ? "/produto/:id"
+                        : ":id"
+                    }`} */
+
+                    className="product-card position-relative"
+                  >
+    
+                    <div className="product-image">
+                      <img
+                        src={item?.images[0].url}
+                        className="img-fluid d-block mx-auto"
+                        alt="product image"
+                        width={160}
+                      />
+                    </div>
+                    <div className="product-details">
+                      <h6 className="brand">{item?.marca}</h6>
+                      <h5 className="product-title">{item?.item}</h5>
+                      <ReactStars
+                        count={5}
+                        size={24}
+                        value={parseFloat(item?.totalclassificacao)}
+                        edit={false}
+                        activeColor="#ffd700"
+                      />
+                      <p className="price">R$ {item?.valorBS}</p>
+                    </div>
+                    <div className="action-bar position-absolute">
+                      <div className="d-flex flex-column gap-15">
+                        <button className="border-0 bg-transparent">
+                          <img src={prodcompare} alt="compare" />
+                        </button>
+                        <button className="border-0 bg-transparent">
+                          <img src={view} alt="view" />
+                        </button>
+                        <button className="border-0 bg-transparent">
+                          <img src={addcarrinho} alt="addcarrinho" />
+                        </button>
+                      </div>
+                    </div>
+                  </Link>
+                </div>
+                );
+              }
+            })}
         </div>
       </Container>
       <Container class1="marque-wrapper home-wrapper-2 py-5">
         <div className="row">
           <div className="col-12">
             <div className="marquee-inner-wrapper card-wrapper">
-            <Marquee className="d-flex">
+              <Marquee className="d-flex">
                 <div className="mx-4 w-25">
                   <img src="images/citroen.png" alt="marca" />
                 </div>
@@ -319,23 +419,21 @@ const Home = () => {
 
       <Container class1="blog-wrapper py-5 home-wrapper-2">
         <div className="row">
-          <div className="col-12">
-            <h3 className="section-heading">Nossos últimos blogs</h3>
-          </div>
-        </div>
-        <div className="row">
-          <div className="col-3">
-            <BlogCard />
-          </div>
-          <div className="col-3">
-            <BlogCard />
-          </div>
-          <div className="col-3">
-            <BlogCard />
-          </div>
-          <div className="col-3">
-            <BlogCard />
-          </div>
+          {Array.isArray(blogState) ? (
+            blogState.map((item, index) => (
+              <div className="col-3" key={index}>
+                <BlogCard
+                  id={item?._id}
+                  title={item?.title}
+                  descricao={item?.descricao}
+                  image={item?.images[0]?.url}
+                  date={moment(item?.createdAt).format("DD/MMM/YYYY HH:mm")}
+                />
+              </div>
+            ))
+          ) : (
+            <p>Loading...</p>
+          )}
         </div>
       </Container>
     </>

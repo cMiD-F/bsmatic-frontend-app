@@ -22,27 +22,28 @@ const productState = {
 };
 
 export const productSlice = createSlice({
-    name: "produto",
-    initialState: productState,
-    reducers: {},
-    extraReducers: (builder) => {
-      builder
-        .addCase(getAllProdutos.pending, (state) => {
-          state.isLoading = true;
-        })
-        .addCase(getAllProdutos.fulfilled, (state, action) => {
-          state.isLoading = false;
-          state.isError = false;
-          state.isSuccess = true;
-          state.produto = action.payload;
-        })
-        .addCase(getAllProdutos.rejected, (state, action) => {
-          state.isError = true;
-          state.isLoading = false;
-          state.isSuccess = false;
-          state.message = action.error;
-        });
-    },
-  });
-  
-  export default productSlice.reducer;
+  name: "produto",
+  initialState: productState,
+  reducers: {},
+  extraReducers: (builder) => {
+    builder
+      .addCase(getAllProdutos.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(getAllProdutos.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isError = false;
+        state.isSuccess = true;
+        state.produto = action.payload;
+      })
+      .addCase(getAllProdutos.rejected, (state, action) => {
+        state.isError = true;
+        state.isLoading = false;
+        state.isSuccess = false;
+        state.message = action.error;
+      });
+      
+  },
+});
+
+export default productSlice.reducer;

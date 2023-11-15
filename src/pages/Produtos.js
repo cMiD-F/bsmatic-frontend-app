@@ -10,12 +10,13 @@ import { useEffect } from "react";
 
 const Produtos = () => {
   const [grid, setGrid] = useState(4);
-  const produtoState = useSelector((state) => state.produto.produto);
+  const produtoState = useSelector((state) => state?.produto?.produto);
 
   const dispatch = useDispatch();
   useEffect(() => {
     getProdutos();
   }, []);
+  
   const getProdutos = () => {
     dispatch(getAllProdutos());
   };
@@ -229,7 +230,10 @@ const Produtos = () => {
             </div>
             <div className="products-list pb-5">
               <div className="d-flex gap-10 flex-wrap">
-                <ProductCard data={produtoState} grid={grid}/>
+                <ProductCard
+                  data={produtoState ? produtoState : []}
+                  grid={grid}
+                />
               </div>
             </div>
           </div>

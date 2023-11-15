@@ -61,17 +61,7 @@ const Header = () => {
                     </p>
                   </Link>
                 </div>
-                <div>
-                  <Link
-                    to="/lista-desejo"
-                    className="d-flex align-items-center gap-10 text-white"
-                  >
-                    <img src={wishlist} alt="lista-desejo" />
-                    <p className="mb-0">
-                      Lista de <br /> Desejo
-                    </p>
-                  </Link>
-                </div>
+
                 <div>
                   <Link
                     to="/login"
