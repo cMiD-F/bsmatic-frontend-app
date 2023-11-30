@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ReactStars from "react-rating-stars-component";
 import BreadCrumb from "../components/BreadCrumb";
 import Meta from "../components/Meta";
@@ -7,16 +7,30 @@ import ReactImageZoom from "react-image-zoom";
 //import Color from "../components/Color";
 import { TbGitCompare } from "react-icons/tb";
 import { AiOutlineHeart } from "react-icons/ai";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import watch from "../images/watch.jpg";
 import Container from "../components/Container";
+import { useDispatch, useSelector } from "react-redux";
+import { getAProduto } from "../features/produtos/productSlice";
 
 const ProdutoUnico = () => {
+  const location = useLocation();
+  console.log(location);
+  const getProdutoId = location.pathname.split("/")[2];
+  const dispatch = useDispatch();
+  const produtoState = useSelector((state) => state.produto.singleproduto);
+  console.log(produtoState);
+  useEffect(() => {
+    dispatch(getAProduto(getProdutoId));
+  }, []);
+
   const props = {
     width: 594,
     height: 600,
     zoomWidth: 600,
-    img: "https://images.pexels.com/photos/190819/pexels-photo-190819.jpeg?cs=srgb&dl=pexels-fernando-arcos-190819.jpg&fm=jpg",
+    img: produtoState?.images[0]?.url
+      ? produtoState?.images[0]?.url
+      : "https://images.pexels.com/photos/190819/pexels-photo-190819.jpeg?cs=srgb&dl=pexels-fernando-arcos-190819.jpg&fm=jpg",
   };
 
   const [orderedProduct, setorderedProduct] = useState(true);
@@ -39,52 +53,39 @@ const ProdutoUnico = () => {
           <div className="col-6">
             <div className="main-product-image">
               <div>
-                <ReactImageZoom {...props} />
+                {props.img ? (
+                  <ReactImageZoom {...props} />
+                ) : (
+                  <p>Imagem não disponível</p>
+                )}
               </div>
             </div>
             <div className="other-product-images d-flex flex-wrap gap-15">
-              <div>
-                <img
-                  src="https://images.pexels.com/photos/190819/pexels-photo-190819.jpeg?cs=srgb&dl=pexels-fernando-arcos-190819.jpg&fm=jpg"
-                  className="img-fluid"
-                  alt=""
-                />
-              </div>
-              <div>
-                <img
-                  src="https://images.pexels.com/photos/190819/pexels-photo-190819.jpeg?cs=srgb&dl=pexels-fernando-arcos-190819.jpg&fm=jpg"
-                  className="img-fluid"
-                  alt=""
-                />
-              </div>
-              <div>
-                <img
-                  src="https://images.pexels.com/photos/190819/pexels-photo-190819.jpeg?cs=srgb&dl=pexels-fernando-arcos-190819.jpg&fm=jpg"
-                  className="img-fluid"
-                  alt=""
-                />
-              </div>
-              <div>
-                <img
-                  src="https://images.pexels.com/photos/190819/pexels-photo-190819.jpeg?cs=srgb&dl=pexels-fernando-arcos-190819.jpg&fm=jpg"
-                  className="img-fluid"
-                  alt=""
-                />
-              </div>
+              {produtoState?.images.map((item, index) => {
+                return (
+                  <div>
+                    <img
+                      src={item?.url}
+                      className="img-fluid"
+                      alt=""
+                    />
+                  </div>
+                );
+              })}              
             </div>
           </div>
           <div className="col-6">
             <div className="main-product-details">
               <div className="border-bottom">
-                <h3 className="title">Kit Filtro de Óleo</h3>
+                <h3 className="title">{produtoState?.item}</h3>
               </div>
               <div className="border-bottom py-3">
-                <p className="price">R$ 100</p>
+                <p className="price">R$ {produtoState?.valorBS}</p>
                 <div className="d-flex align-items-center gap-10">
                   <ReactStars
                     count={5}
                     size={24}
-                    value={4}
+                    value={produtoState?.totalclassificacao}
                     edit={false}
                     activeColor="#ffd700"
                   />
@@ -96,41 +97,26 @@ const ProdutoUnico = () => {
               </div>
               <div className=" py-3">
                 <div className="d-flex gap-10 align-items-center my-2">
-                  <h3 className="product-heading">Tipo :</h3>
-                  <p className="product-data">Watch</p>
-                </div>
-                <div className="d-flex gap-10 align-items-center my-2">
                   <h3 className="product-heading">Marca :</h3>
-                  <p className="product-data">Lintex</p>
+                  <p className="product-data">{produtoState?.marca}</p>
                 </div>
                 <div className="d-flex gap-10 align-items-center my-2">
                   <h3 className="product-heading">Categoria :</h3>
-                  <p className="product-data">AW03-72</p>
+                  <p className="product-data">{produtoState?.categoria}</p>
+                </div>
+                <div className="d-flex gap-10 align-items-center my-2">
+                  <h3 className="product-heading">Cód. Transmissão:</h3>
+                  <p className="product-data">
+                    {produtoState?.codigoTransmissao}
+                  </p>
+                </div>
+                <div className="d-flex gap-10 align-items-center my-2">
+                  <h3 className="product-heading">Aplicação:</h3>
+                  <p className="product-data">{produtoState?.aplicacao}</p>
                 </div>
                 <div className="d-flex gap-10 align-items-center my-2">
                   <h3 className="product-heading">Tags :</h3>
-                  <p className="product-data">Kit</p>
-                </div>
-                <div className="d-flex gap-10 align-items-center my-2">
-                  <h3 className="product-heading">Disponibilidade :</h3>
-                  <p className="product-data">Em estoque</p>
-                </div>
-                <div className="d-flex gap-10 flex-column mt-2 mb-3">
-                  <h3 className="product-heading">Size :</h3>
-                  <div className="d-flex flex-wrap gap-15">
-                    <span className="badge border border-1 bg-white text-dark border-secondary">
-                      S
-                    </span>
-                    <span className="badge border border-1 bg-white text-dark border-secondary">
-                      M
-                    </span>
-                    <span className="badge border border-1 bg-white text-dark border-secondary">
-                      XL
-                    </span>
-                    <span className="badge border border-1 bg-white text-dark border-secondary">
-                      XXL
-                    </span>
-                  </div>
+                  <p className="product-data">{produtoState?.tags}</p>
                 </div>
                 <div className="d-flex align-items-center gap-15 flex-row mt-2 mb-3">
                   <h3 className="product-heading">Quantidade :</h3>
@@ -141,7 +127,7 @@ const ProdutoUnico = () => {
                       min={1}
                       max={10}
                       className="form-control"
-                      style={{ width: "70px" }}
+                      style={{ width: "50px" }}
                       id=""
                     />
                   </div>
@@ -184,9 +170,7 @@ const ProdutoUnico = () => {
                   <a
                     href="javascript:void(0);"
                     onClick={() => {
-                      copyToClipboard(
-                        "https://images.pexels.com/photos/190819/pexels-photo-190819.jpeg?cs=srgb&dl=pexels-fernando-arcos-190819.jpg&fm=jpg"
-                      );
+                      copyToClipboard(window.location.href);
                     }}
                   >
                     Copiar link do produto
@@ -202,14 +186,11 @@ const ProdutoUnico = () => {
           <div className="col-12">
             <h4>Descrição</h4>
             <div className="bg-white p-3">
-              <p>
-                01 Filtro de Óleo.
-                <br />
-                01 Silicone Neutro - Formador de Juntas (Onyx).
-                <br />
-                01 Junta do Cárter (Borracha Nitrílica - Altamente resistente a
-                óleo hidráulico).
-              </p>
+              <p
+                dangerouslySetInnerHTML={{
+                  __html: produtoState?.itensInclusos,
+                }}
+              ></p>
             </div>
           </div>
         </div>
@@ -242,7 +223,7 @@ const ProdutoUnico = () => {
                 )}
               </div>
               <div className="review-form py-4">
-              <h4>Escreva uma crítica</h4>
+                <h4>Escreva uma crítica</h4>
                 <form action="" className="d-flex flex-column gap-15">
                   <div>
                     <ReactStars
@@ -264,7 +245,7 @@ const ProdutoUnico = () => {
                     ></textarea>
                   </div>
                   <div className="d-flex justify-content-end">
-                  <button className="button border-0">Enviar revisão</button>
+                    <button className="button border-0">Enviar revisão</button>
                   </div>
                 </form>
               </div>
@@ -337,7 +318,7 @@ const ProdutoUnico = () => {
             </div>
             <div className="modal-footer border-0 py-0 justify-content-center gap-30">
               <button type="button" className="button" data-bs-dismiss="modal">
-              Ver meu carrinho
+                Ver meu carrinho
               </button>
               <button type="button" className="button signup">
                 Checkout

@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Marquee from "react-fast-marquee";
 import BlogCard from "../components/BlogCard";
 import ProductCard from "../components/ProductCard";
@@ -22,7 +22,7 @@ import view from "../images/view.svg";
 const Home = () => {
   const blogState = useSelector((state) => state?.blog?.blog);
   const productState = useSelector((state) => state?.produto.produto);
-  console.log(productState);
+  const navigate = useNavigate();
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -219,60 +219,51 @@ const Home = () => {
           <div className="col-12">
             <h3 className="section-heading">Coleção em destaque</h3>
           </div>
-          {productState &&
-            productState?.map((item, index) => {
+          {Array.isArray(productState) &&
+            productState.map((item, index) => {
               if (item.tags === "featured") {
                 return (
-                  <div
-                  key={index}
-                  className={"col-3"}>
-                  <Link
-                    /* to={`${
-                      location.pathname == "/"
-                        ? "/produto/:id"
-                        : location.pathname == "/produto/:id"
-                        ? "/produto/:id"
-                        : ":id"
-                    }`} */
-
-                    className="product-card position-relative"
-                  >
-    
-                    <div className="product-image">
-                      <img
-                        src={item?.images[0].url}
-                        className="img-fluid d-block mx-auto"
-                        alt="product image"
-                        width={160}
-                      />
-                    </div>
-                    <div className="product-details">
-                      <h6 className="brand">{item?.marca}</h6>
-                      <h5 className="product-title">{item?.item}</h5>
-                      <ReactStars
-                        count={5}
-                        size={24}
-                        value={parseFloat(item?.totalclassificacao)}
-                        edit={false}
-                        activeColor="#ffd700"
-                      />
-                      <p className="price">R$ {item?.valorBS}</p>
-                    </div>
-                    <div className="action-bar position-absolute">
-                      <div className="d-flex flex-column gap-15">
-                        <button className="border-0 bg-transparent">
-                          <img src={prodcompare} alt="compare" />
-                        </button>
-                        <button className="border-0 bg-transparent">
-                          <img src={view} alt="view" />
-                        </button>
-                        <button className="border-0 bg-transparent">
-                          <img src={addcarrinho} alt="addcarrinho" />
-                        </button>
+                  <div key={index} className={"col-3"}>
+                    <div className="product-card position-relative">
+                      <div className="product-image">
+                        <img
+                          src={item?.images[0].url}
+                          className="img-fluid d-block mx-auto"
+                          alt="product image"
+                          width={160}
+                        />
+                      </div>
+                      <div className="product-details">
+                        <h6 className="brand">{item?.marca}</h6>
+                        <h5 className="product-title">{item?.item}</h5>
+                        <ReactStars
+                          count={5}
+                          size={24}
+                          value={parseFloat(item?.totalclassificacao)}
+                          edit={false}
+                          activeColor="#ffd700"
+                        />
+                        <p className="price">R$ {item?.valorBS}</p>
+                      </div>
+                      <div className="action-bar position-absolute">
+                        <div className="d-flex flex-column gap-15">
+                          <button className="border-0 bg-transparent">
+                            <img src={prodcompare} alt="compare" />
+                          </button>
+                          <button className="border-0 bg-transparent">
+                            <img
+                              onClick={() => navigate("/produto/" + item?._id)}
+                              src={view}
+                              alt="view"
+                            />
+                          </button>
+                          <button className="border-0 bg-transparent">
+                            <img src={addcarrinho} alt="addcarrinho" />
+                          </button>
+                        </div>
                       </div>
                     </div>
-                  </Link>
-                </div>
+                  </div>
                 );
               }
             })}
@@ -357,6 +348,7 @@ const Home = () => {
                 return (
                   <SpecialProduct
                     key={index}
+                    id={item?._id}
                     marca={item?.marca}
                     title={item?.item}
                     totalclassificacao={item?.totalclassificacao.toString()}
@@ -376,60 +368,51 @@ const Home = () => {
           </div>
         </div>
         <div className="row">
-        {productState &&
+          {productState &&
             productState?.map((item, index) => {
               if (item.tags === "popular") {
                 return (
-                  <div
-                  key={index}
-                  className={"col-3"}>
-                  <Link
-                    /* to={`${
-                      location.pathname == "/"
-                        ? "/produto/:id"
-                        : location.pathname == "/produto/:id"
-                        ? "/produto/:id"
-                        : ":id"
-                    }`} */
-
-                    className="product-card position-relative"
-                  >
-    
-                    <div className="product-image">
-                      <img
-                        src={item?.images[0].url}
-                        className="img-fluid d-block mx-auto"
-                        alt="product image"
-                        width={160}
-                      />
-                    </div>
-                    <div className="product-details">
-                      <h6 className="brand">{item?.marca}</h6>
-                      <h5 className="product-title">{item?.item}</h5>
-                      <ReactStars
-                        count={5}
-                        size={24}
-                        value={parseFloat(item?.totalclassificacao)}
-                        edit={false}
-                        activeColor="#ffd700"
-                      />
-                      <p className="price">R$ {item?.valorBS}</p>
-                    </div>
-                    <div className="action-bar position-absolute">
-                      <div className="d-flex flex-column gap-15">
-                        <button className="border-0 bg-transparent">
-                          <img src={prodcompare} alt="compare" />
-                        </button>
-                        <button className="border-0 bg-transparent">
-                          <img src={view} alt="view" />
-                        </button>
-                        <button className="border-0 bg-transparent">
-                          <img src={addcarrinho} alt="addcarrinho" />
-                        </button>
+                  <div key={index} className={"col-3"}>
+                    <div className="product-card position-relative">
+                      <div className="product-image">
+                        <img
+                          src={item?.images[0].url}
+                          className="img-fluid d-block mx-auto"
+                          alt="product image"
+                          width={160}
+                        />
+                      </div>
+                      <div className="product-details">
+                        <h6 className="brand">{item?.marca}</h6>
+                        <h5 className="product-title">{item?.item}</h5>
+                        <ReactStars
+                          count={5}
+                          size={24}
+                          value={parseFloat(item?.totalclassificacao)}
+                          edit={false}
+                          activeColor="#ffd700"
+                        />
+                        <p className="price">R$ {item?.valorBS}</p>
+                      </div>
+                      <div className="action-bar position-absolute">
+                        <div className="d-flex flex-column gap-15">
+                          <button className="border-0 bg-transparent">
+                            <img src={prodcompare} alt="compare" />
+                          </button>
+                          <button className="border-0 bg-transparent">
+                            <img
+                              onClick={() => navigate("/produto/" + item?._id)}
+                              src={view}
+                              alt="view"
+                            />
+                          </button>
+                          <button className="border-0 bg-transparent">
+                            <img src={addcarrinho} alt="addcarrinho" />
+                          </button>
+                        </div>
                       </div>
                     </div>
-                  </Link>
-                </div>
+                  </div>
                 );
               }
             })}
