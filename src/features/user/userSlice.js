@@ -1,3 +1,4 @@
+// userSlice.js
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { authService } from "./userService";
 import { toast } from "react-toastify";
@@ -24,12 +25,29 @@ export const loginUser = createAsyncThunk(
   }
 );
 
+export const addProdutoNoCarrinho = createAsyncThunk(
+  "user/carrinho/addProduto",
+  async (produtoData, thunkAPI) => {
+    try {
+      return await authService.addProdutoNoCarrinho(produtoData);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
+const getCustomerFromLocalStorage = localStorage.getItem("customer")
+  ? JSON.parse(localStorage.getItem("customer"))
+  : null;
+
 const initialState = {
-  user: "",
+  user: getCustomerFromLocalStorage,
   isError: false,
   isSuccess: false,
   isLoading: false,
   message: "",
+  errorDetails: null,
+  carrinho: [], // Adicione esta linha para armazenar produtos no carrinho
 };
 
 export const authSlice = createSlice({
@@ -80,6 +98,23 @@ export const authSlice = createSlice({
         if (state.isError === true) {
           toast.error(action.error);
         }
+      })
+      .addCase(addProdutoNoCarrinho.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(addProdutoNoCarrinho.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isError = false;
+        state.isSuccess = true;
+        state.carrinho.push(action.payload);
+        toast.success("Produto adicionado ao carrinho");
+      })
+      .addCase(addProdutoNoCarrinho.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.isSuccess = false;
+        state.message = action.error;
+        toast.error(action.error);
       });
   },
 });

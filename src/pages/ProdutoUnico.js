@@ -4,25 +4,50 @@ import BreadCrumb from "../components/BreadCrumb";
 import Meta from "../components/Meta";
 import ProductCard from "../components/ProductCard";
 import ReactImageZoom from "react-image-zoom";
-//import Color from "../components/Color";
 import { TbGitCompare } from "react-icons/tb";
 import { AiOutlineHeart } from "react-icons/ai";
 import { Link, useLocation } from "react-router-dom";
-import watch from "../images/watch.jpg";
 import Container from "../components/Container";
 import { useDispatch, useSelector } from "react-redux";
 import { getAProduto } from "../features/produtos/productSlice";
+import { addProdutoNoCarrinho } from "../features/user/userSlice";
+import { toast } from "react-toastify";
+
+import watch from "../images/watch.jpg";
 
 const ProdutoUnico = () => {
+  const [quantidade, setQuantidade] = useState(1);
+
   const location = useLocation();
   console.log(location);
   const getProdutoId = location.pathname.split("/")[2];
   const dispatch = useDispatch();
   const produtoState = useSelector((state) => state.produto.singleproduto);
-  console.log(produtoState);
+
   useEffect(() => {
     dispatch(getAProduto(getProdutoId));
   }, []);
+
+  const handleAddToCart = async () => {
+    try {
+      const produtoData = {
+        produtoId: produtoState?._id,
+        quantidade,
+        valorBS: produtoState?.valorBS,
+      };
+  
+      const response = await dispatch(addProdutoNoCarrinho(produtoData));
+  
+      if (response.payload) {
+        toast.success("Produto adicionado ao carrinho com sucesso!");
+      } else {
+        toast.error("Erro ao adicionar o produto ao carrinho");
+      }
+    } catch (error) {
+      console.error("Erro na solicitação:", error);
+      toast.error("Erro ao adicionar o produto ao carrinho");
+    }
+  };
 
   const props = {
     width: 594,
@@ -33,9 +58,9 @@ const ProdutoUnico = () => {
       : "https://images.pexels.com/photos/190819/pexels-photo-190819.jpeg?cs=srgb&dl=pexels-fernando-arcos-190819.jpg&fm=jpg",
   };
 
+
   const [orderedProduct, setorderedProduct] = useState(true);
   const copyToClipboard = (text) => {
-    console.log("text", text);
     var textField = document.createElement("textarea");
     textField.innerText = text;
     document.body.appendChild(textField);
@@ -43,7 +68,9 @@ const ProdutoUnico = () => {
     document.execCommand("copy");
     textField.remove();
   };
+
   const closeModal = () => {};
+  
   return (
     <>
       <Meta title={"Nome do produto"} />
@@ -63,15 +90,11 @@ const ProdutoUnico = () => {
             <div className="other-product-images d-flex flex-wrap gap-15">
               {produtoState?.images.map((item, index) => {
                 return (
-                  <div>
-                    <img
-                      src={item?.url}
-                      className="img-fluid"
-                      alt=""
-                    />
+                  <div key={index}>
+                    <img src={item?.url} className="img-fluid" alt="" />
                   </div>
                 );
-              })}              
+              })}
             </div>
           </div>
           <div className="col-6">
@@ -85,7 +108,7 @@ const ProdutoUnico = () => {
                   <ReactStars
                     count={5}
                     size={24}
-                    value={produtoState?.totalclassificacao}
+                    value={parseInt(produtoState?.totalclassificacao)}
                     edit={false}
                     activeColor="#ffd700"
                   />
@@ -129,14 +152,15 @@ const ProdutoUnico = () => {
                       className="form-control"
                       style={{ width: "50px" }}
                       id=""
+                      onChange={(e) => setQuantidade(e.target.value)}
+                      value={quantidade}
                     />
                   </div>
                   <div className="d-flex align-items-center gap-30 ms-5">
                     <button
                       className="button border-0"
-                      data-bs-toggle="modal"
-                      data-bs-target="#staticBackdrop"
                       type="button"
+                      onClick={handleAddToCart}
                     >
                       Add ao carrinho
                     </button>

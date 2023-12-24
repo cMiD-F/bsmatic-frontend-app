@@ -1,1 +1,18 @@
-export const base_url = "http://localhost:5000/api/";
+export const getConfig = () => {
+  const token = localStorage.getItem("token");
+
+  if (token) {
+    return {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    };
+  } else {
+    return {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+  }
+};

@@ -2,7 +2,8 @@ import React from "react";
 import ReactStars from "react-rating-stars-component";
 import { Link } from "react-router-dom";
 const SpecialProduct = (props) => {
-  const { title, marca, totalclassificacao, valorBS, sold, quantidade, id} = props;
+  const { title, marca, totalclassificacao, valorBS, sold, quantidade, id } =
+    props;
 
   return (
     <>
@@ -22,7 +23,7 @@ const SpecialProduct = (props) => {
               <ReactStars
                 count={5}
                 size={24}
-                value={totalclassificacao}
+                value={parseInt(totalclassificacao)}
                 edit={false}
                 activeColor="#ffd700"
               />
@@ -46,14 +47,18 @@ const SpecialProduct = (props) => {
                   <div
                     className="progress-bar"
                     role="progressbar"
-                    style={{ width: quantidade / quantidade + sold * 100 + "%"}}
+                    style={{
+                      width: quantidade / quantidade + sold * 100 + "%",
+                    }}
                     aria-valuenow={quantidade / quantidade + sold * 100}
                     aria-valuemin={quantidade}
                     aria-valuemax={sold + quantidade}
                   ></div>
                 </div>
               </div>
-              <Link className="button" to={"/produto/"+id}>Visualizar</Link>
+              <Link className="button" to={"/produto/" + id}>
+                Visualizar
+              </Link>
             </div>
           </div>
         </div>

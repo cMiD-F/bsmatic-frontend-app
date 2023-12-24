@@ -9,7 +9,7 @@ import view from "../images/view.svg";
 
 const ProductCard = (props) => {
   const { grid, data } = props;
-  console.log(data);
+  //console.log(data);
   let location = useLocation();
 
   return (
