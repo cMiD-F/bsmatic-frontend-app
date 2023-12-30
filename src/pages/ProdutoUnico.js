@@ -28,24 +28,12 @@ const ProdutoUnico = () => {
     dispatch(getAProduto(getProdutoId));
   }, []);
 
-  const handleAddToCart = async () => {
-    try {
-      const produtoData = {
-        produtoId: produtoState?._id,
-        quantidade,
-        valorBS: produtoState?.valorBS,
-      };
-  
-      const response = await dispatch(addProdutoNoCarrinho(produtoData));
-  
-      if (response.payload) {
-        toast.success("Produto adicionado ao carrinho com sucesso!");
-      } else {
-        toast.error("Erro ao adicionar o produto ao carrinho");
-      }
-    } catch (error) {
-      console.error("Erro na solicitação:", error);
-      toast.error("Erro ao adicionar o produto ao carrinho");
+  const uploadCarrinho = async () => {
+    if (quantidade === null) {
+      toast.error("Por favor selecione uma quantidade.")
+      return false
+    } else {
+      dispatch(addProdutoNoCarrinho({produtoId:produtoState?._id,quantidade,valorBS:produtoState?.valorBS}))
     }
   };
 
@@ -160,7 +148,7 @@ const ProdutoUnico = () => {
                     <button
                       className="button border-0"
                       type="button"
-                      onClick={handleAddToCart}
+                      onClick={uploadCarrinho}
                     >
                       Add ao carrinho
                     </button>

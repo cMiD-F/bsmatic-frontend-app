@@ -29,10 +29,9 @@ const addNoCarro = async (carroData) => {
   }
 };
 
-const addProdutoNoCarrinho = async (produtoData) => {
-  const response = await axios.post(
+const obtemCarro = async () => {
+  const response = await axios.get(
     `${base_url}user/carrinho`,
-    produtoData,
     getConfig()
   );
   if (response.data) {
@@ -40,9 +39,21 @@ const addProdutoNoCarrinho = async (produtoData) => {
   }
 };
 
+// const addProdutoNoCarrinho = async (produtoData) => {
+//   const response = await axios.post(
+//     `${base_url}user/carrinho`,
+//     produtoData,
+//     getConfig()
+//   );
+//   if (response.data) {
+//     return response.data;
+//   }
+// };
+
 export const authService = {
   register,
   login,
   addNoCarro,
-  addProdutoNoCarrinho,
+  //addProdutoNoCarrinho,
+  obtemCarro
 };

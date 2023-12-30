@@ -29,7 +29,18 @@ export const addProdutoNoCarrinho = createAsyncThunk(
   "user/carrinho/addProduto",
   async (produtoData, thunkAPI) => {
     try {
-      return await authService.addProdutoNoCarrinho(produtoData);
+      return await authService.addNoCarro(produtoData);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
+export const obtemUserCarrinho = createAsyncThunk(
+  "user/carrinho/get",
+  async (thunkAPI) => {
+    try {
+      return await authService.obtemCarro();
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
@@ -110,6 +121,22 @@ export const authSlice = createSlice({
         toast.success("Produto adicionado ao carrinho");
       })
       .addCase(addProdutoNoCarrinho.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.isSuccess = false;
+        state.message = action.error;
+        toast.error(action.error);
+      })
+      .addCase(obtemUserCarrinho.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(obtemUserCarrinho.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isError = false;
+        state.isSuccess = true;
+        state.carrinhoProdutos = action.payload;
+      })
+      .addCase(obtemUserCarrinho.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.isSuccess = false;
