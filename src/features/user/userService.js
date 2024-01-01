@@ -30,30 +30,31 @@ const addNoCarro = async (carroData) => {
 };
 
 const obtemCarro = async () => {
-  const response = await axios.get(
-    `${base_url}user/carrinho`,
-    getConfig()
-  );
+  const response = await axios.get(`${base_url}user/carrinho`, getConfig());
   if (response.data) {
     return response.data;
   }
 };
 
-// const addProdutoNoCarrinho = async (produtoData) => {
-//   const response = await axios.post(
-//     `${base_url}user/carrinho`,
-//     produtoData,
-//     getConfig()
-//   );
-//   if (response.data) {
-//     return response.data;
-//   }
-// };
+const removeProductFromCart = async(carrinhoItemId) => {
+  const response = await axios.delete(`${base_url}user/delete-product-cart/${carrinhoItemId}`, getConfig());
+  if(response.data) {
+    return response.data;
+  }
+}
+
+const updateProductFromCart = async(cartDetail) =>{
+  const response = await axios.delete(`${base_url}user/update-product-cart/${cartDetail.carrinhoItemId}/${cartDetail.quantidade}`, getConfig());
+  if(response.data){
+    return response.data;
+  }
+}
 
 export const authService = {
   register,
   login,
   addNoCarro,
-  //addProdutoNoCarrinho,
-  obtemCarro
+  obtemCarro,
+  removeProductFromCart,
+  updateProductFromCart
 };

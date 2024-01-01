@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import BreadCrumb from "../components/BreadCrumb";
 import Meta from "../components/Meta";
 // import watch from "../images/watch.jpg";
@@ -6,15 +6,54 @@ import { AiFillDelete } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import Container from "../components/Container";
 import { useDispatch, useSelector } from "react-redux";
-import { obtemUserCarrinho } from "../features/user/userSlice";
+import {
+  deleteCartProduct,
+  getUserCarrinho,
+  updateCartProduct,
+} from "../features/user/userSlice";
 
 const Carrinho = () => {
   const dispatch = useDispatch();
+  const [productUpdateDetail, setProductUpdateDetail] = useState(null);
+  const [carrinhoTotal, setCarrinhoTotal] = useState(null);
+
+  // Recupera os dados do carrino do usuário a cada renderização da página
   const userCarrinhoState = useSelector((state) => state.auth.carrinhoProdutos);
+  useEffect(() => {
+    dispatch(getUserCarrinho());
+  }, []);
 
   useEffect(() => {
-    dispatch(obtemUserCarrinho());
-  }, []);
+    if (productUpdateDetail !== null) {
+      dispatch(
+        updateCartProduct({
+          carrinhoItemId: productUpdateDetail?.carrinhoItemId,
+          quantidade: productUpdateDetail?.quantidade,
+        })
+      );
+      setTimeout(() => {
+        dispatch(getUserCarrinho());
+      }, 200);
+    }
+  }, [productUpdateDetail]);
+
+  const deleteACarrinhoProduto = (id) => {
+    dispatch(deleteCartProduct(id));
+    setTimeout(() => {
+      dispatch(getUserCarrinho());
+    }, 200);
+  };
+
+  useEffect(() => {
+    let sum = 0;
+    for (let index = 0; index < userCarrinhoState?.length; index++) {
+      sum =
+        sum +
+        Number(userCarrinhoState[index].quantidade) *
+          userCarrinhoState[index].valorBS;
+      setCarrinhoTotal(sum);
+    }
+  }, [userCarrinhoState]);
 
   ///console.log(userCarrinhoState);
   return (
@@ -44,7 +83,6 @@ const Carrinho = () => {
                       <div className="w-75">
                         <p>{item?.produtoId.item}</p>
                         <p>{item?.produtoId.codigoTransmissao}</p>
-                       
                       </div>
                     </div>
                     <div className="cart-col-2">
@@ -59,15 +97,32 @@ const Carrinho = () => {
                           min={1}
                           max={10}
                           id=""
-                          value={item?.quantidade}
+                          value={
+                            productUpdateDetail?.quantidade
+                              ? productUpdateDetail?.quantidade
+                              : item?.quantidade
+                          }
+                          onChange={(e) => {
+                            setProductUpdateDetail({
+                              carrinhoItemId: item?._id,
+                              quantidade: e.target.value,
+                            });
+                          }}
                         />
                       </div>
                       <div>
-                        <AiFillDelete className="text-danger " />
+                        <AiFillDelete
+                          onClick={() => {
+                            deleteACarrinhoProduto(item?._id);
+                          }}
+                          className="text-danger "
+                        />
                       </div>
                     </div>
                     <div className="cart-col-4">
-                      <h5 className="preço">R$ {item?.valorBS * item?.quantidade}</h5>
+                      <h5 className="preço">
+                        R$ {item?.valorBS * item?.quantidade}
+                      </h5>
                     </div>
                   </div>
                 );
@@ -78,13 +133,15 @@ const Carrinho = () => {
               <Link to="/product" className="button">
                 Continuar fazendo compras
               </Link>
-              <div className="d-flex flex-column align-items-end">
-                <h4>SubTotal: R$ 1000</h4>
-                <p>Impostos e frete calculados na finalização da compra</p>
-                <Link to="/checkout" className="button">
-                  Checkout
-                </Link>
-              </div>
+              {(carrinhoTotal !== null || carrinhoTotal !== 0) && (
+                <div className="d-flex flex-column align-items-end">
+                  <h4>SubTotal: R${carrinhoTotal}</h4>
+                  <p>Impostos e frete calculados na finalização da compra</p>
+                  <Link to="/checkout" className="button">
+                    Checkout
+                  </Link>
+                </div>
+              )}
             </div>
           </div>
         </div>

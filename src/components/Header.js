@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { NavLink, Link } from "react-router-dom";
 import { BsSearch } from "react-icons/bs";
 import compare from "../images/compare.svg";
@@ -6,7 +7,21 @@ import wishlist from "../images/wishlist.svg";
 import user from "../images/user.svg";
 import cart from "../images/cart.svg";
 import menu from "../images/menu.svg";
+
 const Header = () => {
+  const dispatch = useDispatch();
+  const carrinhoState = useSelector((state) => state.auth.carrinhoProdutos);
+  const [total, setTotal] = useState(null)
+  useEffect(() => {
+    let sum = 0;
+    for (let index = 0; index < carrinhoState?.length; index++) {
+      sum =
+        sum +
+        Number(carrinhoState[index].quantidade) * carrinhoState[index].valorBS;
+        setTotal(sum)
+    }
+  });
+
   return (
     <>
       <header className="header-top-strip py-3">
@@ -80,8 +95,8 @@ const Header = () => {
                   >
                     <img src={cart} alt="carrinho" />
                     <div className="d-flex flex-column gap-10">
-                      <span className="badge bg-white text-dark">0</span>
-                      <p className="mb-0">R$ 500</p>
+                      <span className="badge bg-white text-dark">{carrinhoState?.length ? carrinhoState?.length :0}</span>
+                      <p className="mb-0">R${total ? total :0}</p>
                     </div>
                   </Link>
                 </div>
@@ -113,17 +128,17 @@ const Header = () => {
                     >
                       <li>
                         <Link className="dropdown-item text-white" to="">
-                        Página Inicial
+                          Página Inicial
                         </Link>
                       </li>
                       <li>
                         <Link className="dropdown-item text-white" to="">
-                        Banner Kit
+                          Banner Kit
                         </Link>
                       </li>
                       <li>
                         <Link className="dropdown-item text-white" to="">
-                        Master Kit
+                          Master Kit
                         </Link>
                       </li>
                       <li>

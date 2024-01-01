@@ -6,34 +6,55 @@ import ProductCard from "../components/ProductCard";
 import ReactImageZoom from "react-image-zoom";
 import { TbGitCompare } from "react-icons/tb";
 import { AiOutlineHeart } from "react-icons/ai";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Container from "../components/Container";
 import { useDispatch, useSelector } from "react-redux";
 import { getAProduto } from "../features/produtos/productSlice";
-import { addProdutoNoCarrinho } from "../features/user/userSlice";
+import {
+  addProdutoNoCarrinho,
+  getUserCarrinho,
+} from "../features/user/userSlice";
 import { toast } from "react-toastify";
 
 import watch from "../images/watch.jpg";
 
 const ProdutoUnico = () => {
   const [quantidade, setQuantidade] = useState(1);
-
+  const [alreadyAdded, setAlreadyAdded] = useState(false);
   const location = useLocation();
-  console.log(location);
+  const navigate = useNavigate();
   const getProdutoId = location.pathname.split("/")[2];
   const dispatch = useDispatch();
   const produtoState = useSelector((state) => state.produto.singleproduto);
+  const carrinhoState = useSelector((state) => state.auth.carrinhoProdutos);
 
   useEffect(() => {
     dispatch(getAProduto(getProdutoId));
+    dispatch(getUserCarrinho());
   }, []);
+
+  useEffect(() => {
+    if (carrinhoState) {
+      for (let index = 0; index < carrinhoState.length; index++) {
+        if (getProdutoId === carrinhoState[index]?.produtoId?._id) {
+          setAlreadyAdded(true);
+          break;  // Sair do loop quando já foi adicionado
+        }
+      }
+    }
+  }, [carrinhoState]);
 
   const uploadCarrinho = async () => {
     if (quantidade === null) {
-      toast.error("Por favor selecione uma quantidade.")
-      return false
+      toast.error("Por favor, selecione uma quantidade.");
+      return false;
     } else {
-      dispatch(addProdutoNoCarrinho({produtoId:produtoState?._id,quantidade,valorBS:produtoState?.valorBS}))
+      dispatch(addProdutoNoCarrinho({
+        produtoId: produtoState?._id,
+        quantidade,
+        valorBS: produtoState?.valorBS
+      }));
+      navigate("/carrinho");
     }
   };
 
@@ -41,13 +62,11 @@ const ProdutoUnico = () => {
     width: 594,
     height: 600,
     zoomWidth: 600,
-    img: produtoState?.images[0]?.url
-      ? produtoState?.images[0]?.url
-      : "https://images.pexels.com/photos/190819/pexels-photo-190819.jpeg?cs=srgb&dl=pexels-fernando-arcos-190819.jpg&fm=jpg",
+    img: produtoState?.images?.[0]?.url || watch,
   };
 
+  const [orderedProduct, setOrderedProduct] = useState(true);
 
-  const [orderedProduct, setorderedProduct] = useState(true);
   const copyToClipboard = (text) => {
     var textField = document.createElement("textarea");
     textField.innerText = text;
@@ -58,7 +77,7 @@ const ProdutoUnico = () => {
   };
 
   const closeModal = () => {};
-  
+
   return (
     <>
       <Meta title={"Nome do produto"} />
@@ -130,29 +149,43 @@ const ProdutoUnico = () => {
                   <p className="product-data">{produtoState?.tags}</p>
                 </div>
                 <div className="d-flex align-items-center gap-15 flex-row mt-2 mb-3">
-                  <h3 className="product-heading">Quantidade :</h3>
-                  <div className="">
-                    <input
-                      type="number"
-                      name=""
-                      min={1}
-                      max={10}
-                      className="form-control"
-                      style={{ width: "50px" }}
-                      id=""
-                      onChange={(e) => setQuantidade(e.target.value)}
-                      value={quantidade}
-                    />
-                  </div>
-                  <div className="d-flex align-items-center gap-30 ms-5">
+                  {alreadyAdded === false && (
+                    <>
+                      <h3 className="product-heading">Quantidade :</h3>
+                      <div className="">
+                        <input
+                          type="number"
+                          name=""
+                          min={1}
+                          max={10}
+                          className="form-control"
+                          style={{ width: "50px" }}
+                          id=""
+                          onChange={(e) => setQuantidade(e.target.value)}
+                          value={quantidade}
+                        />
+                      </div>
+                    </>
+                  )}
+                  <div
+                    className={
+                      alreadyAdded
+                        ? "ms-0"
+                        : "msl-5" + "d-flex align-items-center gap-30 ms-5"
+                    }
+                  >
                     <button
                       className="button border-0"
                       type="button"
-                      onClick={uploadCarrinho}
+                      onClick={() => {
+                        alreadyAdded ? navigate("/carrinho") : uploadCarrinho();
+                      }}
                     >
-                      Add ao carrinho
+                      {alreadyAdded
+                        ? "Ir para o carrinho"
+                        : "Adicionar ao carrinho"}
                     </button>
-                    <button className="button signup">Compre agora</button>
+                    {/* <button className="button signup">Compre agora</button> */}
                   </div>
                 </div>
                 <div className="d-flex align-items-center gap-15">
@@ -163,10 +196,10 @@ const ProdutoUnico = () => {
                     </a>
                   </div>
                   <div>
-                    <a href="">
+                    {/* <a href="">
                       <AiOutlineHeart className="fs-5 me-2" /> Adicionar a lista
                       de desejos
-                    </a>
+                    </a> */}
                   </div>
                 </div>
                 <div className="d-flex gap-10 flex-column  my-3">
