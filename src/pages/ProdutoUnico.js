@@ -35,7 +35,7 @@ const ProdutoUnico = () => {
 
   useEffect(() => {
     if (carrinhoState) {
-      for (let index = 0; index < carrinhoState.length; index++) {
+      for (let index = 0; index < carrinhoState?.length; index++) {
         if (getProdutoId === carrinhoState[index]?.produtoId?._id) {
           setAlreadyAdded(true);
           break;  // Sair do loop quando já foi adicionado

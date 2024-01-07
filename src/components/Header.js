@@ -11,14 +11,15 @@ import menu from "../images/menu.svg";
 const Header = () => {
   const dispatch = useDispatch();
   const carrinhoState = useSelector((state) => state.auth.carrinhoProdutos);
-  const [total, setTotal] = useState(null)
+  const authState = useSelector((state) => state.auth);
+  const [total, setTotal] = useState(null);
   useEffect(() => {
     let sum = 0;
     for (let index = 0; index < carrinhoState?.length; index++) {
       sum =
         sum +
         Number(carrinhoState[index].quantidade) * carrinhoState[index].valorBS;
-        setTotal(sum)
+      setTotal(sum);
     }
   });
 
@@ -79,13 +80,19 @@ const Header = () => {
 
                 <div>
                   <Link
-                    to="/login"
+                    to={authState?.user === null ? "/login" : ""}
                     className="d-flex align-items-center gap-10 text-white"
                   >
                     <img src={user} alt="user" />
-                    <p className="mb-0">
-                      Entrar <br /> Minha conta
-                    </p>
+                    {authState?.user === null ? (
+                      <p className="mb-0">
+                        Entrar <br /> Minha conta
+                      </p>
+                    ) : (
+                      <p className="mb-0">
+                        Bem Vindo {authState?.user?.primeironome}
+                      </p>
+                    )}
                   </Link>
                 </div>
                 <div>
@@ -95,8 +102,10 @@ const Header = () => {
                   >
                     <img src={cart} alt="carrinho" />
                     <div className="d-flex flex-column gap-10">
-                      <span className="badge bg-white text-dark">{carrinhoState?.length ? carrinhoState?.length :0}</span>
-                      <p className="mb-0">R${total ? total :0}</p>
+                      <span className="badge bg-white text-dark">
+                        {carrinhoState?.length ? carrinhoState?.length : 0}
+                      </span>
+                      <p className="mb-0">R${total ? total : 0}</p>
                     </div>
                   </Link>
                 </div>
