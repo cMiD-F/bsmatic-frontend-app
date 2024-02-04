@@ -80,7 +80,7 @@ const Header = () => {
 
                 <div>
                   <Link
-                    to={authState?.user === null ? "/login" : ""}
+                    to={authState?.user === null ? "/login" : "/my-profile"}
                     className="d-flex align-items-center gap-10 text-white"
                   >
                     <img src={user} alt="user" />
@@ -177,8 +177,10 @@ const Header = () => {
                   <div className="d-flex align-items-center gap-15">
                     <NavLink to="/">Inicio</NavLink>
                     <NavLink to="/produto">Produtos</NavLink>
+                    <NavLink to="/meus-pedidos">Meus pedidos</NavLink>
                     <NavLink to="/blogs">Blogs</NavLink>
                     <NavLink to="/contato">Contato</NavLink>
+                    <button className="border border-0 bg-transparent text-white text-uppercase" type="button">Logout</button>
                   </div>
                 </div>
               </div>

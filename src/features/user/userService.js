@@ -1,4 +1,7 @@
-// userService.js
+// Atualizações:
+// - Corrigido o método `updateProductFromCart` para usar o método HTTP `PUT`.
+// - Adicionado o método `getUser` para obter detalhes do usuário.
+
 import axios from "axios";
 import { getConfig } from "../../utils/axiosConfig";
 import { base_url } from "../../utils/baseUrl";
@@ -36,19 +39,62 @@ const obtemCarro = async () => {
   }
 };
 
-const removeProductFromCart = async(carrinhoItemId) => {
-  const response = await axios.delete(`${base_url}user/delete-product-cart/${carrinhoItemId}`, getConfig());
-  if(response.data) {
+const removeProductFromCart = async (carrinhoItemId) => {
+  const response = await axios.delete(
+    `${base_url}user/delete-product-cart/${carrinhoItemId}`,
+    getConfig()
+  );
+  if (response.data) {
     return response.data;
   }
-}
+};
 
-const updateProductFromCart = async(cartDetail) =>{
-  const response = await axios.delete(`${base_url}user/update-product-cart/${cartDetail.carrinhoItemId}/${cartDetail.quantidade}`, getConfig());
-  if(response.data){
+const updateProductInCart = async (cartDetail) => {
+  const response = await axios.put(
+    `${base_url}user/update-product-cart/${cartDetail.carrinhoItemId}`,
+    { quantidade: cartDetail.quantidade },
+    getConfig()
+  );
+  if (response.data) {
     return response.data;
   }
-}
+};
+
+const createOrder = async (orderDetail) => {
+  const response = await axios.post(
+    `${base_url}user/carrinho/create-order`,
+    orderDetail,
+    getConfig()
+  );
+  if (response.data) {
+    return response.data;
+  }
+};
+
+const getUserOrders = async () => {
+  const response = await axios.get(`${base_url}user/meus-pedidos`, getConfig());
+  if (response.data) {
+    return response.data;
+  }
+};
+
+const updateUser = async (data) => {
+  const response = await axios.put(
+    `${base_url}user/edit-user`,
+    data,
+    getConfig()
+  );
+  if (response.data) {
+    return response.data;
+  }
+};
+
+const getUser = async () => {
+  const response = await axios.get(`${base_url}user/me`, getConfig());
+  if (response.data) {
+    return response.data;
+  }
+};
 
 export const authService = {
   register,
@@ -56,5 +102,9 @@ export const authService = {
   addNoCarro,
   obtemCarro,
   removeProductFromCart,
-  updateProductFromCart
+  updateProductInCart,
+  createOrder,
+  getUserOrders,
+  updateUser,
+  getUser,
 };

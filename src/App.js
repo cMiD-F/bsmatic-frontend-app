@@ -23,6 +23,8 @@ import Carrinho from "./pages/Carrinho";
 import Checkout from "./pages/Checkout";
 import { PrivateRoutes } from "./routing/PrivateRoutes";
 import { OpenRoutes } from "./routing/OpenRoutes";
+import Orders from "./pages/Orders";
+import Profile from "./pages/Profile";
 
 
 function App() {
@@ -39,6 +41,8 @@ function App() {
             <Route path="blogs" element={<Blog />} />
             <Route path="blog/:id" element={<SingleBlog />} />
             <Route path="carrinho" element={<PrivateRoutes><Carrinho /></PrivateRoutes>} />
+            <Route path="meus-pedidos" element={<PrivateRoutes><Orders /></PrivateRoutes>} />
+            <Route path="my-profile" element={<PrivateRoutes><Profile /></PrivateRoutes>} />
             <Route path="checkout" element={<PrivateRoutes><Checkout /></PrivateRoutes>} />
             <Route path="compara-produto" element={<ComparacaoProduto />} />
             {/* <Route path="lista-desejo" element={<ListaDesejo />} /> */}
