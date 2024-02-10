@@ -1,24 +1,33 @@
-import React from "react";
+import React, { useEffect } from "react";
 import BreadCrumb from "../components/BreadCrumb";
 import Meta from "../components/Meta";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Container from "../components/Container";
 import CustomInput from "../components/CustomInput";
-import { useFormik} from "formik";
+import { useFormik } from "formik";
 import * as yup from "yup";
 import { registraUser } from "../features/user/userSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const signupSchema = yup.object({
   primeironome: yup.string().required("O primeiro nome é obrigatório"),
   ultimonome: yup.string().required("O último nome é obrigatório"),
-  email: yup.string().email("E-mail deve ser válido"),
-  telefone: yup.string().required("Não é necessário celular"),
+  email: yup
+    .string()
+    .email("E-mail deve ser válido")
+    .email("Email Should be valid"),
+  telefone: yup
+    .number()
+    .required()
+    .positive()
+    .integer("Não é necessário celular"),
   senha: yup.string().required("Senha requerida"),
 });
 
 const Signup = () => {
-const dispatch = useDispatch(); 
+  const authState = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const formik = useFormik({
     initialValues: {
       primeironome: "",
@@ -29,7 +38,7 @@ const dispatch = useDispatch();
     },
     validationSchema: signupSchema,
     onSubmit: (values) => {
-     dispatch(registraUser(values));
+      dispatch(registraUser(values));
     },
   });
 

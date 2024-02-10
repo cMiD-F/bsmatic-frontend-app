@@ -7,38 +7,51 @@ import { Link } from "react-router-dom";
 import Container from "../components/Container";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  deleteCartProduct,
+  deleteCarroProduto,
   getUserCarrinho,
   updateCartProduct,
 } from "../features/user/userSlice";
 
 const Carrinho = () => {
+  const getTokenFromLocalStorage = localStorage.getItem("customer")
+    ? JSON.parse(localStorage.getItem("customer"))
+    : null;
+
+  const config2 = {
+    headers: {
+      Authorization: `Bearer ${
+        getTokenFromLocalStorage !== null ? getTokenFromLocalStorage.token : ""
+      }`,
+      Accept: "application/json",
+    },
+  };
+
   const dispatch = useDispatch();
+
   const [productUpdateDetail, setProductUpdateDetail] = useState(null);
   const [carrinhoTotal, setCarrinhoTotal] = useState(null);
+  const userCarrinhoState = useSelector((state) => state.auth.carProdutos);
 
-  // Recupera os dados do carrino do usuário a cada renderização da página
-  const userCarrinhoState = useSelector((state) => state.auth.carrinhoProdutos);
   useEffect(() => {
-    dispatch(getUserCarrinho());
+    dispatch(getUserCarrinho(config2));
   }, []);
 
   useEffect(() => {
     if (productUpdateDetail !== null) {
       dispatch(
         updateCartProduct({
-          carrinhoItemId: productUpdateDetail?.carrinhoItemId,
+          cartItemId: productUpdateDetail?.cartItemId,
           quantidade: productUpdateDetail?.quantidade,
         })
       );
       setTimeout(() => {
-        dispatch(getUserCarrinho());
+        dispatch(getUserCarrinho(config2));
       }, 200);
     }
-  }, [productUpdateDetail]);
+  }, [productUpdateDetail, config2, dispatch]);
 
   const deleteACarrinhoProduto = (id) => {
-    dispatch(deleteCartProduct(id));
+    dispatch(deleteCarroProduto({ id: id, config2: config2 }));
     setTimeout(() => {
       dispatch(getUserCarrinho());
     }, 200);
@@ -93,18 +106,14 @@ const Carrinho = () => {
                         <input
                           className="form-control"
                           type="number"
-                          name=""
+                          name={"quantidade" + item?._id}
                           min={1}
                           max={10}
-                          id=""
-                          value={
-                            productUpdateDetail?.quantidade
-                              ? productUpdateDetail?.quantidade
-                              : item?.quantidade
-                          }
+                          id={"card" + item?._id}
+                          value={item?.quantidade}
                           onChange={(e) => {
                             setProductUpdateDetail({
-                              carrinhoItemId: item?._id,
+                              cartItemId: item?._id,
                               quantidade: e.target.value,
                             });
                           }}
@@ -120,7 +129,7 @@ const Carrinho = () => {
                       </div>
                     </div>
                     <div className="cart-col-4">
-                      <h5 className="preço">
+                      <h5 className="price">
                         R$ {item?.valorBS * item?.quantidade}
                       </h5>
                     </div>
@@ -130,12 +139,19 @@ const Carrinho = () => {
           </div>
           <div className="col-12 py-2 mt-4">
             <div className="d-flex justify-content-between align-items-baseline">
-              <Link to="/product" className="button">
+              <Link to="/produtos" className="button">
                 Continuar fazendo compras
               </Link>
               {(carrinhoTotal !== null || carrinhoTotal !== 0) && (
                 <div className="d-flex flex-column align-items-end">
-                  <h4>SubTotal: R${carrinhoTotal}</h4>
+                  <h4>
+                    SubTotal: R${" "}
+                    {!userCarrinhoState?.length
+                      ? 0
+                      : carrinhoTotal
+                      ? carrinhoTotal
+                      : 0}
+                  </h4>
                   <p>Impostos e frete calculados na finalização da compra</p>
                   <Link to="/checkout" className="button">
                     Checkout

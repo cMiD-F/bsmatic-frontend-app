@@ -1,5 +1,5 @@
 import axios from "axios";
-import {base_url} from "../../utils/baseUrl";
+import {base_url} from "../../utils/axiosConfig";
 
 const getBlogs = async () => {
     const response = await axios.get(`${base_url}blog/`);

@@ -12,15 +12,14 @@ const SingleBlog = () => {
   const blogState = useSelector((state) => state?.blog?.singleBlog);
   const location = useLocation();
   const getBlogId = location.pathname.split("/")[2];
-  const dispatch = useDispatch();
 
+  const dispatch = useDispatch();
+  useEffect(() => {
+    getBlog();
+  },[]);
   const getBlog = () => {
     dispatch(getABlog(getBlogId));
   };
-
-  useEffect(() => {
-    getBlog();
-  }, []);
 
   return (
     <>

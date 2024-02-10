@@ -1,15 +1,9 @@
-// Atualizações:
-// - Corrigido o método `updateProductFromCart` para usar o método HTTP `PUT`.
-// - Adicionado o método `getUser` para obter detalhes do usuário.
-
 import axios from "axios";
-import { getConfig } from "../../utils/axiosConfig";
-import { base_url } from "../../utils/baseUrl";
+import { base_url, config } from "../../utils/axiosConfig";
 
 const register = async (userData) => {
   const response = await axios.post(`${base_url}user/registro`, userData);
   if (response.data) {
-    localStorage.setItem("customer", JSON.stringify(response.data));
     return response.data;
   }
 };
@@ -17,43 +11,54 @@ const register = async (userData) => {
 const login = async (userData) => {
   const response = await axios.post(`${base_url}user/login`, userData);
   if (response.data) {
+    localStorage.setItem("customer", JSON.stringify(response.data));
+  }
+  return response.data;
+};
+
+const getUserWislist = async () => {
+  const response = await axios.get(`${base_url}user/wishlist`, config);
+  if (response.data) {
     return response.data;
   }
 };
 
-const addNoCarro = async (carroData) => {
+const addToCarrinho = async (carroData) => {
   const response = await axios.post(
-    `${base_url}user/carrinho`,
+    `${base_url}user/carrinho`, // Alteração aqui: trocar de axios.get para axios.post
     carroData,
-    getConfig()
+    config
   );
   if (response.data) {
     return response.data;
   }
 };
 
-const obtemCarro = async () => {
-  const response = await axios.get(`${base_url}user/carrinho`, getConfig());
+const getCarrinho = async (data) => {
+  const response = await axios.get(`${base_url}user/carrinho`, {
+    params: data, // Aqui você passa os parâmetros de consulta
+    ...config, // E aqui você passa outras configurações como headers, etc.
+  });
   if (response.data) {
     return response.data;
   }
 };
 
-const removeProductFromCart = async (carrinhoItemId) => {
+const removeProductFromCarrinho = async (data) => {
   const response = await axios.delete(
-    `${base_url}user/delete-product-cart/${carrinhoItemId}`,
-    getConfig()
+    `${base_url}user/delete-produto-carrinho/${data.id}`,
+    data.config2
   );
   if (response.data) {
     return response.data;
   }
 };
 
-const updateProductInCart = async (cartDetail) => {
+const updateProductFromCarrinho = async (cartDetail) => {
   const response = await axios.put(
-    `${base_url}user/update-product-cart/${cartDetail.carrinhoItemId}`,
-    { quantidade: cartDetail.quantidade },
-    getConfig()
+    `${base_url}user/update-produto-carrinho/${cartDetail.cartItemId}/${cartDetail.quantidade}`,
+    {}, // Passando um corpo vazio, pois o método PUT espera um corpo
+    config
   );
   if (response.data) {
     return response.data;
@@ -62,17 +67,17 @@ const updateProductInCart = async (cartDetail) => {
 
 const createOrder = async (orderDetail) => {
   const response = await axios.post(
-    `${base_url}user/carrinho/create-order`,
+    `${base_url}user/carrinho/criar-pedidos/`,
     orderDetail,
-    getConfig()
+    config
   );
   if (response.data) {
     return response.data;
   }
 };
 
-const getUserOrders = async () => {
-  const response = await axios.get(`${base_url}user/meus-pedidos`, getConfig());
+const getUserPedidos = async () => {
+  const response = await axios.get(`${base_url}user/meus-pedidos`, config);
   if (response.data) {
     return response.data;
   }
@@ -81,16 +86,38 @@ const getUserOrders = async () => {
 const updateUser = async (data) => {
   const response = await axios.put(
     `${base_url}user/edit-user`,
-    data,
-    getConfig()
+    data.data,
+    data.config2
   );
   if (response.data) {
     return response.data;
   }
 };
 
-const getUser = async () => {
-  const response = await axios.get(`${base_url}user/me`, getConfig());
+const forgotPasswordToken = async (data) => {
+  const response = await axios.post(
+    `${base_url}user/forgot-password-token`,
+    data
+  );
+  if (response.data) {
+    return response.data;
+  }
+};
+
+const resetSenha = async (data) => {
+  const response = await axios.put(
+    `${base_url}user/reset-senha/${data.token}`,
+    {
+      senha: data?.senha,
+    }
+  );
+  if (response.data) {
+    return response.data;
+  }
+};
+const emptyCarrinho = async (data) => {
+  const response = await axios.delete(`${base_url}user/carrinho-vazio`, data);
+
   if (response.data) {
     return response.data;
   }
@@ -99,12 +126,15 @@ const getUser = async () => {
 export const authService = {
   register,
   login,
-  addNoCarro,
-  obtemCarro,
-  removeProductFromCart,
-  updateProductInCart,
+  getUserWislist,
+  addToCarrinho,
+  getCarrinho,
+  removeProductFromCarrinho,
+  updateProductFromCarrinho,
   createOrder,
-  getUserOrders,
+  getUserPedidos,
   updateUser,
-  getUser,
+  forgotPasswordToken,
+  resetSenha,
+  emptyCarrinho,
 };

@@ -2,8 +2,17 @@ import React from "react";
 import ReactStars from "react-rating-stars-component";
 import { Link } from "react-router-dom";
 const SpecialProduct = (props) => {
-  const { title, marca, totalclassificacao, valorBS, sold, quantidade, id } =
-    props;
+  const {
+    title,
+    marca,
+    totalclassificacao,
+    valorBS,
+    sold,
+    quantidade,
+    id,
+    img,
+  } = props;
+  console.log(id);
 
   return (
     <>
@@ -12,18 +21,20 @@ const SpecialProduct = (props) => {
           <div className="d-flex justify-content-between">
             <div>
               <img
-                src="images/Kit-filtro.jpg"
+                src={img}
                 className="img-fluid"
                 alt="watch"
+                height={300}
+                width={300}
               />
             </div>
             <div className="special-product-content">
-              <h5 className="marca">{marca}</h5>
+              <h5 className="brand">{marca}</h5>
               <h6 className="title">{title}</h6>
               <ReactStars
                 count={5}
                 size={24}
-                value={parseInt(totalclassificacao)}
+                value={parseFloat(totalclassificacao)}
                 edit={false}
                 activeColor="#ffd700"
               />

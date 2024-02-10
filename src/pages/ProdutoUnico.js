@@ -5,18 +5,21 @@ import Meta from "../components/Meta";
 import ProductCard from "../components/ProductCard";
 import ReactImageZoom from "react-image-zoom";
 import { TbGitCompare } from "react-icons/tb";
-import { AiOutlineHeart } from "react-icons/ai";
+import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import Container from "../components/Container";
 import { useDispatch, useSelector } from "react-redux";
-import { getAProduto } from "../features/produtos/productSlice";
 import {
-  addProdutoNoCarrinho,
-  getUserCarrinho,
-} from "../features/user/userSlice";
+  addRating,
+  getAProduto,
+  getAllProdutos,
+  addToWishlist,
+} from "../features/produtos/productSlice";
+import { addProdToCarrinho, getUserCarrinho } from "../features/user/userSlice";
 import { toast } from "react-toastify";
 
 import watch from "../images/watch.jpg";
+import { set } from "mongoose";
 
 const ProdutoUnico = () => {
   const [quantidade, setQuantidade] = useState(1);
@@ -26,34 +29,38 @@ const ProdutoUnico = () => {
   const getProdutoId = location.pathname.split("/")[2];
   const dispatch = useDispatch();
   const produtoState = useSelector((state) => state.produto.singleproduto);
-  const carrinhoState = useSelector((state) => state.auth.carrinhoProdutos);
+  const produtosState = useSelector((state) => state?.produto.produto);
+  const cartState = useSelector((state) => state.auth.cartProduct);
+  const rat = produtoState?.totalclassificacao;
+  const wishlistState = useSelector((state) => state?.auth.wishlist?.wishlist);
+  console.log(wishlistState);
 
   useEffect(() => {
     dispatch(getAProduto(getProdutoId));
     dispatch(getUserCarrinho());
+    dispatch(getAllProdutos());
   }, []);
 
   useEffect(() => {
-    if (carrinhoState) {
-      for (let index = 0; index < carrinhoState?.length; index++) {
-        if (getProdutoId === carrinhoState[index]?.produtoId?._id) {
-          setAlreadyAdded(true);
-          break;  // Sair do loop quando já foi adicionado
-        }
+    for (let index = 0; index < cartState?.length; index++) {
+      if (getProdutoId === cartState[index]?.produtoId?._id) {
+        setAlreadyAdded(true);
       }
     }
-  }, [carrinhoState]);
+  });
 
   const uploadCarrinho = async () => {
     if (quantidade === null) {
       toast.error("Por favor, selecione uma quantidade.");
       return false;
     } else {
-      dispatch(addProdutoNoCarrinho({
-        produtoId: produtoState?._id,
-        quantidade,
-        valorBS: produtoState?.valorBS
-      }));
+      dispatch(
+        addProdToCarrinho({
+          produtoId: produtoState?._id,
+          quantidade,
+          valorBS: produtoState?.valorBS,
+        })
+      );
       navigate("/carrinho");
     }
   };
@@ -66,8 +73,8 @@ const ProdutoUnico = () => {
   };
 
   const [orderedProduct, setOrderedProduct] = useState(true);
-
   const copyToClipboard = (text) => {
+    console.log("text", text);
     var textField = document.createElement("textarea");
     textField.innerText = text;
     document.body.appendChild(textField);
@@ -77,6 +84,46 @@ const ProdutoUnico = () => {
   };
 
   const closeModal = () => {};
+  const [popularProduto, setPopularProduto] = useState([]);
+
+  useEffect(() => {
+    let data = [];
+    for (let index = 0; index < produtosState.length; index++) {
+      const element = produtosState[index];
+      if (element.tags === "popular") {
+        data.push(element);
+      } else {
+        setPopularProduto(data);
+      }
+    }
+  }, [produtoState]);
+
+  const [star, setStar] = useState(null);
+  const [comentario, setComentarios] = useState(null);
+  const [like, setLike] = useState(false);
+  const [isFilled, setIsFilled] = useState(false);
+
+  const handleToggle = () => {
+    setIsFilled(!isFilled);
+  };
+
+  const addRatingToProduto = () => {
+    if (star === null) {
+      toast.error("Adicione uma classificação por estrelas");
+      return false;
+    } else if (comentario === null) {
+      toast.error("Por favor, escreva um comentário sobre o produto");
+      return false;
+    } else {
+      dispatch(
+        addRating({ star: star, comentario: comentario, prodId: getProdutoId })
+      );
+      setTimeout(() => {
+        dispatch(getAProduto(getProdutoId));
+      }, 100);
+    }
+    return false;
+  };
 
   return (
     <>
@@ -87,11 +134,7 @@ const ProdutoUnico = () => {
           <div className="col-6">
             <div className="main-product-image">
               <div>
-                {props.img ? (
-                  <ReactImageZoom {...props} />
-                ) : (
-                  <p>Imagem não disponível</p>
-                )}
+                <ReactImageZoom {...props} />
               </div>
             </div>
             <div className="other-product-images d-flex flex-wrap gap-15">
@@ -115,11 +158,13 @@ const ProdutoUnico = () => {
                   <ReactStars
                     count={5}
                     size={24}
-                    value={parseInt(produtoState?.totalclassificacao)}
+                    value={parseInt(produtoState?.totalclassificacao ?? 0)}
                     edit={false}
                     activeColor="#ffd700"
                   />
-                  <p className="mb-0 t-review">( 2 Comentários )</p>
+                  <p className="mb-0 t-review">
+                    ({produtoState?.classificacao?.length} Comentários )
+                  </p>
                 </div>
                 <a className="review-btn" href="#review">
                   Escreva um comentário
@@ -189,17 +234,24 @@ const ProdutoUnico = () => {
                   </div>
                 </div>
                 <div className="d-flex align-items-center gap-15">
-                  <div>
+                  {/* <div>
                     <a href="">
                       <TbGitCompare className="fs-5 me-2" /> Adicionar para
                       comparar
                     </a>
-                  </div>
+                  </div> */}
                   <div>
-                    {/* <a href="">
-                      <AiOutlineHeart className="fs-5 me-2" /> Adicionar a lista
-                      de desejos
-                    </a> */}
+                    {isFilled ? (
+                      <AiFillHeart
+                        className="fs-5 me-2"
+                        onClick={handleToggle}
+                      />
+                    ) : (
+                      <AiOutlineHeart
+                        className="fs-5 me-2"
+                        onClick={handleToggle}
+                      />
+                    )}
                   </div>
                 </div>
                 <div className="d-flex gap-10 flex-column  my-3">
@@ -212,14 +264,14 @@ const ProdutoUnico = () => {
                 </div>
                 <div className="d-flex gap-10 align-items-center my-3">
                   <h3 className="product-heading">Link do produto:</h3>
-                  <a
-                    href="javascript:void(0);"
+                  <button
+                    type="button"
                     onClick={() => {
                       copyToClipboard(window.location.href);
                     }}
                   >
                     Copiar link do produto
-                  </a>
+                  </button>
                 </div>
               </div>
             </div>
@@ -277,6 +329,9 @@ const ProdutoUnico = () => {
                       value={4}
                       edit={true}
                       activeColor="#ffd700"
+                      onChange={(e) => {
+                        setStar(e);
+                      }}
                     />
                   </div>
                   <div>
@@ -287,33 +342,41 @@ const ProdutoUnico = () => {
                       cols="30"
                       rows="4"
                       placeholder="Comments"
+                      onChange={(e) => {
+                        setComentarios(e.target.value);
+                      }}
                     ></textarea>
                   </div>
                   <div className="d-flex justify-content-end">
-                    <button className="button border-0">Enviar revisão</button>
+                    <button
+                      onClick={addRatingToProduto}
+                      className="button border-0"
+                      type="button"
+                    >
+                      Enviar revisão
+                    </button>
                   </div>
                 </form>
               </div>
               <div className="reviews mt-4">
-                <div className="review">
-                  <div className="d-flex gap-10 align-items-center">
-                    <h6 className="mb-0">Cauet</h6>
-                    <ReactStars
-                      count={5}
-                      size={24}
-                      value={4}
-                      edit={false}
-                      activeColor="#ffd700"
-                    />
-                  </div>
-                  <p className="mt-3">
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                    Consectetur fugit ut excepturi quos. Id reprehenderit
-                    voluptatem placeat consequatur suscipit ex. Accusamus dolore
-                    quisquam deserunt voluptate, sit magni perspiciatis quas
-                    iste?
-                  </p>
-                </div>
+                {produtoState &&
+                  produtoState.ratings?.map((item, index) => {
+                    return (
+                      <div className="review">
+                        <div className="d-flex gap-10 align-items-center">
+                          <h6 className="mb-0">Cauet</h6>
+                          <ReactStars
+                            count={5}
+                            size={24}
+                            value={item?.star}
+                            edit={false}
+                            activeColor="#ffd700"
+                          />
+                        </div>
+                        <p className="mt-3">{item?.comentario}</p>
+                      </div>
+                    );
+                  })}
               </div>
             </div>
           </div>
@@ -326,7 +389,7 @@ const ProdutoUnico = () => {
           </div>
         </div>
         <div className="row">
-          <ProductCard />
+          <ProductCard data={popularProduto} />
         </div>
       </Container>
 
@@ -335,7 +398,7 @@ const ProdutoUnico = () => {
         id="staticBackdrop"
         data-bs-backdrop="static"
         data-bs-keyboard="false"
-        tabindex="-1"
+        tabIndex="-1"
         aria-labelledby="staticBackdropLabel"
         aria-hidden="true"
       >
@@ -372,7 +435,7 @@ const ProdutoUnico = () => {
             <div className="d-flex justify-content-center py-3">
               <Link
                 className="text-dark"
-                to="/product"
+                to="/produtos"
                 onClick={() => {
                   closeModal();
                 }}
