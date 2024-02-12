@@ -8,4 +8,3 @@ export const OpenRoutes = ({ children }) => {
     <Navigate to="/" replace={true} />
   );
 };
-

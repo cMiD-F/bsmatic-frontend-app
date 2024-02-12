@@ -2,11 +2,13 @@ import React, { useEffect } from "react";
 import ReactStars from "react-rating-stars-component";
 import { useLocation, useNavigate } from "react-router-dom";
 import wish from "../images/wish.svg";
-import prodcompare from "../images/prodcompare.svg";
-import addcarrinho from "../images/add-cart.svg";
+import wishlist from "../images/wishlist.svg";
+import watch from "../images/watch.jpg";
+import watch2 from "../images/watch-1.avif";
+import addcart from "../images/add-cart.svg";
 import view from "../images/view.svg";
 import { useDispatch, useSelector } from "react-redux";
-import { addToWishlist } from "../features/produtos/productSlice";
+import { addToWishlist } from "../features/products/productSlice";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import { useState } from "react";
 
@@ -52,7 +54,7 @@ const ProductCard = (props) => {
           <div
             key={index}
             className={` ${
-              location.pathname == "/produtos" ? `gr-${grid}` : "col-3"
+              location.pathname == "/product" ? `gr-${grid}` : "col-3"
             } `}
           >
             <div className="product-card position-relative">
@@ -72,60 +74,54 @@ const ProductCard = (props) => {
               <div className="product-image">
                 <img
                   src={item?.images[0]?.url}
-                  className="img-fluid d"
+                  // className="img-fluid d"
                   alt="product image"
                   height={"250px"}
                   width={"100%"}
-                  onClick={() => navigate("/produtos/" + item?._id)}
+                  onClick={() => navigate("/product/" + item?._id)}
                 />
                 <img
                   src={item?.images[0]?.url}
-                  className="img-fluid d"
+                  // className="img-fluid d"
                   alt="product image"
                   height={"250px"}
                   width={"100%"}
-                  onClick={() => navigate("/produtos/" + item?._id)}
+                  onClick={() => navigate("/product/" + item?._id)}
                 />
               </div>
               <div className="product-details">
-                <h6 className="brand">{item?.marca}</h6>
+                <h6 className="brand">{item?.brand}</h6>
                 <h5 className="product-title">
                   {grid === 12 || grid === 6
-                    ? item?.item
-                    : item?.item?.substr(0, 80) + "..."}
+                    ? item?.title
+                    : item?.title?.substr(0, 80) + "..."}
                 </h5>
                 <ReactStars
                   count={5}
                   size={24}
-                  value={parseFloat(item?.totalclassificacao)}
+                  value={item?.totalrating}
                   edit={false}
                   activeColor="#ffd700"
                 />
-                <p
-                  className={`itensInclusos ${
-                    grid === 12 ? "d-block" : "d-none"
-                  }`}
-                  dangerouslySetInnerHTML={{ __html: item?.itensInclusos }}
-                ></p>
 
-                <p className="price">R${item?.valorBS}</p>
+                <p className="price">R${item?.price}</p>
               </div>
               <div className="action-bar position-absolute">
                 <div className="d-flex flex-column gap-15">
-                  <button className="border-0 bg-transparent">
+                  {/* <button className="border-0 bg-transparent">
                     <img src={prodcompare} alt="compare" />
-                  </button>
+                  </button> */}
 
-                  <button className="border-0 bg-transparent">
+                  {/* <button className="border-0 bg-transparent">
                     <img
-                      onClick={() => navigate("/produtos/" + item?._id)}
+                      onClick={() => navigate("/product/" + item?._id)}
                       src={view}
                       alt="view"
                     />
-                  </button>
-                  <button className="border-0 bg-transparent">
-                    <img src={addcarrinho} alt="addcarrinho" />
-                  </button>
+                  </button> */}
+                  {/* <button className="border-0 bg-transparent">
+                    <img src={addcart} alt="addcart" />
+                  </button> */}
                 </div>
               </div>
             </div>

@@ -9,16 +9,16 @@ import menu from "../images/menu.svg";
 import { useDispatch, useSelector } from "react-redux";
 import { Typeahead } from "react-bootstrap-typeahead";
 import "react-bootstrap-typeahead/css/Typeahead.css";
-import { getAProduto } from "../features/produtos/productSlice";
-import { getUserCarrinho } from "../features/user/userSlice";
+import { getAProduct } from "../features/products/productSlice";
+import { getUserCart } from "../features/user/userSlice";
 
 const Header = () => {
   const dispatch = useDispatch();
-  const cartState = useSelector((state) => state.auth.cartProdutos);
-  const authState = useSelector((state) => state.auth);
+  const cartState = useSelector((state) => state?.auth?.cartProducts);
+  const authState = useSelector((state) => state?.auth);
   const [total, setTotal] = useState(null);
   const [paginate, setPaginate] = useState(true);
-  const produtoState = useSelector((state) => state?.produto?.produto);
+  const productState = useSelector((state) => state?.product?.product);
   const navigate = useNavigate();
 
   const getTokenFromLocalStorage = localStorage.getItem("customer")
@@ -35,33 +35,31 @@ const Header = () => {
   };
 
   useEffect(() => {
-    dispatch(getUserCarrinho(config2));
+    dispatch(getUserCart(config2));
   }, []);
 
-  const [produtoOpt, setProdutoOpt] = useState([]);
+  const [productOpt, setProductOpt] = useState([]);
   useEffect(() => {
     let sum = 0;
     for (let index = 0; index < cartState?.length; index++) {
-      sum =
-        sum + Number(cartState[index].quantidade) * cartState[index].valorBS;
+      sum = sum + Number(cartState[index].quantity) * cartState[index].price;
       setTotal(sum);
     }
   }, [cartState]);
 
   useEffect(() => {
     let data = [];
-    for (let index = 0; index < produtoState?.length; index++) {
-      const element = produtoState[index];
-      data.push({ id: index, prod: element?._id, nome: element?.item });
+    for (let index = 0; index < productState?.length; index++) {
+      const element = productState[index];
+      data.push({ id: index, prod: element?._id, name: element?.title });
     }
-    setProdutoOpt(data);
-  }, [produtoState]);
+    setProductOpt(data);
+  }, [productState]);
 
   const handleLogout = () => {
     localStorage.clear();
     window.location.reload();
   };
-
   return (
     <>
       <header className="header-top-strip py-3">
@@ -73,8 +71,8 @@ const Header = () => {
             <div className="col-6">
               <p className="text-end text-white mb-0">
                 Telefone:
-                <a className="text-white" href="tel:+91 8264954234">
-                  (11) 91851-3204
+                <a className="text-white" href="tel:+11 91851-3204">
+                  +11 91851-3204
                 </a>
               </p>
             </div>
@@ -86,22 +84,24 @@ const Header = () => {
           <div className="row align-items-center">
             <div className="col-2">
               <h2>
-                <Link className="text-white">BSMatic</Link>
+                <Link className="text-white" to="/ ">
+                  BSMatic
+                </Link>
               </h2>
             </div>
             <div className="col-5">
-            <div className="input-group">
+              <div className="input-group">
                 <Typeahead
                   id="pagination-example"
-                  onPaginate={() => console.log("Resultados paginados")}
+                  onPaginate={() => console.log("Results paginated")}
                   onChange={(selected) => {
-                    navigate(`/produto/${selected[0]?.prod}`);
-                    dispatch(getAProduto(selected[0]?.prod));
+                    navigate(`/product/${selected[0]?.prod}`);
+                    dispatch(getAProduct(selected[0]?.prod));
                   }}
-                  options={produtoOpt}
+                  options={productOpt}
                   paginate={paginate}
                   labelKey={"name"}
-                  placeholder="Pesquise produtos aqui"
+                  placeholder="Search for Products here"
                 />
                 <span className="input-group-text p-3" id="basic-addon2">
                   <BsSearch className="fs-6" />
@@ -109,10 +109,10 @@ const Header = () => {
               </div>
             </div>
             <div className="col-5">
-            <div className="header-upper-links d-flex align-items-center justify-content-between">
+              <div className="header-upper-links d-flex align-items-center justify-content-between">
                 <div>
                   <Link
-                    to="/compara-produto"
+                    to="/compare-product"
                     className="d-flex align-items-center gap-10 text-white"
                   >
                     <img src={compare} alt="compare" />
@@ -134,7 +134,7 @@ const Header = () => {
                 </div>
                 <div>
                   <Link
-                    to={authState?.user === null ? "/login" : "meu-perfil"}
+                    to={authState?.user === null ? "/login" : "my-profile"}
                     className="d-flex align-items-center gap-10 text-white"
                   >
                     <img src={user} alt="user" />
@@ -144,23 +144,23 @@ const Header = () => {
                       </p>
                     ) : (
                       <p className="mb-0">
-                        Bem Vindo {authState?.user?.primeironome}
+                        Bem Vindo {authState?.user?.firstname}
                       </p>
                     )}
                   </Link>
                 </div>
                 <div>
                   <Link
-                    to="/carrinho"
+                    to="/cart"
                     className="d-flex align-items-center gap-10 text-white"
                   >
-                    <img src={cart} alt="carrinho" />
+                    <img src={cart} alt="cart" />
                     <div className="d-flex flex-column gap-10">
                       <span className="badge bg-white text-dark">
                         {cartState?.length ? cartState?.length : 0}
                       </span>
                       <p className="mb-0">
-                        R$ {!cartState?.length ? 0 : total ? total : 0}
+                        Rs. {!cartState?.length ? 0 : total ? total : 0}
                       </p>
                     </div>
                   </Link>
@@ -186,19 +186,19 @@ const Header = () => {
                     >
                       <img src={menu} alt="" />
                       <span className="me-5 d-inline-block">
-                        Categorias de loja
+                      Categorias da Loja
                       </span>
                     </button>
                     <ul
                       className="dropdown-menu"
                       aria-labelledby="dropdownMenuButton1"
                     >
-                      {produtoState &&
-                        produtoState.map((item, index) => {
+                      {productState &&
+                        productState.map((item, index) => {
                           return (
                             <li key={index}>
                               <Link className="dropdown-item text-white" to="">
-                                {item?.categoria}
+                                {item?.category}
                               </Link>
                             </li>
                           );
@@ -209,10 +209,10 @@ const Header = () => {
                 <div className="menu-links">
                   <div className="d-flex align-items-center gap-15">
                     <NavLink to="/">Inicio</NavLink>
-                    <NavLink to="/produtos">Produtos</NavLink>
-                    <NavLink to="/meus-pedidos">Meus pedidos</NavLink>
+                    <NavLink to="/product">Produtos</NavLink>
+                    <NavLink to="/my-orders">Meus pedidos</NavLink>
                     <NavLink to="/blogs">Blogs</NavLink>
-                    <NavLink to="/contato">Contato</NavLink>
+                    <NavLink to="/contact">Contato</NavLink>
                     {authState?.user !== null ? (
                       <button
                         className="border border-0 bg-trasparent text-white text-uppercase"
@@ -220,7 +220,7 @@ const Header = () => {
                         style={{ backgroundColor: "#232f3e" }}
                         onClick={handleLogout}
                       >
-                        Logout
+                        LogOut
                       </button>
                     ) : (
                       ""

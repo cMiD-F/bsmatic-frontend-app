@@ -9,18 +9,17 @@ import { useDispatch, useSelector } from "react-redux";
 import { getABlog } from "../features/blogs/blogSlice";
 
 const SingleBlog = () => {
-  const blogState = useSelector((state) => state?.blog?.singleBlog);
+  const blogState = useSelector((state) => state?.blog?.singleblog);
   const location = useLocation();
   const getBlogId = location.pathname.split("/")[2];
 
   const dispatch = useDispatch();
   useEffect(() => {
-    getBlog();
-  },[]);
-  const getBlog = () => {
+    getblog();
+  }, []);
+  const getblog = () => {
     dispatch(getABlog(getBlogId));
   };
-
   return (
     <>
       <Meta title={blogState?.title} />
@@ -32,13 +31,11 @@ const SingleBlog = () => {
               <Link to="/blogs" className="d-flex align-items-center gap-10">
                 <HiOutlineArrowLeft className="fs-4" /> Voltar para os blogs
               </Link>
-              <h3 className="title">{blogState?.title}</h3>
-              <img
-                src={blogState?.images && blogState.images[0]?.url ? blogState.images[0].url : blog}
-                className="img-fluid w-100 my-4"
-                alt="blog"
-              />
-              <p dangerouslySetInnerHTML={{ __html: blogState?.descricao }}></p>
+              <h3 className="title">{blogState?.title} </h3>
+              <img src={blog} className="img-fluid w-100 my-4" alt="blog" />
+              <p
+                dangerouslySetInnerHTML={{ __html: blogState?.description }}
+              ></p>
             </div>
           </div>
         </div>

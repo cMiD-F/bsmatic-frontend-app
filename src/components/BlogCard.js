@@ -2,13 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const BlogCard = (props) => {
-  const { id, title, descricao, date, image } = props;
-  
-  // Verificar se a propriedade descricao é uma string antes de usar substr
-  const shortenedDescription = descricao && descricao.length > 70
-    ? descricao.substr(0, 70) + "..."
-    : descricao;
-
+  const { id, title, description, image, date } = props;
   return (
     <div className="blog-card">
       <div className="card-image">
@@ -23,11 +17,12 @@ const BlogCard = (props) => {
         <h5 className="title">{title}</h5>
         <p
           className="desc"
-          dangerouslySetInnerHTML={{ __html: shortenedDescription }}
+          dangerouslySetInnerHTML={{
+            __html: description?.substr(0, 70) + "...",
+          }}
         ></p>
-
         <Link to={"/blog/" + id} className="button">
-          Sobre
+          Leia mais
         </Link>
       </div>
     </div>

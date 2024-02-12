@@ -11,10 +11,10 @@ import { useNavigate } from "react-router-dom";
 import { resetPassword } from "../features/user/userSlice";
 
 let passwordSchema = yup.object({
-  senha: yup.string().required("Senha é obrigatória."),
+  password: yup.string().required("Password is Required"),
 });
 
-const ResetSenha = () => {
+const Resetpassword = () => {
   const location = useLocation();
   const getToken = location.pathname.split("/")[2];
   console.log(getToken);
@@ -22,11 +22,11 @@ const ResetSenha = () => {
   const navigate = useNavigate();
   const formik = useFormik({
     initialValues: {
-      senha: "",
+      password: "",
     },
     validationSchema: passwordSchema,
     onSubmit: (values) => {
-      dispatch(resetPassword({ token: getToken, senha: values.senha }));
+      dispatch(resetPassword({ token: getToken, password: values.password }));
       navigate("/login");
     },
   });
@@ -40,23 +40,27 @@ const ResetSenha = () => {
           <div className="col-12">
             <div className="auth-card">
               <h3 className="text-center mb-3">Reset Password</h3>
-              <form action="" className="d-flex flex-column gap-15">
+              <form
+                action=""
+                onSubmit={formik.handleSubmit}
+                className="d-flex flex-column gap-15"
+              >
                 <CustomInput
                   type="password"
                   name="password"
-                  placeholder="Password"
-                />
-                <CustomInput
-                  type="password"
-                  name="confpassword"
-                  placeholder="Enter your new senha"
-                  value={formik.values.senha}
-                  onChange={formik.handleChange("senha")}
-                  onBlur={formik.handleBlur("senha")}
+                  placeholder="Enter your new Password"
+                  value={formik.values.password}
+                  onChange={formik.handleChange("password")}
+                  onBlur={formik.handleBlur("password")}
                 />
                 <div className="error">
-                  {formik.touched.senha && formik.errors.senha}
+                  {formik.touched.password && formik.errors.password}
                 </div>
+                {/* <CustomInput
+                  type="password"
+                  name="confpassword"
+                  placeholder="Confirm Password"
+                /> */}
                 <div>
                   <div className="mt-3 d-flex justify-content-center gap-15 align-items-center">
                     <button className="button border-0">Ok</button>
@@ -71,4 +75,4 @@ const ResetSenha = () => {
   );
 };
 
-export default ResetSenha;
+export default Resetpassword;

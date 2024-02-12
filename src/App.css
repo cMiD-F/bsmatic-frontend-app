@@ -14,11 +14,6 @@
   --color-777777: #777777;
   --color-1c1c1b: #1c1c1b;
 }
-
-.errors{
-  color: red !important;
-  font-size: 12px !important;
-}
 .section-heading {
   font-size: 26px;
   line-height: 32px;
@@ -646,7 +641,7 @@ footer .input-group-text {
 }
 .main-product-image img {
   width: 100% !important;
-  height: 600px !important;
+  height: 100% !important;
   object-fit: cover;
 }
 .other-product-images {
@@ -747,4 +742,10 @@ footer .input-group-text {
   font-size: 16px;
   color: var(--color-777777);
 }
+
+.error {
+  color: red;
+  font-size: 12px;
+}
+
 /* Shipping page ends here */

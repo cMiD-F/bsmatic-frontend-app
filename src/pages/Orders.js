@@ -1,45 +1,46 @@
 import React, { useEffect } from "react";
 import Container from "../components/Container";
 import BreadCrumb from "../components/BreadCrumb";
-import {useDispatch, useSelector} from 'react-redux'
+import { useDispatch, useSelector } from "react-redux";
 import { getOrders } from "../features/user/userSlice";
 
 const Orders = () => {
-  const dispatch = useDispatch()
-  const pedidoState = useSelector((state) => state?.auth?.getorderedProduto?.pedidos);
+  const dispatch = useDispatch();
+  const orderState = useSelector(
+    (state) => state?.auth?.getorderedProduct?.orders
+  );
 
   const getTokenFromLocalStorage = localStorage.getItem("customer")
-  ? JSON.parse(localStorage.getItem("customer"))
-  : null;
+    ? JSON.parse(localStorage.getItem("customer"))
+    : null;
 
-const config2 = {
-  headers: {
-    Authorization: `Bearer ${
-      getTokenFromLocalStorage !== null ? getTokenFromLocalStorage.token : ""
-    }`,
-    Accept: "application/json",
-  },
-};
+  const config2 = {
+    headers: {
+      Authorization: `Bearer ${
+        getTokenFromLocalStorage !== null ? getTokenFromLocalStorage.token : ""
+      }`,
+      Accept: "application/json",
+    },
+  };
 
-useEffect(() => {
-  dispatch(getOrders(config2));
-}, []);
-
+  useEffect(() => {
+    dispatch(getOrders(config2));
+  }, []);
   return (
     <>
-      <BreadCrumb title="Meus pedidos" />
+      <BreadCrumb title="My Orders" />
       <Container class1="cart-wrapper home-wrapper-2 py-5">
         <div className="row">
           <div className="col-12">
             <div className="row">
               <div className="col-3">
-                <h5>Pedido Id</h5>
+                <h5>Order Id</h5>
               </div>
               <div className="col-3">
-                <h5>Quantia total</h5>
+                <h5>Total Amount</h5>
               </div>
               <div className="col-3">
-                <h5>Quantia total após o desconto</h5>
+                <h5>Total Amount after Discount</h5>
               </div>
               <div className="col-3">
                 <h5>Status</h5>
@@ -47,8 +48,8 @@ useEffect(() => {
             </div>
 
             <div className="col-12  mt-3">
-              {pedidoState &&
-                pedidoState?.map((item, index) => {
+              {orderState &&
+                orderState?.map((item, index) => {
                   return (
                     <div
                       style={{ backgroundColor: "#febd69" }}
@@ -59,13 +60,13 @@ useEffect(() => {
                         <p>{item?._id}</p>
                       </div>
                       <div className="col-3">
-                        <p>{item?.valorTotal}</p>
+                        <p>{item?.totalPrice}</p>
                       </div>
                       <div className="col-3">
-                        <p>{item?.valorTotalAposDesconto}</p>
+                        <p>{item?.totalPriceAfterDiscount}</p>
                       </div>
                       <div className="col-3">
-                        <p>{item?.pedidoStatus}</p>
+                        <p>{item?.orderStatus}</p>
                       </div>
                       <div className="col-12">
                         <div
@@ -73,30 +74,41 @@ useEffect(() => {
                           style={{ backgroundColor: "#232f3e" }}
                         >
                           <div className="col-3">
-                            <h6 className="text-white">NomeProduto</h6>
+                            <h6 className="text-white">ProductName</h6>
                           </div>
                           <div className="col-3">
-                            <h6 className="text-white">Quantidade</h6>
+                            <h6 className="text-white">Quantity</h6>
                           </div>
                           <div className="col-3">
-                            <h6 className="text-white">Valor</h6>
+                            <h6 className="text-white">Price</h6>
                           </div>
-                          
-                          {item?.pedidoItems?.map((i, index) => {
+                          <div className="col-3">
+                            <h6 className="text-white">Color</h6>
+                          </div>
+                          {item?.orderItems?.map((i, index) => {
                             return (
                               <div className="col-12">
                                 <div className="row py-3">
                                   <div className="col-3">
                                     <p className="text-white">
-                                      {i?.produto?.title}
+                                      {i?.product?.title}
                                     </p>
                                   </div>
                                   <div className="col-3">
-                                    <p className="text-white">{i?.quantidade}</p>
+                                    <p className="text-white">{i?.quantity}</p>
                                   </div>
                                   <div className="col-3">
-                                    <p className="text-white">{i?.valorBS}</p>
-                                  </div>                                  
+                                    <p className="text-white">{i?.price}</p>
+                                  </div>
+                                  <div className="col-3">
+                                    <ul className="colors ps-0">
+                                      <li
+                                        style={{
+                                          backgroundColor: i?.color.title,
+                                        }}
+                                      ></li>
+                                    </ul>
+                                  </div>
                                 </div>
                               </div>
                             );
@@ -110,7 +122,9 @@ useEffect(() => {
           </div>
         </div>
       </Container>
+      .
     </>
   );
 };
+
 export default Orders;

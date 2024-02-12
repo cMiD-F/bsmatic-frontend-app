@@ -6,22 +6,17 @@ import Container from "../components/Container";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllBlogs } from "../features/blogs/blogSlice";
 import moment from "moment";
-import "moment/locale/pt-br"; // Importe o idioma Português do Brasil
 
 const Blog = () => {
   const blogState = useSelector((state) => state?.blog?.blog);
 
   const dispatch = useDispatch();
   useEffect(() => {
-    getBlogs();
+    getblogs();
   }, []);
-
-  const getBlogs = () => {
+  const getblogs = () => {
     dispatch(getAllBlogs());
   };
-
-  // Configure o Moment.js para usar o idioma pt-br
-  moment.locale("pt-br");
 
   return (
     <>
@@ -43,21 +38,22 @@ const Blog = () => {
           </div>
           <div className="col-9">
             <div className="row">
-            {Array.isArray(blogState) ? (
-                blogState.map((item, index) => (
-                  <div className="col-3" key={index}>
-                    <BlogCard
-                      id={item?._id}
-                      title={item?.title}
-                      descricao={item?.descricao}
-                      image={item?.images[0]?.url}
-                      date={moment(item?.createdAt).format('DD/MMM/YYYY HH:mm')}
-                    />
-                  </div>
-                ))
-              ) : (
-                <p>Loading...</p>
-              )}
+              {blogState &&
+                blogState?.map((item, index) => {
+                  return (
+                    <div className="col-6 mb-3" key={index}>
+                      <BlogCard
+                        id={item?._id}
+                        title={item?.title}
+                        description={item?.description}
+                        image={item?.images[0]?.url}
+                        date={moment(item?.createdAt).format(
+                          "MMMM Do YYYY, h:mm a"
+                        )}
+                      />
+                    </div>
+                  );
+                })}
             </div>
           </div>
         </div>

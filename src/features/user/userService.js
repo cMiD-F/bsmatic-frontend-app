@@ -2,7 +2,7 @@ import axios from "axios";
 import { base_url, config } from "../../utils/axiosConfig";
 
 const register = async (userData) => {
-  const response = await axios.post(`${base_url}user/registro`, userData);
+  const response = await axios.post(`${base_url}user/register`, userData);
   if (response.data) {
     return response.data;
   }
@@ -10,6 +10,7 @@ const register = async (userData) => {
 
 const login = async (userData) => {
   const response = await axios.post(`${base_url}user/login`, userData);
+
   if (response.data) {
     localStorage.setItem("customer", JSON.stringify(response.data));
   }
@@ -23,30 +24,24 @@ const getUserWislist = async () => {
   }
 };
 
-const addToCarrinho = async (carroData) => {
-  const response = await axios.post(
-    `${base_url}user/carrinho`, // Alteração aqui: trocar de axios.get para axios.post
-    carroData,
-    config
-  );
+const addToCart = async (cartData) => {
+  const response = await axios.post(`${base_url}user/cart`, cartData, config);
   if (response.data) {
     return response.data;
   }
 };
 
-const getCarrinho = async (data) => {
-  const response = await axios.get(`${base_url}user/carrinho`, {
-    params: data, // Aqui você passa os parâmetros de consulta
-    ...config, // E aqui você passa outras configurações como headers, etc.
-  });
+const getCart = async (data) => {
+  const response = await axios.get(`${base_url}user/cart`, data);
   if (response.data) {
     return response.data;
   }
 };
 
-const removeProductFromCarrinho = async (data) => {
+const removeProductFromCart = async (data) => {
   const response = await axios.delete(
-    `${base_url}user/delete-produto-carrinho/${data.id}`,
+    `${base_url}user/delete-product-cart/${data.id}`,
+
     data.config2
   );
   if (response.data) {
@@ -54,10 +49,9 @@ const removeProductFromCarrinho = async (data) => {
   }
 };
 
-const updateProductFromCarrinho = async (cartDetail) => {
-  const response = await axios.put(
-    `${base_url}user/update-produto-carrinho/${cartDetail.cartItemId}/${cartDetail.quantidade}`,
-    {}, // Passando um corpo vazio, pois o método PUT espera um corpo
+const updateProductFromCart = async (cartDetail) => {
+  const response = await axios.delete(
+    `${base_url}user/update-product-cart/${cartDetail.cartItemId}/${cartDetail.quantity}`,
     config
   );
   if (response.data) {
@@ -67,7 +61,7 @@ const updateProductFromCarrinho = async (cartDetail) => {
 
 const createOrder = async (orderDetail) => {
   const response = await axios.post(
-    `${base_url}user/carrinho/criar-pedidos/`,
+    `${base_url}user/cart/create-order/`,
     orderDetail,
     config
   );
@@ -76,8 +70,9 @@ const createOrder = async (orderDetail) => {
   }
 };
 
-const getUserPedidos = async () => {
-  const response = await axios.get(`${base_url}user/meus-pedidos`, config);
+const getUserOrders = async () => {
+  const response = await axios.get(`${base_url}user/getmyorders`, config);
+
   if (response.data) {
     return response.data;
   }
@@ -87,8 +82,10 @@ const updateUser = async (data) => {
   const response = await axios.put(
     `${base_url}user/edit-user`,
     data.data,
-    data.config2
+    data.config2,
+    config
   );
+
   if (response.data) {
     return response.data;
   }
@@ -99,24 +96,27 @@ const forgotPasswordToken = async (data) => {
     `${base_url}user/forgot-password-token`,
     data
   );
+
   if (response.data) {
     return response.data;
   }
 };
 
-const resetSenha = async (data) => {
+const resetPass = async (data) => {
   const response = await axios.put(
-    `${base_url}user/reset-senha/${data.token}`,
+    `${base_url}user/reset-password/${data.token}`,
     {
-      senha: data?.senha,
+      password: data?.password,
     }
   );
+
   if (response.data) {
     return response.data;
   }
 };
-const emptyCarrinho = async (data) => {
-  const response = await axios.delete(`${base_url}user/carrinho-vazio`, data);
+
+const emptyCart = async (data) => {
+  const response = await axios.delete(`${base_url}user/empty-cart`, data);
 
   if (response.data) {
     return response.data;
@@ -127,14 +127,14 @@ export const authService = {
   register,
   login,
   getUserWislist,
-  addToCarrinho,
-  getCarrinho,
-  removeProductFromCarrinho,
-  updateProductFromCarrinho,
+  addToCart,
+  getCart,
+  removeProductFromCart,
+  updateProductFromCart,
   createOrder,
-  getUserPedidos,
+  getUserOrders,
   updateUser,
   forgotPasswordToken,
-  resetSenha,
-  emptyCarrinho,
+  resetPass,
+  emptyCart,
 };

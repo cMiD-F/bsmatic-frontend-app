@@ -3,23 +3,23 @@ import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Layout from "./components/Layout";
 import Home from "./pages/Home";
-import Sobre from "./pages/Sobre";
-import Contato from "./pages/Contato";
-import Produto from "./pages/Produtos";
+import About from "./pages/About";
+import Contact from "./pages/Contact";
+import OurStore from "./pages/OurStore";
 import Blog from "./pages/Blog";
-import ComparacaoProduto from "./pages/ComparacaoProduto";
+import CompareProduct from "./pages/CompareProduct";
 import Wishlist from "./pages/Wishlist";
 import Login from "./pages/Login";
-import EsqueceuSenha from "./pages/EsqueceuSenha";
+import Forgotpassword from "./pages/Forgotpassword";
 import Signup from "./pages/Signup";
 import Resetpassword from "./pages/Resetpassword";
 import SingleBlog from "./pages/SingleBlog";
-import PoliticaPrivacidade from "./pages/PoliticaPrivacidade";
-import PoliticaReembolso from "./pages/PoliticaReebolso";
-import PoliticaEnvio from "./pages/PoliticaEnvio";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
+import RefundPloicy from "./pages/RefundPloicy";
+import ShippingPolicy from "./pages/ShippingPolicy";
 import TermAndContions from "./pages/TermAndContions";
-import ProdutoUnico from "./pages/ProdutoUnico";
-import Carrinho from "./pages/Carrinho";
+import SingleProduct from "./pages/SingleProduct";
+import Cart from "./pages/Cart";
 import Checkout from "./pages/Checkout";
 import { PrivateRoutes } from "./routing/PrivateRoutes";
 import { OpenRoutes } from "./routing/OpenRoutes";
@@ -33,22 +33,22 @@ function App() {
         <Routes>
           <Route path="/" element={<Layout />}>
             <Route index element={<Home />} />
-            <Route path="sobre" element={<Sobre />} />
-            <Route path="contato" element={<Contato />} />
-            <Route path="produtos" element={<Produto />} />
-            <Route path="produtos/:id" element={<ProdutoUnico />} />
+            <Route path="about" element={<About />} />
+            <Route path="contact" element={<Contact />} />
+            <Route path="product" element={<OurStore />} />
+            <Route path="product/:id" element={<SingleProduct />} />
             <Route path="blogs" element={<Blog />} />
             <Route path="blog/:id" element={<SingleBlog />} />
             <Route
-              path="carrinho"
+              path="cart"
               element={
                 <PrivateRoutes>
-                  <Carrinho />
+                  <Cart />
                 </PrivateRoutes>
               }
             />
             <Route
-              path="meus-pedidos"
+              path="my-orders"
               element={
                 <PrivateRoutes>
                   <Orders />
@@ -56,7 +56,7 @@ function App() {
               }
             />
             <Route
-              path="meu-perfil"
+              path="my-profile"
               element={
                 <PrivateRoutes>
                   <Profile />
@@ -71,7 +71,7 @@ function App() {
                 </PrivateRoutes>
               }
             />
-            <Route path="compara-produto" element={<ComparacaoProduto />} />
+            <Route path="compare-product" element={<CompareProduct />} />
             <Route
               path="wishlist"
               element={
@@ -88,7 +88,7 @@ function App() {
                 </OpenRoutes>
               }
             />
-            <Route path="forgot-password" element={<EsqueceuSenha />} />
+            <Route path="forgot-password" element={<Forgotpassword />} />
             <Route
               path="signup"
               element={
@@ -98,10 +98,10 @@ function App() {
               }
             />
             <Route path="reset-password/:token" element={<Resetpassword />} />
-            <Route path="politica-privacidade" element={<PoliticaPrivacidade />} />
-            <Route path="politica-reembolso" element={<PoliticaReembolso />} />
-            <Route path="politica-envio" element={<PoliticaEnvio />} />
-            <Route path="term-condicoes" element={<TermAndContions />} />
+            <Route path="privacy-policy" element={<PrivacyPolicy />} />
+            <Route path="refund-policy" element={<RefundPloicy />} />
+            <Route path="shipping-policy" element={<ShippingPolicy />} />
+            <Route path="term-conditions" element={<TermAndContions />} />
           </Route>
         </Routes>
       </BrowserRouter>

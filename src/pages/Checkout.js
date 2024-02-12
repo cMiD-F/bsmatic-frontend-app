@@ -1,3 +1,4 @@
+//Checkout.js
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { BiArrowBack } from "react-icons/bi";
@@ -9,40 +10,42 @@ import axios from "axios";
 import { config } from "../utils/axiosConfig";
 import {
   createAnOrder,
-  deleteUserCarrinho,
-  getUserCarrinho,
+  deleteUserCart,
+  getUserCart,
   resetState,
 } from "../features/user/userSlice";
 
-let envioSchema = yup.object({
-  primeironome: yup.string().required("O primeiro nome é necessário"),
-  ultimonome: yup.string().required("O sobrenome é obrigatório"),
-  endereco: yup.string().required("Detalhes do endereço são obrigatórios"),
-  estado: yup.string().required("O estado é obrigatório"),
-  cidade: yup.string().required("A cidade é obrigatória"),
-  pais: yup.string().required("O país é obrigatório"),
-  cep: yup.number("O CEP não é obrigatório").required().positive().integer(),
+let shippingSchema = yup.object({
+  firstname: yup.string().required("O primeiro nome é necessário"),
+  lastname: yup.string().required("O sobrenome é obrigatório"),
+  address: yup.string().required("Detalhes do endereço são obrigatórios"),
+  state: yup.string().required("O estado é obrigatório"),
+  city: yup.string().required("A cidade é obrigatória"),
+  country: yup.string().required("O país é obrigatório"),
+  pincode: yup
+    .number("O CEP não é obrigatório")
+    .required()
+    .positive()
+    .integer(),
 });
 
 const Checkout = () => {
   const dispatch = useDispatch();
-  const cartState = useSelector((state) => state?.auth.cartProdutos);
+  const cartState = useSelector((state) => state?.auth?.cartProducts);
   const authState = useSelector((state) => state?.auth);
-  const [carrinhoTotal, setTotalCarrinho] = useState(null);
-  const [envioInfo, setEnvioInfo] = useState(null);
-  const [pagamentoInfo, setPagamentoInfo] = useState({
+  const [totalAmount, setTotalAmount] = useState(null);
+  const [shippingInfo, setShippingInfo] = useState(null);
+  const [paymentInfo, setPaymentInfo] = useState({
     razorpayPaymentId: "",
     razorpayOrderId: "",
   });
-
   const navigate = useNavigate();
 
   useEffect(() => {
     let sum = 0;
     for (let index = 0; index < cartState?.length; index++) {
-      sum =
-        sum + Number(cartState[index].quantidade) * cartState[index].valorBS;
-      setTotalCarrinho(sum);
+      sum = sum + Number(cartState[index].quantity) * cartState[index].price;
+      setTotalAmount(sum);
     }
   }, [cartState]);
 
@@ -60,35 +63,35 @@ const Checkout = () => {
   };
 
   useEffect(() => {
-    dispatch(getUserCarrinho(config2));
+    dispatch(getUserCart(config2));
   }, []);
 
   useEffect(() => {
     if (
-      authState?.orderedProduct?.pedido !== null &&
-      authState?.orderedProduct?.sucess === true
+      authState?.orderedProduct?.order !== null &&
+      authState?.orderedProduct?.success === true
     ) {
-      navigate("/meus-pedidos");
+      navigate("/my-orders");
     }
   }, [authState]);
 
-  const [carrinhoProdutoState, setCarrinhoProdutoState] = useState([]);
+  const [cartProductState, setCartProductState] = useState([]);
 
   const formik = useFormik({
     initialValues: {
-      primeironome: "",
-      ultimonome: "",
-      endereco: "",
-      estado: "",
-      cidade: "",
-      pais: "",
-      cpf: "",
-      outro: "",
+      firstname: "",
+      lastname: "",
+      address: "",
+      state: "",
+      city: "",
+      country: "",
+      pincode: "",
+      other: "",
     },
-    validationSchema: envioSchema,
+    validationSchema: shippingSchema,
     onSubmit: (values) => {
-      setEnvioInfo(values);
-      localStorage.setItem("endereco", JSON.stringify(values));
+      setShippingInfo(values);
+      localStorage.setItem("address", JSON.stringify(values));
       setTimeout(() => {
         checkOutHandler();
       }, 300);
@@ -112,13 +115,16 @@ const Checkout = () => {
   useEffect(() => {
     let items = [];
     for (let index = 0; index < cartState?.length; index++) {
+      const productId = cartState[index]?.productId || {};
+      const applicationId = cartState[index]?.application || {};
       items.push({
-        produto: cartState[index].produtoId._id,
-        quantidade: cartState[index].quantidade,
-        valorBS: cartState[index].valorBS,
+        product: productId._id,
+        quantity: cartState[index].quantity,
+        application: applicationId._id,
+        price: cartState[index].price,
       });
     }
-    setCarrinhoProdutoState(items);
+    setCartProductState(items);
   }, []);
 
   const checkOutHandler = async () => {
@@ -127,72 +133,72 @@ const Checkout = () => {
     );
 
     if (!res) {
-      alert("Razorpay SDK falhou ao carregar");
+      alert("Razorpay SDK faild to Load");
       return;
     }
     const result = await axios.post(
-      "http://localhost:5000/api/user/pedido/checkout",
-      { amount: carrinhoTotal + 100 },
+      "http://localhost:5000/api/user/order/checkout",
+      { amount: totalAmount + 100 },
       config
     );
 
     if (!result) {
-      alert("Algo deu errado!");
+      alert("Something Went Wrong");
       return;
     }
 
-    const { quantia, id: pedido_id, moeda } = result.data.pedido;
+    const { amount, id: order_id, currency } = result.data.order;
 
     const options = {
-      key: "rzp_test_HSSeDI22muUrLR",
-      quantia: quantia,
-      moeda: moeda,
-      nome: "BSMatic",
-      descricao: "Transação de teste",
-      pedido_id: pedido_id,
+      key: "rzp_test_HSSeDI22muUrLR", // Enter the Key ID generated from the Dashboard
+      amount: amount,
+      currency: currency,
+      name: "Cart's corner",
+      description: "Test Transaction",
 
+      order_id: order_id,
       handler: async function (response) {
         const data = {
-          orderCreationId: pedido_id,
+          orderCreationId: order_id,
           razorpayPaymentId: response.razorpay_payment_id,
           razorpayOrderId: response.razorpay_order_id,
         };
 
         const result = await axios.post(
-          "http://localhost:5000/api/user/pedido/paymentVerification",
+          "http://localhost:5000/api/user/order/paymentVerification",
           data,
           config
         );
 
         dispatch(
           createAnOrder({
-            valorTotal: carrinhoTotal,
-            valorTotalAposDesconto: carrinhoTotal,
-            pedidoItems: carrinhoProdutoState,
-            pagamentoInfo: result.data,
-            envioInfo: JSON.parse(localStorage.getItem("endereco")),
+            totalPrice: totalAmount,
+            totalPriceAfterDiscount: totalAmount,
+            orderItems: cartProductState,
+            paymentInfo: result.data,
+            shippingInfo: JSON.parse(localStorage.getItem("address")),
           })
         );
-        dispatch(deleteUserCarrinho(config2));
-        localStorage.removeItem("endereco");
+        dispatch(deleteUserCart(config2));
+        localStorage.removeItem("address");
         dispatch(resetState());
       },
-      perfil: {
-        nome: "BSMatic",
+      prefill: {
+        name: "BSMatic",
         email: "bsmatic@gmail.com",
-        contato: "9999999999",
+        contact: "9999999999",
       },
       notes: {
-        endereco: "bsmatic office",
+        address: "bsmatic office",
       },
       theme: {
         color: "#61dafb",
       },
     };
-    const pagamentoObject = new window.Razorpay(options);
-    pagamentoObject.open();
-  };
 
+    const paymentObject = new window.Razorpay(options);
+    paymentObject.open();
+  };
   return (
     <>
       <Container class1="checkout-wrapper py-5 home-wrapper-2">
@@ -206,7 +212,7 @@ const Checkout = () => {
               >
                 <ol className="breadcrumb">
                   <li className="breadcrumb-item">
-                    <Link className="text-dark total-price" to="/carrinho">
+                    <Link className="text-dark total-price" to="/cart">
                       Carrinho
                     </Link>
                   </li>
@@ -230,7 +236,7 @@ const Checkout = () => {
               </nav>
               <h4 className="title total">Informações de contato</h4>
               <p className="user-details total">BSMatic (BSMatic@gmail.com)</p>
-              <h4 className="mb-3">Endereço para envio</h4>
+              <h4 className="mb-3">Endereço para envio.</h4>
               <form
                 onSubmit={formik.handleSubmit}
                 action=""
@@ -240,18 +246,18 @@ const Checkout = () => {
                   <select
                     className="form-control form-select"
                     id=""
-                    name="pais"
-                    value={formik.values.pais}
-                    onChange={formik.handleChange("pais")}
-                    onBlur={formik.handleChange("pais")}
+                    name="country"
+                    value={formik.values.country}
+                    onChange={formik.handleChange("country")}
+                    onBlur={formik.handleChange("country")}
                   >
-                    <option value="" disabled>
+                    <option value="" selected disabled>
                       Selecione o país
                     </option>
-                    <option value="Brasil">Brasil</option>
+                    <option value="India">Brasil</option>
                   </select>
                   <div className="error ms-2 my-1">
-                    {formik.touched.pais && formik.errors.pais}
+                    {formik.touched.country && formik.errors.country}
                   </div>
                 </div>
                 <div className="flex-grow-1">
@@ -259,13 +265,13 @@ const Checkout = () => {
                     type="text"
                     placeholder="Primeiro nome"
                     className="form-control"
-                    name="primeironome"
-                    value={formik.values.primeironome}
-                    onChange={formik.handleChange("primeironome")}
-                    onBlur={formik.handleBlur("primeironome")}
+                    name="firstname"
+                    value={formik.values.firstname}
+                    onChange={formik.handleChange("firstname")}
+                    onBlur={formik.handleBlur("firstname")}
                   />
                   <div className="error ms-2 my-1">
-                    {formik.touched.primeironome && formik.errors.primeironome}
+                    {formik.touched.firstname && formik.errors.firstname}
                   </div>
                 </div>
                 <div className="flex-grow-1">
@@ -273,27 +279,27 @@ const Checkout = () => {
                     type="text"
                     placeholder="Ultimo nome"
                     className="form-control"
-                    name="ultimonome"
-                    value={formik.values.ultimonome}
-                    onChange={formik.handleChange("ultimonome")}
-                    onBlur={formik.handleBlur("ultimonome")}
+                    name="lastname"
+                    value={formik.values.lastname}
+                    onChange={formik.handleChange("lastname")}
+                    onBlur={formik.handleBlur("lastname")}
                   />
                   <div className="error ms-2 my-1">
-                    {formik.touched.ultimonome && formik.errors.ultimonome}
+                    {formik.touched.lastname && formik.errors.lastname}
                   </div>
                 </div>
                 <div className="w-100">
                   <input
                     type="text"
-                    placeholder="Endereco"
+                    placeholder="Endereço"
                     className="form-control"
-                    name="endereco"
-                    value={formik.values.endereco}
-                    onChange={formik.handleChange("endereco")}
-                    onBlur={formik.handleBlur("endereco")}
+                    name="address"
+                    value={formik.values.address}
+                    onChange={formik.handleChange("address")}
+                    onBlur={formik.handleBlur("address")}
                   />
                   <div className="error ms-2 my-1">
-                    {formik.touched.endereco && formik.errors.endereco}
+                    {formik.touched.address && formik.errors.address}
                   </div>
                 </div>
                 <div className="w-100">
@@ -301,10 +307,10 @@ const Checkout = () => {
                     type="text"
                     placeholder="Apartamento, Suite ,etc"
                     className="form-control"
-                    name="outro"
-                    value={formik.values.outro}
-                    onChange={formik.handleChange("outro")}
-                    onBlur={formik.handleBlur("outro")}
+                    name="other"
+                    value={formik.values.other}
+                    onChange={formik.handleChange("other")}
+                    onBlur={formik.handleBlur("other")}
                   />
                 </div>
                 <div className="flex-grow-1">
@@ -312,23 +318,23 @@ const Checkout = () => {
                     type="text"
                     placeholder="Cidade"
                     className="form-control"
-                    name="cidade"
-                    value={formik.values.cidade}
-                    onChange={formik.handleChange("cidade")}
-                    onBlur={formik.handleBlur("cidade")}
+                    name="city"
+                    value={formik.values.city}
+                    onChange={formik.handleChange("city")}
+                    onBlur={formik.handleBlur("city")}
                   />
                   <div className="error ms-2 my-1">
-                    {formik.touched.cidade && formik.errors.cidade}
+                    {formik.touched.city && formik.errors.city}
                   </div>
                 </div>
                 <div className="flex-grow-1">
                   <select
                     className="form-control form-select"
                     id=""
-                    name="estado"
-                    value={formik.values.estado}
-                    onChange={formik.handleChange("estado")}
-                    onBlur={formik.handleChange("estado")}
+                    name="state"
+                    value={formik.values.state}
+                    onChange={formik.handleChange("state")}
+                    onBlur={formik.handleChange("state")}
                   >
                     <option value="" selected disabled>
                       Selecione o estado
@@ -336,30 +342,30 @@ const Checkout = () => {
                     <option value="São Paulo">São Paulo</option>
                   </select>
                   <div className="error ms-2 my-1">
-                    {formik.touched.estado && formik.errors.estado}
+                    {formik.touched.state && formik.errors.state}
                   </div>
                 </div>
                 <div className="flex-grow-1">
                   <input
                     type="text"
-                    placeholder="cep"
+                    placeholder="CEP"
                     className="form-control"
-                    name="cep"
-                    value={formik.values.cep}
-                    onChange={formik.handleChange("cep")}
-                    onBlur={formik.handleBlur("cep")}
+                    name="pincode"
+                    value={formik.values.pincode}
+                    onChange={formik.handleChange("pincode")}
+                    onBlur={formik.handleBlur("pincode")}
                   />
                   <div className="error ms-2 my-1">
-                    {formik.touched.cep && formik.errors.cep}
+                    {formik.touched.pincode && formik.errors.pincode}
                   </div>
                 </div>
                 <div className="w-100">
                   <div className="d-flex justify-content-between align-items-center">
-                    <Link to="/carrinho" className="text-dark">
+                    <Link to="/cart" className="text-dark">
                       <BiArrowBack className="me-2" />
                       Retornar para o Carrinho
                     </Link>
-                    <Link to="/carrinho" className="button">
+                    <Link to="/cart" className="button">
                       Continuar para envio
                     </Link>
                     <button className="button" type="submit">
@@ -374,6 +380,7 @@ const Checkout = () => {
             <div className="border-bottom py-4">
               {cartState &&
                 cartState?.map((item, index) => {
+                  const productId = item?.productId || {};
                   return (
                     <div
                       key={index}
@@ -385,25 +392,23 @@ const Checkout = () => {
                             style={{ top: "-10px", right: "2px" }}
                             className="badge bg-secondary text-white rounded-circle p-2 position-absolute"
                           >
-                            {item?.quantidade}
+                            {item?.quantity}
                           </span>
                           <img
-                            src={item?.produtoId?.images[0]?.url}
+                            src={productId?.images[0]?.url}
                             width={100}
                             height={100}
-                            alt="produto"
+                            alt="product"
                           />
                         </div>
                         <div>
-                          <h5 className="valor-total">
-                            {item?.produtoId?.title}
-                          </h5>
-                          {/* <p className="total-price">{item?.color?.title}</p> */}
+                          <h5 className="total-price">{productId?.title}</h5>
+                          <p className="total-price">{item?.color?.title}</p>
                         </div>
                       </div>
                       <div className="flex-grow-1">
                         <h5 className="total">
-                          R$. {item?.valorBS * item?.quantidade}
+                          Rs. {item?.price * item?.quantity}
                         </h5>
                       </div>
                     </div>
@@ -414,7 +419,7 @@ const Checkout = () => {
               <div className="d-flex justify-content-between align-items-center">
                 <p className="total">Subtotal</p>
                 <p className="total-price">
-                  R$ {carrinhoTotal ? carrinhoTotal : "0"}
+                  Rs. {totalAmount ? totalAmount : "0"}
                 </p>
               </div>
               <div className="d-flex justify-content-between align-items-center">
@@ -425,7 +430,7 @@ const Checkout = () => {
             <div className="d-flex justify-content-between align-items-center border-bootom py-4">
               <h4 className="total">Total</h4>
               <h5 className="total-price">
-                R$ {carrinhoTotal ? carrinhoTotal + 100 : "0"}
+                Rs. {totalAmount ? totalAmount + 100 : "0"}
               </h5>
             </div>
           </div>

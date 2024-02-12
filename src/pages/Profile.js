@@ -7,14 +7,18 @@ import { useDispatch, useSelector } from "react-redux";
 import { updateProfile } from "../features/user/userSlice";
 import { FiEdit } from "react-icons/fi";
 
-const profileSchema = yup.object({
-  primeironome: yup.string().required("O primeiro nome é obrigatório"),
-  ultimonome: yup.string().required("O último nome é obrigatório"),
+let profileSchema = yup.object({
+  firstname: yup.string().required("O primeiro nome é obrigatório"),
+  lastname: yup.string().required("O último nome é obrigatório"),
   email: yup
     .string()
-    .email("Email deve ser válido")
-    .required("É necessário um endereço de e-mail"),
-  telefone: yup.string().required("O telefone não é obrigatório"),
+    .required("Email deve ser válido")
+    .email("É necessário um endereço de e-mail"),
+  mobile: yup
+    .number()
+    .required()
+    .positive()
+    .integer("O telefone não é obrigatório"),
 });
 
 const Profile = () => {
@@ -30,16 +34,15 @@ const Profile = () => {
       Accept: "application/json",
     },
   };
-
   const dispatch = useDispatch();
   const userState = useSelector((state) => state.auth.user);
   const [edit, setEdit] = useState(true);
   const formik = useFormik({
     initialValues: {
-      primeironome: userState?.primeironome,
-      ultimonome: userState?.ultimonome,
+      firstname: userState?.firstname,
+      lastname: userState?.lastname,
       email: userState?.email,
-      telefone: userState?.telefone,
+      mobile: userState?.mobile,
     },
     validationSchema: profileSchema,
     onSubmit: (values) => {
@@ -50,12 +53,15 @@ const Profile = () => {
 
   return (
     <>
-      <BreadCrumb title="Meu Perfil" />
+      <BreadCrumb title="My Profile" />
       <Container class1="cart-wrapper home-wrapper-2 py-5">
         <div className="row">
-          <div className="d-flex justify-content-between align-items-center">
-            <h3 className="my-3">Atualizar Perfil</h3>
-            <FiEdit className="fs-3" onClick={() => setEdit(false)} />
+          <div className="col-12">
+            <div className="d-flex justify-content-between align-items-center">
+              <h3 className="my-3">Atualizar Perfil</h3>
+
+              <FiEdit className="fs-3" onClick={() => setEdit(false)} />
+            </div>
           </div>
           <div className="col-12">
             <form action="" onSubmit={formik.handleSubmit}>
@@ -70,12 +76,12 @@ const Profile = () => {
                     className="form-control"
                     id="example1"
                     disabled={edit}
-                    value={formik.values.primeironome}
-                    onChange={formik.handleChange("primeironome")}
-                    onBlur={formik.handleBlur("primeironome")}
+                    value={formik.values.firstname}
+                    onChange={formik.handleChange("firstname")}
+                    onBlur={formik.handleBlur("firstname")}
                   />
                   <div className="error">
-                    {formik.touched.primeironome && formik.errors.primeironome}
+                    {formik.touched.firstname && formik.errors.firstname}
                   </div>
                 </div>
                 <div className="mb-3">
@@ -84,20 +90,20 @@ const Profile = () => {
                   </label>
                   <input
                     type="text"
-                    name="ultimonome"
+                    name="lastname"
                     className="form-control"
                     id="example2"
                     disabled={edit}
-                    value={formik.values.ultimonome}
-                    onChange={formik.handleChange("ultimonome")}
-                    onBlur={formik.handleBlur("ultimonome")}
+                    value={formik.values.lastname}
+                    onChange={formik.handleChange("lastname")}
+                    onBlur={formik.handleBlur("lastname")}
                   />
                   <div className="error">
-                    {formik.touched.ultimonome && formik.errors.ultimonome}
+                    {formik.touched.lastname && formik.errors.lastname}
                   </div>
                 </div>
                 <label htmlFor="exampleInputEmail1" className="form-label">
-                  Endereço de Email 
+                  Endereço de Email
                 </label>
                 <input
                   type="email"
@@ -119,16 +125,16 @@ const Profile = () => {
                   </label>
                   <input
                     type="number"
-                    name="telefone"
+                    name="mobile"
                     className="form-control"
                     id="example3"
                     disabled={edit}
-                    value={formik.values.telefone}
-                    onChange={formik.handleChange("telefone")}
-                    onBlur={formik.handleBlur("telefone")}
+                    value={formik.values.mobile}
+                    onChange={formik.handleChange("mobile")}
+                    onBlur={formik.handleBlur("mobile")}
                   />
                   <div className="error">
-                    {formik.touched.telefone && formik.errors.telefone}
+                    {formik.touched.mobile && formik.errors.mobile}
                   </div>
                 </div>
               </div>
@@ -145,4 +151,5 @@ const Profile = () => {
     </>
   );
 };
+
 export default Profile;

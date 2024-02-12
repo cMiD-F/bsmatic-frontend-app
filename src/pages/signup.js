@@ -6,22 +6,18 @@ import Container from "../components/Container";
 import CustomInput from "../components/CustomInput";
 import { useFormik } from "formik";
 import * as yup from "yup";
-import { registraUser } from "../features/user/userSlice";
 import { useDispatch, useSelector } from "react-redux";
+import { registerUser } from "../features/user/userSlice";
 
-const signupSchema = yup.object({
-  primeironome: yup.string().required("O primeiro nome é obrigatório"),
-  ultimonome: yup.string().required("O último nome é obrigatório"),
+let signUpSchema = yup.object({
+  firstname: yup.string().required("O primeiro nome é obrigatório"),
+  lastname: yup.string().required("O último nome é obrigatório"),
   email: yup
     .string()
-    .email("E-mail deve ser válido")
+    .required("Email deve ser válido")
     .email("Email Should be valid"),
-  telefone: yup
-    .number()
-    .required()
-    .positive()
-    .integer("Não é necessário celular"),
-  senha: yup.string().required("Senha requerida"),
+  mobile: yup.number().required().positive().integer("Não é necessário celular"),
+  password: yup.string().required("Senha requerida"),
 });
 
 const Signup = () => {
@@ -30,22 +26,28 @@ const Signup = () => {
   const navigate = useNavigate();
   const formik = useFormik({
     initialValues: {
-      primeironome: "",
-      ultimonome: "",
+      firstname: "",
+      lastname: "",
       email: "",
-      telefone: "",
-      senha: "",
+      mobile: "",
+      password: "",
     },
-    validationSchema: signupSchema,
+    validationSchema: signUpSchema,
     onSubmit: (values) => {
-      dispatch(registraUser(values));
+      dispatch(registerUser(values));
     },
   });
 
+  // useEffect(() => {
+  //   if (authState.createdUser !== null && authState.isError === false) {
+  //     navigate("/login");
+  //   }
+  // }, [authState]);
+
   return (
     <>
-      <Meta title={"Inscrever-se"} />
-      <BreadCrumb title="Inscrever-se" />
+      <Meta title={"Sign Up"} />
+      <BreadCrumb title="Sign Up" />
       <Container class1="login-wrapper py-5 home-wrapper-2">
         <div className="row">
           <div className="col-12">
@@ -53,30 +55,30 @@ const Signup = () => {
               <h3 className="text-center mb-3">Inscrever-se</h3>
               <form
                 action=""
-                onSubmit={formik.handleSubmit}
                 className="d-flex flex-column gap-15"
+                onSubmit={formik.handleSubmit}
               >
                 <CustomInput
                   type="text"
-                  name="primeironome"
-                  placeholder="Primeiro Nome"
-                  value={formik.values.primeironome}
-                  onChange={formik.handleChange("primeironome")}
-                  onBlur={formik.handleBlur("primeironome")}
+                  name="firstname"
+                  placeholder="Primeiro nome"
+                  value={formik.values.firstname}
+                  onChange={formik.handleChange("firstname")}
+                  onBlur={formik.handleBlur("firstname")}
                 />
                 <div className="error">
-                  {formik.touched.primeironome && formik.errors.primeironome}
+                  {formik.touched.firstname && formik.errors.firstname}
                 </div>
                 <CustomInput
                   type="text"
-                  name="ultimonome"
-                  placeholder="Ultimo Nome"
-                  value={formik.values.ultimonome}
-                  onChange={formik.handleChange("ultimonome")}
-                  onBlur={formik.handleBlur("ultimonome")}
+                  name="lastname"
+                  placeholder="Último nome"
+                  value={formik.values.lastname}
+                  onChange={formik.handleChange("lastname")}
+                  onBlur={formik.handleBlur("lastname")}
                 />
                 <div className="error">
-                  {formik.touched.ultimonome && formik.errors.ultimonome}
+                  {formik.touched.lastname && formik.errors.lastname}
                 </div>
                 <CustomInput
                   type="email"
@@ -91,25 +93,25 @@ const Signup = () => {
                 </div>
                 <CustomInput
                   type="tel"
-                  name="telefone"
+                  name="mobile"
                   placeholder="Número de telefone"
-                  value={formik.values.telefone}
-                  onChange={formik.handleChange("telefone")}
-                  onBlur={formik.handleBlur("telefone")}
+                  value={formik.values.mobile}
+                  onChange={formik.handleChange("mobile")}
+                  onBlur={formik.handleBlur("mobile")}
                 />
                 <div className="error">
-                  {formik.touched.telefone && formik.errors.telefone}
+                  {formik.touched.mobile && formik.errors.mobile}
                 </div>
                 <CustomInput
                   type="password"
-                  name="senha"
+                  name="password"
                   placeholder="Senha"
-                  value={formik.values.senha}
-                  onChange={formik.handleChange("senha")}
-                  onBlur={formik.handleBlur("senha")}
+                  value={formik.values.password}
+                  onChange={formik.handleChange("password")}
+                  onBlur={formik.handleBlur("password")}
                 />
                 <div className="error">
-                  {formik.touched.senha && formik.errors.senha}
+                  {formik.touched.password && formik.errors.password}
                 </div>
                 <div>
                   <div className="mt-3 d-flex justify-content-center gap-15 align-items-center">

@@ -1,5 +1,4 @@
-//Login.js
-import React from "react";
+import React, { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import BreadCrumb from "../components/BreadCrumb";
 import Meta from "../components/Meta";
@@ -10,12 +9,13 @@ import * as yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../features/user/userSlice";
 
-const loginSchema = yup.object({
+let loginSchema = yup.object({
   email: yup
     .string()
-    .email("Email deve ser válido")
-    .required("É necessário um endereço de e-mail"),
-  senha: yup.string().required("Senha requerida"),
+    .required("Email deve ser válido")
+    .email("É necessário um endereço de e-mail"),
+
+  password: yup.string().required("Senha requerida"),
 });
 
 const Login = () => {
@@ -25,14 +25,22 @@ const Login = () => {
   const formik = useFormik({
     initialValues: {
       email: "",
-      senha: "",
+      password: "",
     },
     validationSchema: loginSchema,
     onSubmit: (values) => {
       dispatch(loginUser(values));
-      navigate("/");
+
+      // setTimeout(() => {
+      //   window.location.reload();
+      // }, 1000);
     },
   });
+  useEffect(() => {
+    if (authState.user !== null && authState.isError === false) {
+      window.location.href = "/";
+    }
+  }, [authState]);
 
   return (
     <>
@@ -53,26 +61,26 @@ const Login = () => {
                   type="email"
                   name="email"
                   placeholder="Email"
+                  value={formik.values.email}
                   onChange={formik.handleChange("email")}
                   onBlur={formik.handleBlur("email")}
-                  value={formik.values.email}
                 />
                 <div className="error">
                   {formik.touched.email && formik.errors.email}
                 </div>
                 <CustomInput
                   type="password"
-                  name="senha"
+                  name="password"
                   placeholder="Senha"
-                  onChange={formik.handleChange("senha")}
-                  onBlur={formik.handleBlur("senha")}
-                  value={formik.values.senha}
+                  value={formik.values.password}
+                  onChange={formik.handleChange("password")}
+                  onBlur={formik.handleBlur("password")}
                 />
                 <div className="error">
-                  {formik.touched.senha && formik.errors.senha}
+                  {formik.touched.password && formik.errors.password}
                 </div>
                 <div>
-                  <Link to="/esqueceu-senha">Esqueceu sua senha?</Link>
+                  <Link to="/forgot-password">Esqueceu sua senha?</Link>
 
                   <div className="mt-3 d-flex justify-content-center gap-15 align-items-center">
                     <button className="button border-0" type="submit">

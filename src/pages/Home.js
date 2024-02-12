@@ -9,46 +9,40 @@ import { services } from "../utils/Data";
 import prodcompare from "../images/prodcompare.svg";
 import wish from "../images/wish.svg";
 import wishlist from "../images/wishlist.svg";
-import addcarrinho from "../images/add-cart.svg";
+import watch from "../images/watch.jpg";
+import watch2 from "../images/watch-1.avif";
+import addcart from "../images/add-cart.svg";
 import view from "../images/view.svg";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllBlogs } from "../features/blogs/blogSlice";
 import moment from "moment";
-import "moment/locale/pt-br";
-
+import { getAllProducts,addToWishlist } from "../features/products/productSlice";
 import ReactStars from "react-rating-stars-component";
-import {
-  addToWishlist,
-  getAllProdutos,
-} from "../features/produtos/productSlice";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 
 const Home = () => {
   const blogState = useSelector((state) => state?.blog?.blog);
-  const productState = useSelector((state) => state?.produto.produto);
+  const productState = useSelector((state) => state?.product?.product);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   useEffect(() => {
-    getBlogs();
-    getProdutos();
+    getblogs();
+    getProducts();
   }, []);
-
-  const getBlogs = () => {
+  const getblogs = () => {
     dispatch(getAllBlogs());
   };
 
-  const getProdutos = () => {
-    dispatch(getAllProdutos());
+  const getProducts = () => {
+    dispatch(getAllProducts());
   };
 
   const addToWish = (id) => {
+    //alert(id);
     dispatch(addToWishlist(id));
   };
-
-  moment.locale("pt-br");
-
   return (
     <>
       <Container class1="home-wrapper-1 py-5">
@@ -64,6 +58,7 @@ const Home = () => {
                 <h4>Jogo de juntas</h4>
                 <h5>Transpeed</h5>
                 <p>
+                  {" "}
                   De R$ 1.473,33 <br /> ou R$ 122,77/mês.
                 </p>
                 <Link className="button">Compre Agora</Link>
@@ -81,11 +76,10 @@ const Home = () => {
                 <div className="small-banner-content position-absolute">
                   <h4>Melhores compras</h4>
                   <h5>
-                    Jogo de discos <br /> de composite
+                    Jogo de discos de <br />
+                    composite
                   </h5>
-                  <p>
-                    De R$ 1.270,97 <br /> ou R$ 105,91/mês.
-                  </p>
+                  <p>De R$1.270,97 ou R$105,91/mês.</p>
                 </div>
               </div>
               <div className="small-banner position-relative">
@@ -97,13 +91,10 @@ const Home = () => {
                 <div className="small-banner-content position-absolute">
                   <h4>NOVOS ITENS</h4>
                   <h5>
-                    Jogo de juntas com
-                    <br />
+                    Jogo de juntas com <br />
                     filtro, pistão e cintas
                   </h5>
-                  <p>
-                    De R$ 3.510,00 <br /> ou R$ 292,50/mês.
-                  </p>
+                  <p>De R$3.510,00 ou R$292,50/mês.</p>
                 </div>
               </div>
               <div className="small-banner position-relative ">
@@ -117,9 +108,7 @@ const Home = () => {
                   <h5>
                     Eletroválvulas <br /> Solenoides
                   </h5>
-                  <p>
-                    De R$ 900,10 <br /> ou R$ 75/mês.
-                  </p>
+                  <p>De R$ 900,10 ou R$ 75/mês.</p>
                 </div>
               </div>
               <div className="small-banner position-relative ">
@@ -140,7 +129,6 @@ const Home = () => {
           </div>
         </div>
       </Container>
-
       <Container class1="home-wrapper-2 py-5">
         <div className="row">
           <div className="col-12">
@@ -208,10 +196,10 @@ const Home = () => {
               </div>
               <div className="d-flex gap align-items-center">
                 <div>
-                  <h6>Filtro de óleo </h6>
+                  <h6>Filtro de óleo</h6>
                   <p>10 Items</p>
                 </div>
-                <img src="images/filtro-oleo.jpg" alt="camera" />
+                <img src="images/jogo-pistoes.jpg" alt="camera" />
               </div>
               <div className="d-flex gap align-items-center">
                 <div>
@@ -231,7 +219,11 @@ const Home = () => {
           </div>
           {productState &&
             productState?.map((item, index) => {
-              if (item.tags === "featured") {
+              if (
+                item.tags === "featured" &&
+                item.images &&
+                item.images.length > 0
+              ) {
                 return (
                   <div key={index} className={"col-3"}>
                     <div className="product-card position-relative">
@@ -253,7 +245,7 @@ const Home = () => {
                           alt="product image"
                           height={"250px"}
                           width={"260px"}
-                          onClick={() => navigate("/produtos/" + item?._id)}
+                          onClick={() => navigate("/product/" + item?._id)}
                         />
                         <img
                           src={item?.images[0]?.url}
@@ -261,39 +253,39 @@ const Home = () => {
                           alt="product image"
                           height={"250px"}
                           width={"260px"}
-                          onClick={() => navigate("/produtos/" + item?._id)}
+                          onClick={() => navigate("/product/" + item?._id)}
                         />
                       </div>
                       <div className="product-details">
-                        <h6 className="marca">{item?.marca}</h6>
+                        <h6 className="brand">{item?.brand}</h6>
                         <h5 className="product-title">
                           {item?.title?.substr(0, 70) + "..."}
                         </h5>
                         <ReactStars
                           count={5}
                           size={24}
-                          value={parseFloat(item?.totalclassificacao)}
+                          value={item?.totalrating.toString()}
                           edit={false}
                           activeColor="#ffd700"
                         />
 
-                        <p className="price">Rs. {item?.valorBS}</p>
+                        <p className="price">Rs. {item?.price}</p>
                       </div>
                       <div className="action-bar position-absolute">
                         <div className="d-flex flex-column gap-15">
-                          <button className="border-0 bg-transparent">
+                          {/* <button className="border-0 bg-transparent">
                             <img src={prodcompare} alt="compare" />
                           </button>
                           <button className="border-0 bg-transparent">
                             <img
-                              onClick={() => navigate("/produtos/" + item?._id)}
+                              onClick={() => navigate("/product/" + item?._id)}
                               src={view}
                               alt="view"
                             />
-                          </button>
-                          <button className="border-0 bg-transparent">
-                            <img src={addcarrinho} alt="addcarrinho" />
-                          </button>
+                          </button> */}
+                          {/* <button className="border-0 bg-transparent">
+                            <img src={addcart} alt="addcart" />
+                          </button> */}
                         </div>
                       </div>
                     </div>
@@ -315,7 +307,7 @@ const Home = () => {
               />
               <div className="famous-content position-absolute">
                 <h5>Banner Kit com Filtro de Óleo e Cinta</h5>
-                <h6>Transpeed </h6>
+                <h6>Transpeed</h6>
                 <p>De R$ 3.102,67 ou R$ 258,78/mês.*</p>
               </div>
             </div>
@@ -384,12 +376,13 @@ const Home = () => {
                   <SpecialProduct
                     key={index}
                     id={item?._id}
-                    marca={item?.marca}
-                    title={item?.item}
-                    totalclassificacao={item?.totalclassificacao.toString()}
-                    valorBS={item?.valorBS}
+                    title={item?.title}
+                    brand={item?.brand}
+                    totalrating={item?.totalrating.toString()}
+                    price={item?.price}
+                    img={item?.images[0].url}
                     sold={item?.sold}
-                    quantidade={item?.quantidade}
+                    quantity={item?.quantity}
                   />
                 );
               }
@@ -422,34 +415,28 @@ const Home = () => {
                       </div>
                       <div className="product-image">
                         <img
-                          src={item?.images[0].url}
+                          src={item?.images[0]?.url || ""}
                           // className="img-fluid d"
                           alt="product image"
                           height={"250px"}
                           width={"100%"}
-                          onClick={() => navigate("/produtos/" + item?._id)}
-                        />
-                        <img
-                          src={item?.images[0].url}
-                          // className="img-fluid d"
-                          alt="product image"
-                          height={"250px"}
-                          width={"100%"}
-                          onClick={() => navigate("/produtos/" + item?._id)}
+                          onClick={() => navigate("/product/" + item?._id)}
                         />
                       </div>
                       <div className="product-details">
-                        <h6 className="brand">{item?.marca}</h6>
-                        <h5 className="product-title">{item?.item}</h5>
+                        <h6 className="brand">{item?.brand}</h6>
+                        <h5 className="product-title">
+                          {item?.title?.substr(0, 70) + "..."}
+                        </h5>
                         <ReactStars
                           count={5}
                           size={24}
-                          value={parseFloat(item?.totalclassificacao)}
+                          value={parseFloat(item?.totalrating)}
                           edit={false}
                           activeColor="#ffd700"
                         />
 
-                        <p className="price">R$ {item?.valorBS}</p>
+                        <p className="price">Rs. {item?.price}</p>
                       </div>
                       <div className="action-bar position-absolute">
                         <div className="d-flex flex-column gap-15">
@@ -458,13 +445,13 @@ const Home = () => {
                           </button>
                           <button className="border-0 bg-transparent">
                             <img
-                              onClick={() => navigate("/produtos/" + item?._id)}
+                              onClick={() => navigate("/product/" + item?._id)}
                               src={view}
                               alt="view"
                             />
                           </button>
                           <button className="border-0 bg-transparent">
-                            <img src={addcarrinho} alt="addcarrinho" />
+                            <img src={addcart} alt="addcart" />
                           </button>
                         </div>
                       </div>
@@ -481,28 +468,28 @@ const Home = () => {
             <div className="marquee-inner-wrapper card-wrapper">
               <Marquee className="d-flex">
                 <div className="mx-4 w-25">
-                  <img src="images/citroen.png" alt="marca" />
+                  <img src="images/citroen.png" alt="brand" />
                 </div>
                 <div className="mx-4 w-25">
-                  <img src="images/fiat.png" alt="marca" />
+                  <img src="images/fiat.png" alt="brand" />
                 </div>
                 <div className="mx-4 w-25">
-                  <img src="images/jeep.png" alt="marca" />
+                  <img src="images/jeep.png" alt="brand" />
                 </div>
                 <div className="mx-4 w-25">
-                  <img src="images/honda.png" alt="marca" />
+                  <img src="images/honda.png" alt="brand" />
                 </div>
                 <div className="mx-4 w-25">
-                  <img src="images/chevrolet.png" alt="marca" />
+                  <img src="images/chevrolet.png" alt="brand" />
                 </div>
                 <div className="mx-4 w-25">
-                  <img src="images/renault.png" alt="marca" />
+                  <img src="images/renault.png" alt="brand" />
                 </div>
                 <div className="mx-4 w-25">
-                  <img src="images/toyota.png" alt="marca" />
+                  <img src="images/toyota.png" alt="brand" />
                 </div>
                 <div className="mx-4 w-25">
-                  <img src="images/volks.png" alt="marca" />
+                  <img src="images/volks.png" alt="brand" />
                 </div>
               </Marquee>
             </div>
@@ -525,9 +512,11 @@ const Home = () => {
                     <BlogCard
                       id={item?._id}
                       title={item?.title}
-                      descricao={item?.descricao}
+                      description={item?.description}
                       image={item?.images[0]?.url}
-                      date={moment(item?.createdAt).format("DD/MMM/YYYY HH:mm")}
+                      date={moment(item?.createdAt).format(
+                        "MMMM Do YYYY, h:mm a"
+                      )}
                     />
                   </div>
                 );
